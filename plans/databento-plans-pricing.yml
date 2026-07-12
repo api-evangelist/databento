@@ -1,0 +1,148 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Databento
+providerId: databento
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Market Data
+- Financial Data
+- Reference Data
+- Historical Market Data
+- Trading
+- Plans
+description: >-
+  Databento combines usage-based pay-as-you-go billing with optional monthly
+  subscriptions. New users receive free credit to try historical data. Streaming
+  historical or live data is billed per uncompressed binary byte sent across the
+  network (a per-GB rate that varies by dataset and schema); batch downloads are
+  billed once and remain re-downloadable for 30 days. Subscription plans
+  (Standard, Plus, Unlimited) bundle live access, longer history depth, and
+  distribution rights, with additional historical data available at usage rates.
+  All plans include unlimited API calls and downloads with no per-request fees.
+notes: >-
+  Dollar figures below reflect Databento's published pricing at the review date
+  (2026-07-11) and should be re-verified on the pricing page during
+  reconciliation. Per-GB usage rates are dataset- and schema-specific; use the
+  metadata.get_cost / metadata.get_billable_size endpoints to estimate a query's
+  cost before running it.
+sources:
+- https://databento.com/pricing
+- https://databento.com/docs/quickstart
+- https://databento.com/docs/api-reference-historical/metadata/metadata-get-cost
+plans:
+- id: databento-free-credit
+  name: Free Credit (New Users)
+  type: free
+  description: >-
+    New accounts receive US$125 in free credit toward historical data, valid for
+    six months. No subscription required to start; usage draws down the credit.
+  entries:
+  - label: New User Credit
+    name: free_credit
+    type: usage
+    metric: usd_credit
+    limit: 125
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: US$125 free credit, expires after 6 months
+    userMultiplied: false
+  elements:
+  - name: Historical Data Access
+  - name: Metadata and Symbology
+  - name: Batch Downloads
+- id: databento-pay-as-you-go
+  name: Pay-As-You-Go (Usage)
+  type: usage
+  description: >-
+    Usage-based billing with no subscription. Streaming historical or live data
+    is charged per uncompressed binary byte sent across the network, at a per-GB
+    rate that varies by dataset and schema. Batch downloads are charged once and
+    can be re-downloaded for 30 days at no additional cost.
+  entries:
+  - label: Data Streamed
+    name: data_streamed
+    type: usage
+    metric: bytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1073741824
+    price: usage-based per GB (uncompressed binary; rate varies by dataset and schema)
+    userMultiplied: false
+  elements:
+  - name: Unlimited API Calls
+  - name: Historical and Live Access
+  - name: Cost Estimation Endpoints
+- id: databento-standard
+  name: Standard
+  type: paid
+  description: >-
+    Monthly subscription that adds live data access and bundled history depth
+    (16+ years of L0, 1 year of L1, 1 month of L2/L3). Additional historical data
+    is available at usage rates.
+  entries:
+  - label: Standard Subscription
+    name: standard_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: US$179 per month
+    userMultiplied: false
+  elements:
+  - name: Live Data Access
+  - name: 16+ Years L0 History
+  - name: Usage-Rate Historical Add-Ons
+- id: databento-plus
+  name: Plus
+  type: paid
+  description: >-
+    Monthly subscription (annual contract) with all Standard features plus
+    external distribution rights, 16+ years of L1 history, a dedicated account
+    manager, and connectivity options.
+  entries:
+  - label: Plus Subscription
+    name: plus_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: US$1,500 per month (annual contract)
+    userMultiplied: false
+  elements:
+  - name: External Distribution Rights
+  - name: 16+ Years L1 History
+  - name: Dedicated Account Manager
+- id: databento-unlimited
+  name: Unlimited
+  type: enterprise
+  description: >-
+    Monthly subscription (annual contract) with access to 16+ years across all
+    data schemas, packet captures (PCAPs) included, and dedicated connectivity
+    options.
+  entries:
+  - label: Unlimited Subscription
+    name: unlimited_subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: US$4,000 per month (annual contract)
+    userMultiplied: false
+  elements:
+  - name: All Schemas, 16+ Years
+  - name: PCAPs Included
+  - name: Dedicated Connectivity
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

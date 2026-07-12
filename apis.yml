@@ -1,0 +1,198 @@
+aid: databento
+url: https://raw.githubusercontent.com/api-evangelist/databento/refs/heads/main/apis.yml
+name: Databento
+kind: company
+description: Databento is a market data platform that delivers historical and live
+  financial market data through a single, normalized API. It covers equities, futures,
+  options, and other asset classes across major venues, with full order book depth
+  (MBO/MBP), trades, OHLCV bars, and reference data. Historical data is served over
+  a REST HTTP API (hist.databento.com) with pay-as-you-go billing per byte streamed,
+  while live data is delivered over a low-latency raw TCP binary protocol using
+  Databento Binary Encoding (DBN). Official Python, C++, and Rust client libraries
+  wrap both surfaces, and a Reference API provides security master, corporate
+  actions, and adjustment factor data.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Market Data
+- Financial Data
+- Reference Data
+- Historical Market Data
+- Trading
+created: '2026-07-11'
+modified: '2026-07-11'
+specificationVersion: '0.19'
+apis:
+- aid: databento:databento-historical-timeseries-api
+  name: Databento Historical Timeseries API
+  tags:
+  - Historical Market Data
+  - Market Data
+  - Timeseries
+  - Trading
+  - Financial Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  properties:
+  - url: https://databento.com/docs/api-reference-historical
+    type: Documentation
+  - url: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+    type: APIReference
+  - url: openapi/databento-openapi.yml
+    type: OpenAPI
+  - url: collections/databento.postman_collection.json
+    type: PostmanCollection
+  - url: collections/databento.opencollection.json
+    type: OpenCollection
+  description: Streams historical market data over HTTP for a requested date/time
+    range. A single request selects a dataset, one or more symbols, a schema (MBO
+    full order book, MBP-1/MBP-10, trades, OHLCV bars, statistics, and more), and a
+    time range, and returns normalized records in DBN, CSV, or JSON. Billed per byte
+    streamed. Ideal for backtesting, research, and reference/tick data retrieval.
+- aid: databento:databento-metadata-api
+  name: Databento Metadata API
+  tags:
+  - Metadata
+  - Reference Data
+  - Market Data
+  - Datasets
+  - Financial Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets
+  baseURL: https://hist.databento.com/v0
+  properties:
+  - url: https://databento.com/docs/api-reference-historical
+    type: Documentation
+  - url: https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets
+    type: APIReference
+  - url: openapi/databento-openapi.yml
+    type: OpenAPI
+  - url: collections/databento.postman_collection.json
+    type: PostmanCollection
+  - url: collections/databento.opencollection.json
+    type: OpenCollection
+  description: Discovery and cost-estimation endpoints for the historical catalog.
+    List publishers, datasets, schemas, and fields; look up per-dataset date ranges
+    and data-quality conditions; and pre-compute the record count, billable size,
+    and dollar cost of a query before you run it. Essential for planning research
+    and controlling spend on financial and reference data.
+- aid: databento:databento-symbology-api
+  name: Databento Symbology API
+  tags:
+  - Symbology
+  - Reference Data
+  - Symbols
+  - Market Data
+  - Financial Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://databento.com/docs/api-reference-historical/basics/symbology
+  baseURL: https://hist.databento.com/v0
+  properties:
+  - url: https://databento.com/docs/api-reference-historical/basics/symbology
+    type: Documentation
+  - url: openapi/databento-openapi.yml
+    type: OpenAPI
+  - url: collections/databento.postman_collection.json
+    type: PostmanCollection
+  - url: collections/databento.opencollection.json
+    type: OpenCollection
+  description: Resolves symbols between Databento's symbology systems - raw symbol,
+    instrument ID, parent, and continuous contract - for a dataset over a date range.
+    Lets consumers map tickers, exchange instrument IDs, and continuous futures
+    references onto the identifiers used across the historical and live data
+    schemas.
+- aid: databento:databento-batch-api
+  name: Databento Batch API
+  tags:
+  - Batch
+  - Flat Files
+  - Historical Market Data
+  - Market Data
+  - Financial Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://databento.com/docs/api-reference-historical/batch/batch-submit-job
+  baseURL: https://hist.databento.com/v0
+  properties:
+  - url: https://databento.com/docs/api-reference-historical/batch/batch-submit-job
+    type: Documentation
+  - url: https://databento.com/docs/api-reference-historical/batch/batch-submit-job
+    type: APIReference
+  - url: openapi/databento-openapi.yml
+    type: OpenAPI
+  - url: collections/databento.postman_collection.json
+    type: PostmanCollection
+  - url: collections/databento.opencollection.json
+    type: OpenCollection
+  description: Submits asynchronous batch jobs that materialize large historical
+    requests into downloadable flat files (DBN, CSV, or JSON), optionally split by
+    day, symbol, or size. Submit a job, list your jobs and their state, and list the
+    generated files with HTTPS and FTP download URIs. Files remain re-downloadable
+    for 30 days at no extra cost.
+- aid: databento:databento-live-streaming-api
+  name: Databento Live Streaming API
+  tags:
+  - Live Market Data
+  - Streaming
+  - Market Data
+  - Trading
+  - Low Latency
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://databento.com/docs/api-reference-live
+  baseURL: tcp://GLBX.MDP3.lsg.databento.com
+  properties:
+  - url: https://databento.com/docs/api-reference-live
+    type: Documentation
+  - url: https://databento.com/docs/api-reference-live/basics/authentication
+    type: Authentication
+  - url: https://databento.com/docs/standards-and-conventions/databento-binary-encoding
+    type: Documentation
+  description: Low-latency live market data delivered over a raw TCP binary streaming
+    protocol using Databento Binary Encoding (DBN) - the same normalized schemas as
+    the historical API. Sessions authenticate with a CRAM challenge-response
+    handshake using your API key, then subscribe to symbols and schemas per dataset
+    gateway. This is a binary TCP protocol, not a documented public WebSocket; it is
+    consumed via the official Python, C++, and Rust clients and has no OpenAPI
+    description.
+- aid: databento:databento-reference-api
+  name: Databento Reference API
+  tags:
+  - Reference Data
+  - Corporate Actions
+  - Security Master
+  - Financial Data
+  - Market Data
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://databento.com/docs/api-reference-reference
+  baseURL: https://hist.databento.com/v0
+  properties:
+  - url: https://databento.com/docs/api-reference-reference
+    type: Documentation
+  - url: https://databento.com/docs/api-reference-reference/basics/overview
+    type: APIReference
+  - url: openapi/databento-openapi.yml
+    type: OpenAPI
+  description: Reference and non-price data that complements the market data feeds -
+    a security master (instrument definitions and identifiers), corporate actions
+    (splits, dividends, symbol changes, and other events), and adjustment factors
+    for building back-adjusted price series. Served over the same REST HTTP surface
+    as the historical API.
+common:
+- type: GitHubOrganization
+  url: https://github.com/databento
+- type: LinkedIn
+  url: https://www.linkedin.com/company/databento
+- type: Website
+  url: https://databento.com
+- type: Documentation
+  url: https://databento.com/docs
+- type: Plans
+  url: plans/databento-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/databento-rate-limits.yml
+- type: FinOps
+  url: finops/databento-finops.yml
+- url: https://databento.com/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

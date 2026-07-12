@@ -1,0 +1,104 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Databento
+providerId: databento
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Market Data
+- Financial Data
+- Reference Data
+- Historical Market Data
+- Trading
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Databento spend. Databento bills on a usage basis - per
+  uncompressed binary byte streamed for historical and live data, at a per-GB
+  rate that varies by dataset and schema - with optional monthly subscriptions
+  (Standard, Plus, Unlimited) that bundle live access, history depth, and
+  distribution rights. New accounts get US$125 in free credit toward historical
+  data. Because billing is per byte, the dominant cost drivers are the schemas
+  chosen (full order book MBO is far larger than trades or OHLCV), the symbol
+  count, and the date range. Databento exposes cost-estimation endpoints so
+  spend can be predicted before a query runs.
+notes: >-
+  Per-GB rates are dataset- and schema-specific and are not reconciled here;
+  verify on the pricing page. The single most effective cost lever is schema
+  selection - request the coarsest schema that answers the question (OHLCV or
+  trades instead of MBO) and the narrowest symbol set and date range.
+sources:
+- https://databento.com/pricing
+- https://databento.com/docs/api-reference-historical/metadata/metadata-get-cost
+- https://databento.com/docs/quickstart
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Databento
+serviceCategory: Market Data and Financial Data
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Credit
+focusColumns:
+  ServiceName: Databento Market Data
+  ServiceCategory: Market Data and Financial Data
+  ProviderName: Databento
+  PublisherName: Databento
+  InvoiceIssuerName: Databento
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: data_streamed
+  description: Uncompressed binary bytes streamed for historical and live data, billed per GB at a dataset- and schema-specific rate.
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - account
+  - dataset
+  - schema
+- name: batch_download
+  description: Batch jobs materialized into flat files; charged once, re-downloadable for 30 days.
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - account
+  - dataset
+  - schema
+- name: subscription_fee
+  description: Flat monthly subscription fee for Standard, Plus, or Unlimited plans.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: free_credit
+  description: US$125 new-user credit applied against historical usage; expires after 6 months.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Attribute streamed-byte and batch spend per dataset and schema; use metadata.get_cost to forecast a query before running it.
+- name: Allocation
+  description: Tag usage by account, dataset, and schema so market-data spend maps to research teams, strategies, or products.
+- name: Optimization
+  description: Choose the coarsest schema that answers the question (OHLCV or trades over full-book MBO), narrow symbols and date ranges, and reuse 30-day batch re-downloads instead of re-streaming; pick a subscription tier when steady live/history use exceeds pay-as-you-go.
+- name: Accountability
+  description: Review monthly streamed-GB and subscription charges against the free credit and budget; set expectations before large historical pulls.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

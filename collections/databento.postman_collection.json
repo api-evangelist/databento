@@ -1,0 +1,167 @@
+{
+  "info": {
+    "name": "Databento Historical and Reference API",
+    "description": "Historical and reference financial market data over REST. Base URL: https://hist.databento.com/v0. Authentication is HTTP Basic auth: supply your Databento API key (prefixed db-) as the username and leave the password empty. Live market data is delivered separately over a raw TCP binary DBN protocol and is not part of this collection.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      { "key": "username", "value": "{{apiKey}}", "type": "string" },
+      { "key": "password", "value": "", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://hist.databento.com/v0", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Metadata",
+      "item": [
+        {
+          "name": "List publishers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/metadata.list_publishers", "host": ["{{baseUrl}}"], "path": ["metadata.list_publishers"] },
+            "description": "Lists all publishers and their details."
+          }
+        },
+        {
+          "name": "List datasets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/metadata.list_datasets", "host": ["{{baseUrl}}"], "path": ["metadata.list_datasets"] },
+            "description": "Lists all available dataset codes."
+          }
+        },
+        {
+          "name": "List schemas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/metadata.list_schemas?dataset=GLBX.MDP3", "host": ["{{baseUrl}}"], "path": ["metadata.list_schemas"], "query": [{ "key": "dataset", "value": "GLBX.MDP3" }] },
+            "description": "Lists all record schemas available for a dataset."
+          }
+        },
+        {
+          "name": "Get dataset range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/metadata.get_dataset_range?dataset=GLBX.MDP3", "host": ["{{baseUrl}}"], "path": ["metadata.get_dataset_range"], "query": [{ "key": "dataset", "value": "GLBX.MDP3" }] },
+            "description": "Returns the earliest and latest available datetime for a dataset."
+          }
+        },
+        {
+          "name": "Get cost",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/metadata.get_cost?dataset=GLBX.MDP3&symbols=ESH4&schema=trades&start=2024-02-12&end=2024-02-17", "host": ["{{baseUrl}}"], "path": ["metadata.get_cost"], "query": [{ "key": "dataset", "value": "GLBX.MDP3" }, { "key": "symbols", "value": "ESH4" }, { "key": "schema", "value": "trades" }, { "key": "start", "value": "2024-02-12" }, { "key": "end", "value": "2024-02-17" }] },
+            "description": "Returns the estimated US dollar cost of a timeseries query before running it."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Timeseries",
+      "item": [
+        {
+          "name": "Get timeseries range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/timeseries.get_range?dataset=GLBX.MDP3&symbols=ESH4&schema=trades&start=2024-02-12&end=2024-02-17&encoding=json", "host": ["{{baseUrl}}"], "path": ["timeseries.get_range"], "query": [{ "key": "dataset", "value": "GLBX.MDP3" }, { "key": "symbols", "value": "ESH4" }, { "key": "schema", "value": "trades" }, { "key": "start", "value": "2024-02-12" }, { "key": "end", "value": "2024-02-17" }, { "key": "encoding", "value": "json" }] },
+            "description": "Streams historical records for a dataset, symbols, schema, and time range in DBN, CSV, or JSON. Billed per byte streamed."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Symbology",
+      "item": [
+        {
+          "name": "Resolve symbols",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [{ "key": "dataset", "value": "GLBX.MDP3" }, { "key": "symbols", "value": "ES.FUT" }, { "key": "stype_in", "value": "parent" }, { "key": "stype_out", "value": "instrument_id" }, { "key": "start_date", "value": "2024-02-12" }, { "key": "end_date", "value": "2024-02-17" }] },
+            "url": { "raw": "{{baseUrl}}/symbology.resolve", "host": ["{{baseUrl}}"], "path": ["symbology.resolve"] },
+            "description": "Resolves symbols from one symbology type to another for a dataset over a date range."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Batch",
+      "item": [
+        {
+          "name": "Submit batch job",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [{ "key": "dataset", "value": "GLBX.MDP3" }, { "key": "symbols", "value": "ESH4" }, { "key": "schema", "value": "trades" }, { "key": "start", "value": "2024-02-12" }, { "key": "end", "value": "2024-02-17" }, { "key": "encoding", "value": "dbn" }] },
+            "url": { "raw": "{{baseUrl}}/batch.submit_job", "host": ["{{baseUrl}}"], "path": ["batch.submit_job"] },
+            "description": "Submits an asynchronous batch job that materializes a historical request into downloadable flat files."
+          }
+        },
+        {
+          "name": "List batch jobs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/batch.list_jobs", "host": ["{{baseUrl}}"], "path": ["batch.list_jobs"] },
+            "description": "Lists batch jobs for the account, optionally filtered by state and submission time."
+          }
+        },
+        {
+          "name": "List batch files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/batch.list_files?job_id=", "host": ["{{baseUrl}}"], "path": ["batch.list_files"], "query": [{ "key": "job_id", "value": "" }] },
+            "description": "Lists the output files for a completed batch job, with HTTPS and FTP download URIs."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reference",
+      "item": [
+        {
+          "name": "Get security master range",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [{ "key": "symbols", "value": "AAPL" }, { "key": "stype_in", "value": "raw_symbol" }, { "key": "start_date", "value": "2024-01-01" }, { "key": "end_date", "value": "2024-02-01" }] },
+            "url": { "raw": "{{baseUrl}}/security_master.get_range", "host": ["{{baseUrl}}"], "path": ["security_master.get_range"] },
+            "description": "Returns point-in-time security master records for symbols over a date range."
+          }
+        },
+        {
+          "name": "Get corporate actions range",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [{ "key": "symbols", "value": "AAPL" }, { "key": "stype_in", "value": "raw_symbol" }, { "key": "start_date", "value": "2024-01-01" }, { "key": "end_date", "value": "2024-02-01" }] },
+            "url": { "raw": "{{baseUrl}}/corporate_actions.get_range", "host": ["{{baseUrl}}"], "path": ["corporate_actions.get_range"] },
+            "description": "Returns corporate action events (splits, dividends, symbol changes) for symbols over a date range."
+          }
+        },
+        {
+          "name": "Get adjustment factors range",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/x-www-form-urlencoded" }],
+            "body": { "mode": "urlencoded", "urlencoded": [{ "key": "symbols", "value": "AAPL" }, { "key": "stype_in", "value": "raw_symbol" }, { "key": "start_date", "value": "2024-01-01" }, { "key": "end_date", "value": "2024-02-01" }] },
+            "url": { "raw": "{{baseUrl}}/adjustment_factors.get_range", "host": ["{{baseUrl}}"], "path": ["adjustment_factors.get_range"] },
+            "description": "Returns price and volume adjustment factors for building back-adjusted series."
+          }
+        }
+      ]
+    }
+  ]
+}

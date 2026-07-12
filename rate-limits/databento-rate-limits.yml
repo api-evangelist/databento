@@ -1,0 +1,75 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Databento
+providerId: databento
+created: '2026-07-11'
+modified: '2026-07-11'
+reconciled: false
+tags:
+- Market Data
+- Financial Data
+- Historical Market Data
+- Trading
+- Rate Limiting
+- Quotas
+description: >-
+  Databento advertises unlimited API calls and downloads with no per-request
+  fees, so throughput is governed by usage-based billing rather than a hard
+  per-minute request cap. In practice, historical requests are bounded by
+  concurrency limits and by how much data your account and credit/plan allow you
+  to stream, and very large pulls are steered toward the asynchronous Batch API,
+  which materializes flat files rather than streaming synchronously. Live data
+  is a continuous TCP subscription rather than a request-rate surface; its
+  volume is governed by the schemas and symbols you subscribe to. Specific
+  numeric per-account request or concurrency limits are not prominently
+  published.
+notes: >-
+  No fixed numeric per-endpoint request-rate limit is published as of the review
+  date. Use metadata.get_record_count, metadata.get_billable_size, and
+  metadata.get_cost to size a query before running it, and prefer batch.submit_job
+  for large historical extracts. Verify concurrency and any account-level limits
+  with Databento support during reconciliation.
+sources:
+- https://databento.com/pricing
+- https://databento.com/docs/api-reference-historical
+- https://databento.com/docs/api-reference-historical/batch/batch-submit-job
+- https://databento.com/docs/api-reference-live
+responseCodes:
+  throttled: 429
+limits:
+- name: Historical API Calls
+  scope: account
+  metric: requests
+  limit: unlimited (no per-request fee)
+  notes: Databento advertises unlimited API calls; no fixed numeric request-rate cap is published.
+- name: Streaming Data Volume
+  scope: account
+  metric: bytes
+  limit: usage-based (per credit / plan)
+  notes: Bounded by billing - per-byte pay-as-you-go, free credit, or subscription depth - not by a request cap.
+- name: Synchronous Query Size
+  scope: request
+  metric: records
+  limit: steer large pulls to Batch
+  notes: Very large historical extracts should use the asynchronous Batch API rather than synchronous timeseries.get_range.
+- name: Batch Download Retention
+  scope: job
+  metric: days
+  limit: 30
+  notes: Batch output files remain re-downloadable for 30 days at no extra cost.
+- name: Live Subscription
+  scope: session
+  metric: stream
+  limit: continuous
+  notes: Live is a persistent TCP/DBN subscription; volume is governed by subscribed symbols and schemas, not a request rate.
+policies:
+- name: Cost Estimation First
+  description: Use metadata.get_record_count, metadata.get_billable_size, and metadata.get_cost to pre-size and pre-price a query before streaming.
+- name: Prefer Batch for Bulk
+  description: Route large historical extracts through batch.submit_job to produce downloadable flat files instead of long synchronous streams.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

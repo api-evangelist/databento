@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Databento Historical and Reference API",
+    "version": "0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{apiKey}}",
+      "password": ""
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Metadata", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List publishers", "type": "http" },
+          "http": { "method": "GET", "url": "https://hist.databento.com/v0/metadata.list_publishers" },
+          "docs": "Lists all publishers and their details."
+        },
+        {
+          "info": { "name": "List datasets", "type": "http" },
+          "http": { "method": "GET", "url": "https://hist.databento.com/v0/metadata.list_datasets" },
+          "docs": "Lists all available dataset codes."
+        },
+        {
+          "info": { "name": "List schemas", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.list_schemas",
+            "params": [
+              { "name": "dataset", "value": "GLBX.MDP3", "type": "query", "description": "The dataset code." }
+            ]
+          },
+          "docs": "Lists all record schemas available for a dataset."
+        },
+        {
+          "info": { "name": "Get dataset range", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.get_dataset_range",
+            "params": [
+              { "name": "dataset", "value": "GLBX.MDP3", "type": "query", "description": "The dataset code." }
+            ]
+          },
+          "docs": "Returns the earliest and latest available datetime for a dataset."
+        },
+        {
+          "info": { "name": "Get cost", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.get_cost",
+            "params": [
+              { "name": "dataset", "value": "GLBX.MDP3", "type": "query", "description": "The dataset code." },
+              { "name": "symbols", "value": "ESH4", "type": "query", "description": "Comma-separated symbols." },
+              { "name": "schema", "value": "trades", "type": "query", "description": "The data record schema." },
+              { "name": "start", "value": "2024-02-12", "type": "query", "description": "Start of the range." },
+              { "name": "end", "value": "2024-02-17", "type": "query", "description": "End of the range." }
+            ]
+          },
+          "docs": "Returns the estimated US dollar cost of a timeseries query before running it."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Timeseries", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get timeseries range", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/timeseries.get_range",
+            "params": [
+              { "name": "dataset", "value": "GLBX.MDP3", "type": "query", "description": "The dataset code." },
+              { "name": "symbols", "value": "ESH4", "type": "query", "description": "Comma-separated symbols." },
+              { "name": "schema", "value": "trades", "type": "query", "description": "The data record schema." },
+              { "name": "start", "value": "2024-02-12", "type": "query", "description": "Start of the range." },
+              { "name": "end", "value": "2024-02-17", "type": "query", "description": "End of the range." },
+              { "name": "encoding", "value": "json", "type": "query", "description": "dbn, csv, or json." }
+            ]
+          },
+          "docs": "Streams historical records for a dataset, symbols, schema, and time range. Billed per byte streamed."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Symbology", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Resolve symbols", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/symbology.resolve",
+            "body": { "type": "form", "data": "dataset=GLBX.MDP3&symbols=ES.FUT&stype_in=parent&stype_out=instrument_id&start_date=2024-02-12&end_date=2024-02-17" }
+          },
+          "docs": "Resolves symbols from one symbology type to another for a dataset over a date range."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Batch", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Submit batch job", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/batch.submit_job",
+            "body": { "type": "form", "data": "dataset=GLBX.MDP3&symbols=ESH4&schema=trades&start=2024-02-12&end=2024-02-17&encoding=dbn" }
+          },
+          "docs": "Submits an asynchronous batch job that materializes a historical request into downloadable flat files."
+        },
+        {
+          "info": { "name": "List batch jobs", "type": "http" },
+          "http": { "method": "GET", "url": "https://hist.databento.com/v0/batch.list_jobs" },
+          "docs": "Lists batch jobs for the account, optionally filtered by state and submission time."
+        },
+        {
+          "info": { "name": "List batch files", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/batch.list_files",
+            "params": [
+              { "name": "job_id", "value": "", "type": "query", "description": "The batch job id." }
+            ]
+          },
+          "docs": "Lists the output files for a completed batch job, with HTTPS and FTP download URIs."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Reference", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get security master range", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/security_master.get_range",
+            "body": { "type": "form", "data": "symbols=AAPL&stype_in=raw_symbol&start_date=2024-01-01&end_date=2024-02-01" }
+          },
+          "docs": "Returns point-in-time security master records for symbols over a date range."
+        },
+        {
+          "info": { "name": "Get corporate actions range", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/corporate_actions.get_range",
+            "body": { "type": "form", "data": "symbols=AAPL&stype_in=raw_symbol&start_date=2024-01-01&end_date=2024-02-01" }
+          },
+          "docs": "Returns corporate action events (splits, dividends, symbol changes) for symbols over a date range."
+        },
+        {
+          "info": { "name": "Get adjustment factors range", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/adjustment_factors.get_range",
+            "body": { "type": "form", "data": "symbols=AAPL&stype_in=raw_symbol&start_date=2024-01-01&end_date=2024-02-01" }
+          },
+          "docs": "Returns price and volume adjustment factors for building back-adjusted series."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+aid: databento
+name: Databento
+review:
+  question: Does Databento expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-11'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Databento's real-time surface (the Live
+    API) is a raw TCP binary streaming protocol using Databento Binary Encoding
+    (DBN), not an HTTP-based event stream. It is not a WebSocket and not
+    Server-Sent Events, so there is no HTTP server-push transport in scope for an
+    AsyncAPI document. The Live protocol is consumed through the official Python,
+    C++, and Rust client libraries rather than a documented wire spec that maps
+    cleanly to AsyncAPI channels, so no AsyncAPI file was created.
+findings:
+  summary: |
+    Databento does not publish a documented public WebSocket API. Databento
+    splits into two delivery surfaces. The Historical API (base
+    https://hist.databento.com/v0) and the Reference API are request/response
+    REST over HTTPS, authenticated with HTTP Basic auth using the API key as the
+    username and an empty password. The Live API delivers low-latency real-time
+    market data over a RAW TCP BINARY streaming protocol carrying Databento
+    Binary Encoding (DBN) records - the same normalized schemas as historical.
+    Live sessions authenticate with a CRAM (challenge-response) handshake using
+    the API key, connect to per-dataset gateway hosts, and then subscribe to
+    symbols and schemas. This is a binary TCP protocol, NOT a WebSocket (ws:// or
+    wss://) and NOT Server-Sent Events. No WebSocket endpoint is documented
+    anywhere in Databento's Historical, Live, or Reference API references as of
+    the review date; the Live protocol is intended to be consumed via the
+    official client libraries.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://hist.databento.com/v0
+      documented: true
+      note: Historical and Reference HTTP APIs. HTTP Basic auth with the API key as username, empty password.
+    - protocol: Raw TCP (DBN binary)
+      scheme: tcp
+      documented: true
+      note: >-
+        Live API. Low-latency binary streaming protocol using Databento Binary
+        Encoding over TCP, with a CRAM challenge-response authentication
+        handshake and per-dataset gateway hosts. Consumed via the official
+        Python, C++, and Rust clients. Not WebSocket, not SSE.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in any Databento API reference as of the review date. Live streaming is raw TCP/DBN, not WebSocket.
+  endpointsConfirmedRest:
+    - GET  https://hist.databento.com/v0/metadata.list_publishers
+    - GET  https://hist.databento.com/v0/metadata.list_datasets
+    - GET  https://hist.databento.com/v0/metadata.list_schemas
+    - GET  https://hist.databento.com/v0/metadata.list_fields
+    - GET  https://hist.databento.com/v0/metadata.list_unit_prices
+    - GET  https://hist.databento.com/v0/metadata.get_dataset_condition
+    - GET  https://hist.databento.com/v0/metadata.get_dataset_range
+    - GET  https://hist.databento.com/v0/metadata.get_record_count
+    - GET  https://hist.databento.com/v0/metadata.get_billable_size
+    - GET  https://hist.databento.com/v0/metadata.get_cost
+    - GET  https://hist.databento.com/v0/timeseries.get_range
+    - POST https://hist.databento.com/v0/timeseries.get_range
+    - POST https://hist.databento.com/v0/symbology.resolve
+    - POST https://hist.databento.com/v0/batch.submit_job
+    - GET  https://hist.databento.com/v0/batch.list_jobs
+    - GET  https://hist.databento.com/v0/batch.list_files
+    - POST https://hist.databento.com/v0/security_master.get_range
+    - POST https://hist.databento.com/v0/security_master.get_last
+    - POST https://hist.databento.com/v0/corporate_actions.get_range
+    - POST https://hist.databento.com/v0/adjustment_factors.get_range
+  transportNote: |
+    Historical timeseries.get_range returns an HTTP streaming response (the body
+    streams records as they are produced) but it is a standard request/response
+    HTTP call, not a WebSocket and not Server-Sent Events. The only real-time
+    push surface is the Live API, which is raw TCP/DBN.
+sources:
+  - url: https://databento.com/docs/api-reference-historical
+    type: Documentation
+    note: Historical HTTP API reference; base URL hist.databento.com/v0, all REST.
+  - url: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+    type: APIReference
+    note: timeseries.get_range streams records over HTTP; not WebSocket.
+  - url: https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets
+    type: APIReference
+    note: Metadata discovery and cost-estimation endpoints, all REST GET.
+  - url: https://databento.com/docs/api-reference-historical/batch/batch-submit-job
+    type: APIReference
+    note: Asynchronous batch jobs producing downloadable flat files.
+  - url: https://databento.com/docs/api-reference-live
+    type: Documentation
+    note: Live API is a raw TCP binary DBN protocol, not WebSocket or SSE.
+  - url: https://databento.com/docs/api-reference-live/basics/authentication
+    type: Documentation
+    note: Live sessions use a CRAM challenge-response handshake with the API key.
+  - url: https://databento.com/docs/standards-and-conventions/databento-binary-encoding
+    type: Documentation
+    note: DBN is a zero-copy binary message format used for both live and historical data.
+  - url: https://databento.com/docs/api-reference-reference
+    type: Documentation
+    note: Reference API - security master, corporate actions, adjustment factors - over the same REST surface.
+  - url: https://github.com/databento/databento-python
+    type: SourceCode
+    note: Official Python client wrapping both the Historical REST API and the Live TCP/DBN protocol.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Databento's HTTP surface (Historical
+    and Reference) is request/response REST, and its only real-time push surface
+    (Live) is a raw TCP binary DBN protocol with CRAM authentication - not a
+    WebSocket and not SSE. No AsyncAPI document was created because there is no
+    HTTP server-push transport to model; the Live protocol is a binary TCP wire
+    format consumed through the official client libraries.
