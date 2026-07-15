@@ -177,6 +177,8 @@ apis:
     for building back-adjusted price series. Served over the same REST HTTP surface
     as the historical API.
 common:
+- type: AgenticAccess
+  url: agentic-access/databento-agentic-access.yml
 - type: GitHubOrganization
   url: https://github.com/databento
 - type: LinkedIn
