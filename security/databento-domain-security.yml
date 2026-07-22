@@ -1,0 +1,23 @@
+generated: '2026-07-22'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: databento.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Nov 18 23:59:59 2026 GMT
+  hsts: false
+- host: hist.databento.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 12 12:56:09 2026 GMT
+  hsts: null
+- host: glbx.mdp3.lsg.databento.com
+  https: false
+domains:
+- domain: databento.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

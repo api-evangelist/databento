@@ -1,0 +1,57 @@
+generated: '2026-07-22'
+method: searched
+source: PyPI, crates.io, npm, GitHub org github.com/databento (registry probes 2026-07-22)
+notes: >-
+  Databento ships three official client libraries - Python, C++, and Rust -
+  plus the DBN (Databento Binary Encoding) codec libraries the clients build
+  on. There is no official JavaScript/TypeScript SDK: the npm package
+  "databento" is a 0.0.1 placeholder ("Databento package, TBD"). Maven
+  Central, NuGet, RubyGems, Packagist, and the Go module proxy have no
+  first-party packages.
+packages:
+- language: python
+  registry: pypi
+  name: databento
+  version: 0.82.0
+  url: https://pypi.org/project/databento/
+  install: pip install databento
+  source: https://github.com/databento/databento-python
+  official: true
+- language: python
+  registry: pypi
+  name: databento-dbn
+  version: 0.63.0
+  url: https://pypi.org/project/databento-dbn/
+  install: pip install databento-dbn
+  source: https://github.com/databento/dbn
+  official: true
+  notes: Python bindings for encoding and decoding Databento Binary Encoding (DBN).
+- language: rust
+  registry: crates.io
+  name: databento
+  url: https://crates.io/crates/databento
+  install: cargo add databento
+  source: https://github.com/databento/databento-rs
+  official: true
+- language: rust
+  registry: crates.io
+  name: dbn
+  url: https://crates.io/crates/dbn
+  install: cargo add dbn
+  source: https://github.com/databento/dbn
+  official: true
+  notes: DBN encoding/decoding crate plus the dbn CLI for converting DBN to CSV/JSON.
+- language: cpp
+  registry: github
+  name: databento-cpp
+  url: https://github.com/databento/databento-cpp
+  install: CMake FetchContent / vcpkg overlay per README (no central registry package)
+  source: https://github.com/databento/databento-cpp
+  official: true
+- language: javascript
+  registry: npm
+  name: databento
+  version: 0.0.1
+  url: https://www.npmjs.com/package/databento
+  official: false
+  notes: Placeholder package ("Databento package, TBD") - no official JavaScript SDK exists.

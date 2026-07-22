@@ -1,0 +1,42 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/databento-platform-openapi-official.json, openapi/databento-*-api-openapi.yml,
+  live probes of hist.databento.com (2026-07-22)
+notes: >-
+  Derived from the provider-published OpenAPI and live responses. Databento
+  publishes no formal compliance/certification program page that could be
+  verified (the marketing site is a JS-rendered SPA); no Compliance pointer is
+  emitted.
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: Official spec at https://hist.databento.com/openapi.json declares openapi 3.1.0.
+- id: http-basic-rfc7617
+  conforms: true
+  evidence: securitySchemes.HTTPBasic (type http, scheme basic) - API key as username, empty password; live 401 returns WWW-Authenticate Basic.
+- id: oauth2
+  conforms: false
+  evidence: The only oauth2 scheme (OAuth2PasswordBearerWithCookie, password flow, no scopes) is the portal's internal session login, not a public OAuth surface.
+- id: oidc
+  conforms: false
+  evidence: No openid-configuration published (hard 404 on hist.databento.com; SPA shell on databento.com).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a FastAPI-style {"detail": ...} JSON envelope (observed live
+    401 {"detail":"Not authenticated"}), not application/problem+json.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No /.well-known/security.txt (404 on hist.databento.com; HTML shell on databento.com).
+- id: iso8601-timestamps
+  conforms: true
+  evidence: start/end range parameters accept ISO 8601 date/datetime strings; record timestamps are nanosecond UNIX epoch per DBN conventions (https://databento.com/docs/standards-and-conventions).
+- id: idempotency-key
+  conforms: false
+  evidence: No Idempotency-Key header in any operation; read-dominant API (115 of 183 ops are GET).
+- id: cursor-pagination
+  conforms: false
+  evidence: No cursor/offset pagination - historical queries are bounded by explicit time ranges and limit params; large extracts go through the asynchronous Batch API.
+- id: json-api
+  conforms: false
+  evidence: Responses are DBN/CSV/JSON record streams and plain JSON, not JSON:API documents.

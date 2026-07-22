@@ -1,0 +1,76 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/databento-metadata-api-openapi.yml, openapi/databento-batch-api-openapi.yml,
+  openapi/databento-timeseries-api-openapi.yml, openapi/databento-reference-api-openapi.yml,
+  openapi/databento-platform-openapi-official.json
+notes: >-
+  Entity graph derived from the API's parameter and response shapes. Databento
+  is dataset-centric rather than resource-CRUD: every query addresses a
+  dataset (e.g. GLBX.MDP3), a schema (record type), and symbols resolved
+  through a symbology system. Identifiers - dataset codes are
+  PUBLISHER.FEED strings; instruments carry a numeric instrument_id per
+  dataset; batch jobs have opaque job_id strings.
+entities:
+- name: Publisher
+  description: A venue/feed source (publisher_id) that publishes one or more datasets.
+- name: Dataset
+  description: A named market data feed (e.g. GLBX.MDP3) with an available date range and per-date condition.
+- name: Schema
+  description: A record type (mbo, mbp-1, mbp-10, trades, ohlcv-1s..1d, statistics, definition, status) supported per dataset.
+- name: Field
+  description: A column of a schema for a given encoding.
+- name: Symbol
+  description: An instrument reference resolvable between raw_symbol, instrument_id, parent, and continuous systems.
+- name: TimeseriesRecord
+  description: A normalized DBN record streamed by timeseries.get_range for a dataset/schema/symbols/range.
+- name: BatchJob
+  description: An asynchronous flat-file materialization of a historical query; states progress to done.
+- name: BatchFile
+  description: A downloadable file (DBN/CSV/JSON, optionally split/compressed) produced by a batch job; retained 30 days.
+- name: SecurityMasterRecord
+  description: Instrument definition/identifier reference data (Reference API).
+- name: CorporateAction
+  description: Split, dividend, symbol-change or other event affecting an instrument (Reference API).
+- name: AdjustmentFactor
+  description: Factor for building back-adjusted price series (Reference API).
+relationships:
+- from: Publisher
+  to: Dataset
+  type: has_many
+  via: dataset (publisher_id in metadata.list_publishers)
+- from: Dataset
+  to: Schema
+  type: has_many
+  via: metadata.list_schemas?dataset=
+- from: Schema
+  to: Field
+  type: has_many
+  via: metadata.list_fields?schema=&encoding=
+- from: Dataset
+  to: Symbol
+  type: has_many
+  via: symbology.resolve?dataset=&symbols=
+- from: Dataset
+  to: TimeseriesRecord
+  type: has_many
+  via: timeseries.get_range?dataset=&schema=&symbols=
+- from: BatchJob
+  to: BatchFile
+  type: has_many
+  via: batch.list_files?job_id=
+- from: BatchJob
+  to: Dataset
+  type: belongs_to
+  via: dataset parameter of batch.submit_job
+- from: Symbol
+  to: SecurityMasterRecord
+  type: has_many
+  via: security_master.get_range?symbols=
+- from: Symbol
+  to: CorporateAction
+  type: has_many
+  via: corporate_actions.get_range?symbols=
+- from: Symbol
+  to: AdjustmentFactor
+  type: has_many
+  via: adjustment_factors.get_range?symbols=

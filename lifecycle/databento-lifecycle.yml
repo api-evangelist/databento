@@ -1,0 +1,28 @@
+generated: '2026-07-22'
+method: searched
+source: https://databento.com/docs/api-reference-historical/basics/versioning,
+  https://databento.com/docs/release-notes, https://status.databento.com,
+  https://roadmap.databento.com, openapi/databento-platform-openapi-official.json
+versioning:
+  scheme: uri-path
+  current: v0
+  docs: https://databento.com/docs/api-reference-historical/basics/versioning
+  notes: >-
+    All HTTP endpoints are rooted at /v0/ (GET /v0/ returns
+    {"api-version":"v0"}). The official OpenAPI carries its own build version
+    (0.167.1 at capture). The Live API is versioned separately
+    (https://databento.com/docs/api-reference-live/basics/versioning); DBN
+    record encoding carries its own version with an upgrade policy in the
+    clients.
+deprecation:
+  policy_url: https://databento.com/docs/release-notes
+  sunset_header: false
+  notes: >-
+    Deprecations are announced in the dated release notes with a migration
+    window before removal - e.g. /timeseries.stream was deprecated 2023-03-03
+    and removed after 2023-06-02 in favor of /timeseries.get_range. Client
+    library deprecations follow the same pattern in each library's CHANGELOG.
+status_page: https://status.databento.com
+roadmap: https://roadmap.databento.com
+changelog: https://databento.com/docs/release-notes
+deprecated_operations: []

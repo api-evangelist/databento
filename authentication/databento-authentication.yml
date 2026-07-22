@@ -1,0 +1,43 @@
+generated: '2026-07-22'
+method: searched
+source: openapi/databento-batch-api-openapi.yml, openapi/databento-metadata-api-openapi.yml,
+  openapi/databento-platform-openapi-official.json, openapi/databento-reference-api-openapi.yml,
+  openapi/databento-symbology-api-openapi.yml, openapi/databento-timeseries-api-openapi.yml
+docs: https://databento.com/docs/api-reference-historical/basics/authentication
+notes: >-
+  All HTTP (historical/reference) requests authenticate with HTTP Basic: the
+  Databento API key (32 characters, prefixed db-) is the username and the
+  password is left empty. API keys are created and rotated in the user portal.
+  The Live Streaming API (raw TCP, DBN protocol) does not use HTTP Basic;
+  sessions authenticate with a CRAM challenge-response handshake using the same
+  API key (docs: https://databento.com/docs/api-reference-live/basics/authentication).
+  The OAuth2 password flow below (tokenUrl /v0/auth/login) is the portal's own
+  cookie/session login exposed in the platform OpenAPI, not a public OAuth
+  surface for API consumers - it defines no scopes.
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - password
+schemes:
+- name: apiKeyBasicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic authentication. Supply your Databento API key (prefixed with db-)
+    as the username and leave the password empty.
+  sources:
+  - openapi/databento-batch-api-openapi.yml
+  - openapi/databento-metadata-api-openapi.yml
+  - openapi/databento-platform-openapi-official.json
+  - openapi/databento-reference-api-openapi.yml
+  - openapi/databento-symbology-api-openapi.yml
+  - openapi/databento-timeseries-api-openapi.yml
+- name: OAuth2PasswordBearerWithCookie
+  type: oauth2
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+    scopes: 0
+  sources:
+  - openapi/databento-platform-openapi-official.json

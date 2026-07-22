@@ -1,0 +1,150 @@
+openapi: 3.0.3
+info:
+  title: Databento Historical and Reference Batch API
+  description: Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.
+  version: '0'
+  contact:
+    name: Databento
+    url: https://databento.com
+  license:
+    name: Databento Terms
+    url: https://databento.com/terms
+servers:
+- url: https://hist.databento.com/v0
+  description: Databento Historical and Reference HTTP API
+security:
+- apiKeyBasicAuth: []
+tags:
+- name: Batch
+  description: Submit and manage asynchronous flat-file download jobs.
+paths:
+  /batch.submit_job:
+    post:
+      operationId: batchSubmitJob
+      tags:
+      - Batch
+      summary: Submit batch job
+      description: Submits an asynchronous batch job that materializes a historical request into downloadable flat files, optionally split by day, symbol, or size.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - dataset
+              - symbols
+              - schema
+              - start
+              properties:
+                dataset:
+                  type: string
+                symbols:
+                  type: string
+                schema:
+                  type: string
+                start:
+                  type: string
+                end:
+                  type: string
+                encoding:
+                  type: string
+                  enum:
+                  - dbn
+                  - csv
+                  - json
+                compression:
+                  type: string
+                  enum:
+                  - none
+                  - zstd
+                split_duration:
+                  type: string
+                split_symbols:
+                  type: boolean
+                split_size:
+                  type: integer
+      responses:
+        '200':
+          description: The created batch job with its id and state.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /batch.list_jobs:
+    get:
+      operationId: batchListJobs
+      tags:
+      - Batch
+      summary: List batch jobs
+      description: Lists batch jobs for the account, optionally filtered by state and submission time.
+      parameters:
+      - name: states
+        in: query
+        schema:
+          type: string
+        description: Comma-separated states such as received, queued, processing, done, expired.
+      - name: since
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of batch jobs.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /batch.list_files:
+    get:
+      operationId: batchListFiles
+      tags:
+      - Batch
+      summary: List batch files
+      description: Lists the output files for a completed batch job, including HTTPS and FTP download URIs and hashes.
+      parameters:
+      - name: job_id
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of files with download URIs.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    ValidationError:
+      description: The request parameters failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable description of the error.
+        case_id:
+          type: string
+          description: An identifier for the error case, useful when contacting support.
+  securitySchemes:
+    apiKeyBasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Supply your Databento API key (prefixed with db-) as the username and leave the password empty.

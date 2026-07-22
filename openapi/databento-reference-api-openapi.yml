@@ -1,0 +1,174 @@
+openapi: 3.0.3
+info:
+  title: Databento Historical and Batch Reference API
+  description: Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.
+  version: '0'
+  contact:
+    name: Databento
+    url: https://databento.com
+  license:
+    name: Databento Terms
+    url: https://databento.com/terms
+servers:
+- url: https://hist.databento.com/v0
+  description: Databento Historical and Reference HTTP API
+security:
+- apiKeyBasicAuth: []
+tags:
+- name: Reference
+  description: Security master, corporate actions, and adjustment factors.
+paths:
+  /security_master.get_range:
+    post:
+      operationId: securityMasterGetRange
+      tags:
+      - Reference
+      summary: Get security master range
+      description: Returns point-in-time security master records (instrument definitions and identifiers) for symbols over a date range.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - symbols
+              - start_date
+              properties:
+                dataset:
+                  type: string
+                symbols:
+                  type: string
+                stype_in:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Security master records.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /security_master.get_last:
+    post:
+      operationId: securityMasterGetLast
+      tags:
+      - Reference
+      summary: Get latest security master
+      description: Returns the most recent security master records for the requested symbols.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - symbols
+              properties:
+                dataset:
+                  type: string
+                symbols:
+                  type: string
+                stype_in:
+                  type: string
+      responses:
+        '200':
+          description: The latest security master records.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /corporate_actions.get_range:
+    post:
+      operationId: corporateActionsGetRange
+      tags:
+      - Reference
+      summary: Get corporate actions range
+      description: Returns corporate action events (splits, dividends, symbol changes, and more) for symbols over a date range.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - symbols
+              - start_date
+              properties:
+                dataset:
+                  type: string
+                symbols:
+                  type: string
+                events:
+                  type: string
+                stype_in:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Corporate action event records.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /adjustment_factors.get_range:
+    post:
+      operationId: adjustmentFactorsGetRange
+      tags:
+      - Reference
+      summary: Get adjustment factors range
+      description: Returns price and volume adjustment factors used to build back-adjusted series, for symbols over a date range.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - symbols
+              - start_date
+              properties:
+                dataset:
+                  type: string
+                symbols:
+                  type: string
+                stype_in:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: Adjustment factor records.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable description of the error.
+        case_id:
+          type: string
+          description: An identifier for the error case, useful when contacting support.
+  securitySchemes:
+    apiKeyBasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Supply your Databento API key (prefixed with db-) as the username and leave the password empty.

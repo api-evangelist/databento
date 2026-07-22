@@ -1,0 +1,47 @@
+generated: '2026-07-22'
+method: searched
+source: live probes of databento.com, hist.databento.com, docs.databento.com (2026-07-22)
+notes: >-
+  No real /.well-known/ documents are published. databento.com and
+  docs.databento.com are single-page apps that return HTTP 200 with the HTML
+  application shell for every path - including /.well-known/security.txt,
+  /.well-known/openid-configuration, /.well-known/oauth-authorization-server,
+  /.well-known/api-catalog, /.well-known/ai-plugin.json, /llms.txt, and
+  /sitemap.xml - so those 200s are not genuine documents (a nonsense path
+  returns the identical 200 shell). The API host hist.databento.com returns
+  hard 404s for the well-known surface. The one real machine-readable document
+  found at a conventional location is the OpenAPI at
+  https://hist.databento.com/openapi.json (saved to openapi/).
+hosts:
+- host: https://databento.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    html_shell: true
+    published: false
+  - path: /.well-known/openid-configuration
+    status: 200
+    html_shell: true
+    published: false
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    html_shell: true
+    published: false
+  - path: /.well-known/api-catalog
+    status: 200
+    html_shell: true
+    published: false
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    html_shell: true
+    published: false
+- host: https://hist.databento.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /openapi.json
+    status: 200
+    published: true
+    file: ../openapi/databento-platform-openapi-official.json

@@ -11,7 +11,7 @@ description: Databento is a market data platform that delivers historical and li
   Databento Binary Encoding (DBN). Official Python, C++, and Rust client libraries
   wrap both surfaces, and a Reference API provides security master, corporate
   actions, and adjustment factor data.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/databento.png
 tags:
 - Market Data
 - Financial Data
@@ -19,7 +19,7 @@ tags:
 - Historical Market Data
 - Trading
 created: '2026-07-11'
-modified: '2026-07-11'
+modified: '2026-07-22'
 specificationVersion: '0.19'
 apis:
 - aid: databento:databento-historical-timeseries-api
@@ -38,7 +38,7 @@ apis:
     type: Documentation
   - url: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
     type: APIReference
-  - url: openapi/databento-openapi.yml
+  - url: openapi/databento-timeseries-api-openapi.yml
     type: OpenAPI
   - url: collections/databento.postman_collection.json
     type: PostmanCollection
@@ -65,7 +65,7 @@ apis:
     type: Documentation
   - url: https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets
     type: APIReference
-  - url: openapi/databento-openapi.yml
+  - url: openapi/databento-metadata-api-openapi.yml
     type: OpenAPI
   - url: collections/databento.postman_collection.json
     type: PostmanCollection
@@ -90,7 +90,7 @@ apis:
   properties:
   - url: https://databento.com/docs/api-reference-historical/basics/symbology
     type: Documentation
-  - url: openapi/databento-openapi.yml
+  - url: openapi/databento-symbology-api-openapi.yml
     type: OpenAPI
   - url: collections/databento.postman_collection.json
     type: PostmanCollection
@@ -117,7 +117,7 @@ apis:
     type: Documentation
   - url: https://databento.com/docs/api-reference-historical/batch/batch-submit-job
     type: APIReference
-  - url: openapi/databento-openapi.yml
+  - url: openapi/databento-batch-api-openapi.yml
     type: OpenAPI
   - url: collections/databento.postman_collection.json
     type: PostmanCollection
@@ -169,7 +169,7 @@ apis:
     type: Documentation
   - url: https://databento.com/docs/api-reference-reference/basics/overview
     type: APIReference
-  - url: openapi/databento-openapi.yml
+  - url: openapi/databento-reference-api-openapi.yml
     type: OpenAPI
   description: Reference and non-price data that complements the market data feeds -
     a security master (instrument definitions and identifiers), corporate actions
@@ -177,6 +177,65 @@ apis:
     for building back-adjusted price series. Served over the same REST HTTP surface
     as the historical API.
 common:
+- type: OpenAPI
+  url: openapi/databento-platform-openapi-official.json
+  name: Official Databento platform OpenAPI (hist.databento.com/openapi.json)
+- type: Overlay
+  url: overlays/databento-platform-official-overlay.yaml
+- type: Packages
+  url: packages/databento-packages.yml
+- type: SDKs
+  url: packages/databento-packages.yml
+- type: MCPServer
+  url: mcp/databento-mcp.yml
+- type: LLMsTxt
+  url: llms/databento-llms.txt
+- type: Conformance
+  url: conformance/databento-conformance.yml
+- type: ErrorCatalog
+  url: errors/databento-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/databento-lifecycle.yml
+- type: StatusPage
+  url: https://status.databento.com
+- type: Deprecation
+  url: https://databento.com/docs/api-reference-historical/basics/versioning
+- type: Conventions
+  url: conventions/databento-conventions.yml
+- type: ChangeLog
+  url: changelog/databento-changelog.yml
+- type: CLI
+  url: cli/databento-cli.yml
+- type: DataModel
+  url: data-model/databento-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Roadmap
+  url: https://roadmap.databento.com
+- type: Pricing
+  url: https://databento.com/pricing
+- type: Support
+  url: https://databento.com/support
+- type: SignUp
+  url: https://databento.com/signup
+- type: TermsOfService
+  url: https://legal.databento.com/
+- type: PrivacyPolicy
+  url: https://legal.databento.com/
+- type: GettingStarted
+  url: https://databento.com/docs/quickstart
+- type: APIReference
+  url: https://databento.com/docs/api-reference-historical
+- type: Postman
+  url: collections/databento.postman_collection.json
+- type: ReleaseNotes
+  url: https://databento.com/docs/release-notes
+- type: DomainSecurity
+  url: security/databento-domain-security.yml
+- type: OAuthScopes
+  url: scopes/databento-scopes.yml
+- type: Authentication
+  url: authentication/databento-authentication.yml
 - type: AgenticAccess
   url: agentic-access/databento-agentic-access.yml
 - type: GitHubOrganization

@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: Databento Historical and Reference Batch Symbology API
+  description: Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.
+  version: '0'
+  contact:
+    name: Databento
+    url: https://databento.com
+  license:
+    name: Databento Terms
+    url: https://databento.com/terms
+servers:
+- url: https://hist.databento.com/v0
+  description: Databento Historical and Reference HTTP API
+security:
+- apiKeyBasicAuth: []
+tags:
+- name: Symbology
+  description: Resolve symbols across Databento symbology systems.
+paths:
+  /symbology.resolve:
+    post:
+      operationId: symbologyResolve
+      tags:
+      - Symbology
+      summary: Resolve symbols
+      description: Resolves a list of symbols from one symbology type to another for a dataset over a date range - for example mapping raw symbols to instrument IDs, or continuous contract references to raw symbols.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - dataset
+              - symbols
+              properties:
+                dataset:
+                  type: string
+                symbols:
+                  type: string
+                stype_in:
+                  type: string
+                stype_out:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+      responses:
+        '200':
+          description: A mapping of input symbols to resolved symbols with validity intervals.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+components:
+  responses:
+    ValidationError:
+      description: The request parameters failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable description of the error.
+        case_id:
+          type: string
+          description: An identifier for the error case, useful when contacting support.
+  securitySchemes:
+    apiKeyBasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Supply your Databento API key (prefixed with db-) as the username and leave the password empty.

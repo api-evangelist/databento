@@ -1,0 +1,82 @@
+generated: '2026-07-22'
+method: derived
+status: candidate
+source: openapi/databento-metadata-api-openapi.yml, openapi/databento-timeseries-api-openapi.yml,
+  openapi/databento-symbology-api-openapi.yml, openapi/databento-batch-api-openapi.yml,
+  openapi/databento-reference-api-openapi.yml
+notes: >-
+  Databento publishes no official hosted MCP server (searched docs, the
+  databento GitHub org, npm, and the MCP registries on 2026-07-22). Several
+  community servers wrap the API - e.g.
+  https://github.com/Nice-Wolf-Studio/databento-mcp-server and
+  https://github.com/deepentropy/databento-mcp - all requiring the user's own
+  DATABENTO_API_KEY. The tool list below is a candidate surface derived from
+  the public HTTP API operations, not a published server.
+community_servers:
+- name: databento-mcp-server
+  url: https://github.com/Nice-Wolf-Studio/databento-mcp-server
+  official: false
+- name: databento-mcp
+  url: https://github.com/deepentropy/databento-mcp
+  official: false
+server:
+  name: databento
+  transport: http
+tools:
+- name: list_datasets
+  description: List available datasets in the historical catalog
+  source_operation: openapi/databento-metadata-api-openapi.yml#listDatasets
+- name: list_publishers
+  description: List publishers and their venue/dataset mappings
+  source_operation: openapi/databento-metadata-api-openapi.yml#listPublishers
+- name: list_schemas
+  description: List record schemas supported by a dataset
+  source_operation: openapi/databento-metadata-api-openapi.yml#listSchemas
+- name: list_fields
+  description: List the fields of a schema and encoding
+  source_operation: openapi/databento-metadata-api-openapi.yml#listFields
+- name: list_unit_prices
+  description: List unit prices per schema and feed mode for a dataset
+  source_operation: openapi/databento-metadata-api-openapi.yml#listUnitPrices
+- name: get_dataset_condition
+  description: Get per-date data quality/condition for a dataset
+  source_operation: openapi/databento-metadata-api-openapi.yml#getDatasetCondition
+- name: get_dataset_range
+  description: Get the available date range of a dataset
+  source_operation: openapi/databento-metadata-api-openapi.yml#getDatasetRange
+- name: get_record_count
+  description: Count records a query would return before running it
+  source_operation: openapi/databento-metadata-api-openapi.yml#getRecordCount
+- name: get_billable_size
+  description: Get the billable size of a query before running it
+  source_operation: openapi/databento-metadata-api-openapi.yml#getBillableSize
+- name: get_cost
+  description: Get the dollar cost of a query before running it
+  source_operation: openapi/databento-metadata-api-openapi.yml#getCost
+- name: timeseries_get_range
+  description: Stream historical market data for a symbol/schema/time range
+  source_operation: openapi/databento-timeseries-api-openapi.yml#timeseriesGetRange
+- name: symbology_resolve
+  description: Resolve symbols between symbology systems for a dataset and date range
+  source_operation: openapi/databento-symbology-api-openapi.yml#symbologyResolve
+- name: batch_submit_job
+  description: Submit an asynchronous batch download job
+  source_operation: openapi/databento-batch-api-openapi.yml#batchSubmitJob
+- name: batch_list_jobs
+  description: List batch jobs and their states
+  source_operation: openapi/databento-batch-api-openapi.yml#batchListJobs
+- name: batch_list_files
+  description: List downloadable files produced by a batch job
+  source_operation: openapi/databento-batch-api-openapi.yml#batchListFiles
+- name: security_master_get_range
+  description: Get security master reference data over a date range
+  source_operation: openapi/databento-reference-api-openapi.yml#securityMasterGetRange
+- name: security_master_get_last
+  description: Get the latest security master snapshot
+  source_operation: openapi/databento-reference-api-openapi.yml#securityMasterGetLast
+- name: corporate_actions_get_range
+  description: Get corporate actions events over a date range
+  source_operation: openapi/databento-reference-api-openapi.yml#corporateActionsGetRange
+- name: adjustment_factors_get_range
+  description: Get price adjustment factors over a date range
+  source_operation: openapi/databento-reference-api-openapi.yml#adjustmentFactorsGetRange

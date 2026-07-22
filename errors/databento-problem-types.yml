@@ -1,0 +1,36 @@
+generated: '2026-07-22'
+method: derived
+format: fastapi-detail
+source: openapi/databento-*-api-openapi.yml, openapi/databento-platform-openapi-official.json,
+  live probes of hist.databento.com (2026-07-22)
+notes: >-
+  Databento does not use RFC 9457 problem+json. Error responses carry a
+  FastAPI-style JSON envelope {"detail": <message or validation errors>};
+  observed live: 401 -> {"detail":"Not authenticated"} with WWW-Authenticate:
+  Basic. 5xx responses can be plain text (observed live 500: "Internal Server
+  Error: This is unexpected and we may be working on a fix - try again later.
+  ... contact support https://databento.com/support"). 422 validation errors
+  follow the FastAPI HTTPValidationError shape ({"detail":[{"loc":[],"msg":"",
+  "type":""}]}).
+envelope:
+  field: detail
+  content_type: application/json
+problems:
+- status: 401
+  title: Unauthorized
+  detail: Missing or invalid API key. Supply the db- prefixed API key as the HTTP Basic username with an empty password.
+  source_operation: openapi/databento-timeseries-api-openapi.yml#timeseriesGetRange
+- status: 404
+  title: Not found
+  detail: Unknown resource, or no data/condition information available for the requested dataset and range.
+  source_operation: openapi/databento-metadata-api-openapi.yml#getDatasetCondition
+- status: 422
+  title: Validation error
+  detail: Request parameters failed validation (FastAPI HTTPValidationError - detail is a list of {loc, msg, type}).
+  source_operation: openapi/databento-timeseries-api-openapi.yml#timeseriesGetRange
+- status: 429
+  title: Throttled
+  detail: Request throttled. Databento advertises unlimited API calls, so 429s reflect protective concurrency limits rather than a published request-rate cap (see rate-limits/databento-rate-limits.yml).
+- status: 500
+  title: Internal server error
+  detail: Unexpected server error; response body may be plain text directing to https://databento.com/support.

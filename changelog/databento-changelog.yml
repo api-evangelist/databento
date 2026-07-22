@@ -1,0 +1,52 @@
+generated: '2026-07-22'
+method: searched
+source: https://databento.com/docs/release-notes,
+  https://raw.githubusercontent.com/databento/databento-python/main/CHANGELOG.md
+notes: >-
+  Databento maintains dated API and dataset release notes at
+  databento.com/docs/release-notes (JS-rendered; the page is the source of
+  truth for platform changes, including deprecation/removal windows such as
+  timeseries.stream deprecated 2023-03-03, removed after 2023-06-02). The
+  official client libraries keep semver CHANGELOGs on GitHub; the Python
+  client's recent window is captured below as a verifiable structured sample
+  (client releases track platform/DBN changes closely).
+scheme:
+  platform: dated release notes (databento.com/docs/release-notes); HTTP API versioned at /v0/
+  clients: semver per library (databento-python, databento-rs, databento-cpp, dbn)
+current:
+  api_version: v0
+  openapi_build: 0.167.1
+  python_client: 0.82.0
+  dbn_python: 0.63.0
+entries:
+- version: 0.82.0
+  date: '2026-07-21'
+  source: databento-python
+  breaking: false
+  highlights:
+  - Added a loop parameter to the Live client for user-level event-loop control
+  - Live class no longer creates a background thread and event loop on import
+  - Upgraded databento-dbn to 0.63.0 (integer representation for VersionUpgradePolicy)
+- version: 0.81.0
+  date: '2026-07-07'
+  source: databento-python
+  breaking: false
+  highlights:
+  - Added StatType variants MwcbLevel1-3 and AuctionCollar reference/upper/lower prices (dbn 0.62.0)
+  - Default size field changed to 0 in MboMsg, TradeMsg, Mbp1/Mbp10, BBO/CBBO messages
+- version: 0.80.0
+  date: '2026-06-16'
+  source: databento-python
+  breaking: true
+  highlights:
+  - Renamed Venue/Dataset/Publisher CGIF to MAIN (CGIF.TITANIUM -> MAIN.CGIF)
+  - Added publisher values for Cboe Titanium Cboe Global Indices Feed
+  - Fixed Live client TypeError when connecting with uvloop
+- version: 0.79.0
+  date: '2026-06-02'
+  source: databento-python
+  breaking: false
+  highlights:
+  - Added venues/datasets/publishers for US Equities Securities Information Processors
+  - batch.download now uses the API's batch.download ZIP endpoint
+  - Added batch.get_job_details method

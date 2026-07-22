@@ -1,0 +1,27 @@
+generated: '2026-07-22'
+method: searched
+source: https://github.com/databento/dbn/tree/main/rust/dbn-cli, https://crates.io/crates/dbn-cli
+name: dbn
+version: 0.63.0
+description: >-
+  Databento's first-party command-line tool. `dbn` converts Databento Binary
+  Encoding (DBN) files - the format streamed by the historical API and
+  produced by batch jobs - to text formats (CSV and JSON lines), and upgrades
+  legacy DBZ files to DBN. It is a data-conversion companion to the API
+  rather than a full API client CLI (there is no first-party CLI that calls
+  the HTTP API; use the Python/Rust/C++ SDKs for that).
+install:
+- method: prebuilt-binaries
+  detail: dbn-<version>-<target>.tar.gz (.zip on Windows) with .sha256 checksums attached to every release
+  url: https://github.com/databento/dbn/releases
+  platforms: [linux x86_64/aarch64 (gnu+musl), macos x86_64/aarch64, windows x86_64/aarch64]
+- method: cargo
+  detail: cargo install dbn-cli
+  url: https://crates.io/crates/dbn-cli
+commands:
+- surface: convert
+  detail: Read a .dbn (or legacy .dbz) file and emit CSV or JSON lines to stdout; supports zstd-compressed input.
+flows:
+- name: Inspect a batch download
+  detail: Pull DBN files with the Batch API (batchListFiles), then `dbn file.dbn --json` to explore records with text tools.
+docs: https://databento.com/docs/standards-and-conventions/databento-binary-encoding

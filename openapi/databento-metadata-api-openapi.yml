@@ -1,0 +1,296 @@
+openapi: 3.0.3
+info:
+  title: Databento Historical and Reference Batch Metadata API
+  description: Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.
+  version: '0'
+  contact:
+    name: Databento
+    url: https://databento.com
+  license:
+    name: Databento Terms
+    url: https://databento.com/terms
+servers:
+- url: https://hist.databento.com/v0
+  description: Databento Historical and Reference HTTP API
+security:
+- apiKeyBasicAuth: []
+tags:
+- name: Metadata
+  description: Catalog discovery, dataset ranges and conditions, and cost estimation.
+paths:
+  /metadata.list_publishers:
+    get:
+      operationId: listPublishers
+      tags:
+      - Metadata
+      summary: List publishers
+      description: Lists all publishers and their details.
+      responses:
+        '200':
+          description: A list of publishers.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.list_datasets:
+    get:
+      operationId: listDatasets
+      tags:
+      - Metadata
+      summary: List datasets
+      description: Lists all available dataset codes, optionally filtered by an available date range.
+      parameters:
+      - name: start_date
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: A list of dataset codes.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.list_schemas:
+    get:
+      operationId: listSchemas
+      tags:
+      - Metadata
+      summary: List schemas
+      description: Lists all data record schemas available for a dataset.
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of schema names.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.list_fields:
+    get:
+      operationId: listFields
+      tags:
+      - Metadata
+      summary: List fields
+      description: Lists the fields of a record schema for a given encoding.
+      parameters:
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: encoding
+        in: query
+        schema:
+          type: string
+          enum:
+          - dbn
+          - csv
+          - json
+      responses:
+        '200':
+          description: A list of fields with names and types.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.list_unit_prices:
+    get:
+      operationId: listUnitPrices
+      tags:
+      - Metadata
+      summary: List unit prices
+      description: Lists the per-unit prices for each data schema and feed mode of a dataset.
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Unit prices per schema and mode.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.get_dataset_condition:
+    get:
+      operationId: getDatasetCondition
+      tags:
+      - Metadata
+      summary: Get dataset condition
+      description: Returns the data-quality condition (available, degraded, pending, missing) per day for a dataset and date range.
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: end_date
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Per-day condition entries.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.get_dataset_range:
+    get:
+      operationId: getDatasetRange
+      tags:
+      - Metadata
+      summary: Get dataset range
+      description: Returns the earliest and latest available datetime for a dataset.
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The available start and end range for the dataset.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.get_record_count:
+    get:
+      operationId: getRecordCount
+      tags:
+      - Metadata
+      summary: Get record count
+      description: Returns the number of records a timeseries query would return, without streaming the data.
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: symbols
+        in: query
+        schema:
+          type: string
+      - name: schema
+        in: query
+        schema:
+          type: string
+      - name: start
+        in: query
+        schema:
+          type: string
+      - name: end
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The record count for the query.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.get_billable_size:
+    get:
+      operationId: getBillableSize
+      tags:
+      - Metadata
+      summary: Get billable size
+      description: Returns the uncompressed binary size in bytes that a timeseries query would bill.
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: symbols
+        in: query
+        schema:
+          type: string
+      - name: schema
+        in: query
+        schema:
+          type: string
+      - name: start
+        in: query
+        schema:
+          type: string
+      - name: end
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The billable size in bytes.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /metadata.get_cost:
+    get:
+      operationId: getCost
+      tags:
+      - Metadata
+      summary: Get cost
+      description: Returns the estimated US dollar cost of a timeseries query before running it.
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: symbols
+        in: query
+        schema:
+          type: string
+      - name: schema
+        in: query
+        schema:
+          type: string
+      - name: start
+        in: query
+        schema:
+          type: string
+      - name: end
+        in: query
+        schema:
+          type: string
+      - name: mode
+        in: query
+        schema:
+          type: string
+          enum:
+          - historical
+          - historical-streaming
+          - live
+      responses:
+        '200':
+          description: The estimated cost in US dollars.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: A human-readable description of the error.
+        case_id:
+          type: string
+          description: An identifier for the error case, useful when contacting support.
+  securitySchemes:
+    apiKeyBasicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic authentication. Supply your Databento API key (prefixed with db-) as the username and leave the password empty.

@@ -1,0 +1,59 @@
+generated: '2026-07-22'
+method: derived
+source: openapi/databento-platform-openapi-official.json, openapi/databento-*-api-openapi.yml,
+  https://databento.com/docs/standards-and-conventions, live probes of hist.databento.com
+authentication:
+  style: http-basic-api-key
+  detail: >-
+    HTTP Basic on every request - the db- prefixed API key is the username,
+    password empty. Live TCP sessions use a CRAM challenge-response handshake
+    with the same key. See authentication/databento-authentication.yml.
+idempotency:
+  supported: false
+  notes: >-
+    No Idempotency-Key header or equivalent is documented or present in the
+    OpenAPI. The public surface is read-dominant (data retrieval); batch job
+    submission is not idempotent - resubmitting creates a new job.
+pagination:
+  style: none
+  notes: >-
+    No cursor/offset pagination. Historical queries are bounded by explicit
+    start/end time-range parameters (ISO 8601 or UNIX nanoseconds) and an
+    optional limit; very large extracts are steered to the asynchronous Batch
+    API, which materializes flat files split by day, symbol, or size.
+encodings:
+  request: application/x-www-form-urlencoded (POST endpoints), query parameters (GET)
+  response:
+  - dbn (Databento Binary Encoding - default, most compact)
+  - csv
+  - json
+  notes: Encoding, compression (zstd/none), and pretty-print options are selected per request.
+timestamps:
+  convention: nanosecond UNIX epoch (UTC) in records; ISO 8601 date/datetime accepted in range parameters
+  docs: https://databento.com/docs/standards-and-conventions
+symbology:
+  convention: stype_in / stype_out parameters map between raw_symbol, instrument_id, parent, and continuous symbology systems
+  docs: https://databento.com/docs/api-reference-historical/basics/symbology
+cost_preflight:
+  convention: >-
+    Size every query before running it - metadata.get_record_count,
+    metadata.get_billable_size, and metadata.get_cost take the same parameters
+    as timeseries.get_range and return the record count, billable bytes, and
+    dollar cost. Billing is per byte streamed.
+error_envelope:
+  shape: '{"detail": <message | validation errors>}'
+  notes: See errors/databento-problem-types.yml. 5xx bodies may be plain text.
+request_tracing:
+  header: none documented
+versioning:
+  scheme: uri-path /v0/
+  notes: See lifecycle/databento-lifecycle.yml.
+rate_limiting:
+  signaling: 429 on throttle; no published numeric caps or rate-limit response headers
+  notes: See rate-limits/databento-rate-limits.yml.
+cross_links:
+- errors/databento-problem-types.yml
+- lifecycle/databento-lifecycle.yml
+- authentication/databento-authentication.yml
+- rate-limits/databento-rate-limits.yml
+- finops/databento-finops.yml

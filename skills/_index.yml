@@ -1,0 +1,15 @@
+generated: '2026-07-22'
+method: generated
+skills:
+- file: databento-cost-aware-historical-pull.md
+  name: Cost-aware historical data pull
+  api: openapi/databento-timeseries-api-openapi.yml
+  operations: [listDatasets, listSchemas, getDatasetRange, getRecordCount, getBillableSize, getCost, timeseriesGetRange]
+- file: databento-batch-download.md
+  name: Batch download of large historical extracts
+  api: openapi/databento-batch-api-openapi.yml
+  operations: [batchSubmitJob, batchListJobs, batchListFiles]
+- file: databento-symbology-and-reference.md
+  name: Resolve symbology and enrich with reference data
+  api: openapi/databento-reference-api-openapi.yml
+  operations: [symbologyResolve, securityMasterGetRange, securityMasterGetLast, corporateActionsGetRange, adjustmentFactorsGetRange]

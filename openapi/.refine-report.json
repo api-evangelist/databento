@@ -1,0 +1,22 @@
+{
+  "provider": "databento",
+  "sources": [
+    "databento-batch-api-openapi.yml",
+    "databento-metadata-api-openapi.yml",
+    "databento-reference-api-openapi.yml",
+    "databento-symbology-api-openapi.yml",
+    "databento-timeseries-api-openapi.yml"
+  ],
+  "outputs": [
+    "databento-batch-api-openapi.yml",
+    "databento-metadata-api-openapi.yml",
+    "databento-reference-api-openapi.yml",
+    "databento-symbology-api-openapi.yml",
+    "databento-timeseries-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

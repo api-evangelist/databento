@@ -1,0 +1,36 @@
+# generated: 2026-07-22
+# method: generated
+# source: openapi/databento-platform-openapi-official.json
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the official Databento platform OpenAPI
+  version: 1.0.0
+extends: openapi/databento-platform-openapi-official.json
+actions:
+- target: $
+  description: >-
+    The official spec (fetched from https://hist.databento.com/openapi.json)
+    declares no servers[]; all paths are rooted at the API host.
+  update:
+    servers:
+    - url: https://hist.databento.com
+      description: Databento Historical and Reference HTTP API host
+- target: $.info
+  update:
+    x-apievangelist:
+      provider: databento
+      fetched: '2026-07-22'
+      source: https://hist.databento.com/openapi.json
+      notes: >-
+        183 operations. The public, documented consumer surface is the
+        HTTPBasic-secured subset (timeseries, metadata, symbology, batch,
+        security_master, corporate_actions, adjustment_factors) - curated
+        per-product specs live in openapi/databento-*-api-openapi.yml. The
+        remaining tags (auth, billing, users, teams, licensing, registration,
+        dataset, docs, latency, analytics, display) are the user portal's own
+        endpoints, exposed in the spec but not part of the documented public
+        API reference.
+    description: >-
+      Official Databento platform OpenAPI covering the historical/reference
+      HTTP API and the user portal surface. Authenticate public API calls with
+      HTTP Basic - the db- prefixed API key as username, empty password.
