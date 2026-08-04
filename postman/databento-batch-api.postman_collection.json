@@ -1,0 +1,737 @@
+{
+  "info": {
+    "_postman_id": "4c59501d-a6b8-4f04-9c47-1563682972d5",
+    "name": "Databento Historical and Reference Batch API",
+    "description": "Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.\n\nContact Support:\n Name: Databento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:30.000Z",
+    "updatedAt": "2026-07-28T01:29:30.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4c59501d-a6b8-4f04-9c47-1563682972d5"
+  },
+  "item": [
+    {
+      "name": "batch.submit_job",
+      "item": [
+        {
+          "name": "Submit batch job",
+          "id": "8455244c-fdd4-489b-83d1-a16d55475d6c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end",
+                  "value": "<string>"
+                },
+                {
+                  "key": "encoding",
+                  "value": "csv"
+                },
+                {
+                  "key": "compression",
+                  "value": "zstd"
+                },
+                {
+                  "key": "split_duration",
+                  "value": "<string>"
+                },
+                {
+                  "key": "split_symbols",
+                  "value": "<boolean>"
+                },
+                {
+                  "key": "split_size",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/batch.submit_job",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "batch.submit_job"
+              ]
+            },
+            "description": "Submits an asynchronous batch job that materializes a historical request into downloadable flat files, optionally split by day, symbol, or size."
+          },
+          "response": [
+            {
+              "id": "26dd4929-588a-4c16-a938-0202f8ef8457",
+              "name": "The created batch job with its id and state.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "csv"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "zstd"
+                    },
+                    {
+                      "key": "split_duration",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "split_symbols",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "split_size",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/batch.submit_job",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.submit_job"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-26dd4929-588a-4c16-a938-0202f8ef8457"
+            },
+            {
+              "id": "c43c4bed-228d-46c6-98a9-c235ce93b6fa",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "csv"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "zstd"
+                    },
+                    {
+                      "key": "split_duration",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "split_symbols",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "split_size",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/batch.submit_job",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.submit_job"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-c43c4bed-228d-46c6-98a9-c235ce93b6fa"
+            },
+            {
+              "id": "78870c63-2d59-4842-b61c-436aba5606be",
+              "name": "The request parameters failed validation.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "csv"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "zstd"
+                    },
+                    {
+                      "key": "split_duration",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "split_symbols",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "split_size",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/batch.submit_job",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.submit_job"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-78870c63-2d59-4842-b61c-436aba5606be"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:30.000Z",
+          "updatedAt": "2026-07-28T01:29:30.000Z",
+          "uid": "35240-8455244c-fdd4-489b-83d1-a16d55475d6c"
+        }
+      ],
+      "id": "f920eb2f-3f61-4eb9-8ad6-9a875f73216e",
+      "createdAt": "2026-07-28T01:29:30.000Z",
+      "updatedAt": "2026-07-28T01:29:30.000Z",
+      "uid": "35240-f920eb2f-3f61-4eb9-8ad6-9a875f73216e"
+    },
+    {
+      "name": "batch.list_jobs",
+      "item": [
+        {
+          "name": "List batch jobs",
+          "id": "999af968-e299-452c-a533-a0a33b22a30f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/batch.list_jobs?states=<string>&since=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "batch.list_jobs"
+              ],
+              "query": [
+                {
+                  "description": "Comma-separated states such as received, queued, processing, done, expired.",
+                  "key": "states",
+                  "value": "<string>"
+                },
+                {
+                  "key": "since",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists batch jobs for the account, optionally filtered by state and submission time."
+          },
+          "response": [
+            {
+              "id": "dd8afc43-b39c-4583-b1c9-b164a6d05af1",
+              "name": "A list of batch jobs.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/batch.list_jobs?states=<string>&since=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.list_jobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated states such as received, queued, processing, done, expired.",
+                      "key": "states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-dd8afc43-b39c-4583-b1c9-b164a6d05af1"
+            },
+            {
+              "id": "9065da3e-6e73-4092-b0f5-c218695b7291",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/batch.list_jobs?states=<string>&since=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.list_jobs"
+                  ],
+                  "query": [
+                    {
+                      "description": "Comma-separated states such as received, queued, processing, done, expired.",
+                      "key": "states",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "since",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-9065da3e-6e73-4092-b0f5-c218695b7291"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:30.000Z",
+          "updatedAt": "2026-07-28T01:29:30.000Z",
+          "uid": "35240-999af968-e299-452c-a533-a0a33b22a30f"
+        }
+      ],
+      "id": "9dc3ad48-2d1a-4872-b3cc-016528ff9b8f",
+      "createdAt": "2026-07-28T01:29:30.000Z",
+      "updatedAt": "2026-07-28T01:29:30.000Z",
+      "uid": "35240-9dc3ad48-2d1a-4872-b3cc-016528ff9b8f"
+    },
+    {
+      "name": "batch.list_files",
+      "item": [
+        {
+          "name": "List batch files",
+          "id": "c53b16f3-789e-4e8b-9c8a-7d4c4d206b5d",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/batch.list_files?job_id=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "batch.list_files"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "job_id",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists the output files for a completed batch job, including HTTPS and FTP download URIs and hashes."
+          },
+          "response": [
+            {
+              "id": "922fb1c2-3368-4f1b-8be5-433ac28c3578",
+              "name": "A list of files with download URIs.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/batch.list_files?job_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.list_files"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "job_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-922fb1c2-3368-4f1b-8be5-433ac28c3578"
+            },
+            {
+              "id": "43f88c5a-41dc-4df2-9ea0-e8727cb18ed6",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/batch.list_files?job_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.list_files"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "job_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-43f88c5a-41dc-4df2-9ea0-e8727cb18ed6"
+            },
+            {
+              "id": "0fabbaf9-2f65-4e1e-a690-71bf025c4725",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/batch.list_files?job_id=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "batch.list_files"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "job_id",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:30.000Z",
+              "updatedAt": "2026-07-28T01:29:30.000Z",
+              "uid": "35240-0fabbaf9-2f65-4e1e-a690-71bf025c4725"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:30.000Z",
+          "updatedAt": "2026-07-28T01:29:30.000Z",
+          "uid": "35240-c53b16f3-789e-4e8b-9c8a-7d4c4d206b5d"
+        }
+      ],
+      "id": "4738b3e5-c7d1-4726-889a-c04d35272fbe",
+      "createdAt": "2026-07-28T01:29:30.000Z",
+      "updatedAt": "2026-07-28T01:29:30.000Z",
+      "uid": "35240-4738b3e5-c7d1-4726-889a-c04d35272fbe"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://hist.databento.com/v0"
+    }
+  ]
+}

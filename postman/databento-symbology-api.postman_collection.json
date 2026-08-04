@@ -1,0 +1,332 @@
+{
+  "info": {
+    "_postman_id": "b6eb079e-9d7e-4e87-9926-785766dd62c5",
+    "name": "Databento Historical and Reference Batch Symbology API",
+    "description": "Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.\n\nContact Support:\n Name: Databento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:17.000Z",
+    "updatedAt": "2026-07-28T01:29:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b6eb079e-9d7e-4e87-9926-785766dd62c5"
+  },
+  "item": [
+    {
+      "name": "symbology.resolve",
+      "item": [
+        {
+          "name": "Resolve symbols",
+          "id": "8930f0db-34a7-4deb-8a1e-ae91a736fefc",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "key": "stype_in",
+                  "value": "<string>"
+                },
+                {
+                  "key": "stype_out",
+                  "value": "<string>"
+                },
+                {
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/symbology.resolve",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "symbology.resolve"
+              ]
+            },
+            "description": "Resolves a list of symbols from one symbology type to another for a dataset over a date range - for example mapping raw symbols to instrument IDs, or continuous contract references to raw symbols."
+          },
+          "response": [
+            {
+              "id": "647ee169-e1a5-46e3-95f2-60d65609c1e2",
+              "name": "A mapping of input symbols to resolved symbols with validity intervals.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/symbology.resolve",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "symbology.resolve"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:17.000Z",
+              "updatedAt": "2026-07-28T01:29:17.000Z",
+              "uid": "35240-647ee169-e1a5-46e3-95f2-60d65609c1e2"
+            },
+            {
+              "id": "7a089681-80a9-4b4c-b1e4-d23afc3a6b7a",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/symbology.resolve",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "symbology.resolve"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:17.000Z",
+              "updatedAt": "2026-07-28T01:29:17.000Z",
+              "uid": "35240-7a089681-80a9-4b4c-b1e4-d23afc3a6b7a"
+            },
+            {
+              "id": "052b9044-f9c1-41d7-a6e9-7504dcc008ee",
+              "name": "The request parameters failed validation.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/symbology.resolve",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "symbology.resolve"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:17.000Z",
+              "updatedAt": "2026-07-28T01:29:17.000Z",
+              "uid": "35240-052b9044-f9c1-41d7-a6e9-7504dcc008ee"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:17.000Z",
+          "updatedAt": "2026-07-28T01:29:17.000Z",
+          "uid": "35240-8930f0db-34a7-4deb-8a1e-ae91a736fefc"
+        }
+      ],
+      "id": "39d6b6ec-71b1-4e53-a0fd-1e4256dba2e0",
+      "createdAt": "2026-07-28T01:29:17.000Z",
+      "updatedAt": "2026-07-28T01:29:17.000Z",
+      "uid": "35240-39d6b6ec-71b1-4e53-a0fd-1e4256dba2e0"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://hist.databento.com/v0"
+    }
+  ]
+}

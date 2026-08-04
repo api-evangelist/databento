@@ -1,0 +1,1575 @@
+{
+  "info": {
+    "_postman_id": "0d37ae76-b916-48c3-9265-59c561b81fbe",
+    "name": "Databento Historical and Reference Batch Metadata API",
+    "description": "Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.\n\nContact Support:\n Name: Databento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:16.000Z",
+    "updatedAt": "2026-07-28T01:29:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-0d37ae76-b916-48c3-9265-59c561b81fbe"
+  },
+  "item": [
+    {
+      "name": "metadata.list_publishers",
+      "item": [
+        {
+          "name": "List publishers",
+          "id": "c8d24186-878e-4365-8bc1-aac4bb9ccf53",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.list_publishers",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.list_publishers"
+              ]
+            },
+            "description": "Lists all publishers and their details."
+          },
+          "response": [
+            {
+              "id": "f9f9b0b5-94d1-4cdb-b996-66c6d7f88292",
+              "name": "A list of publishers.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_publishers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_publishers"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-f9f9b0b5-94d1-4cdb-b996-66c6d7f88292"
+            },
+            {
+              "id": "bc985837-9631-4d94-841f-ac3bfffac25e",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_publishers",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_publishers"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-bc985837-9631-4d94-841f-ac3bfffac25e"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-c8d24186-878e-4365-8bc1-aac4bb9ccf53"
+        }
+      ],
+      "id": "70fd536c-cadf-43a1-810d-406e3185c70f",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-70fd536c-cadf-43a1-810d-406e3185c70f"
+    },
+    {
+      "name": "metadata.list_datasets",
+      "item": [
+        {
+          "name": "List datasets",
+          "id": "1bcfa58a-e152-47ed-accc-1f5cfec492f0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.list_datasets?start_date=<date>&end_date=<date>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.list_datasets"
+              ],
+              "query": [
+                {
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "description": "Lists all available dataset codes, optionally filtered by an available date range."
+          },
+          "response": [
+            {
+              "id": "da35f593-50e7-4591-a5b5-4fc4f8a4859f",
+              "name": "A list of dataset codes.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_datasets?start_date=<date>&end_date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_datasets"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-da35f593-50e7-4591-a5b5-4fc4f8a4859f"
+            },
+            {
+              "id": "897ceb34-2962-45e9-b448-b994d40638e4",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_datasets?start_date=<date>&end_date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_datasets"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-897ceb34-2962-45e9-b448-b994d40638e4"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-1bcfa58a-e152-47ed-accc-1f5cfec492f0"
+        }
+      ],
+      "id": "97e53858-5e0c-4c56-ae3e-6f69ba52313a",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-97e53858-5e0c-4c56-ae3e-6f69ba52313a"
+    },
+    {
+      "name": "metadata.list_schemas",
+      "item": [
+        {
+          "name": "List schemas",
+          "id": "261ad0cb-eb19-40ca-9e86-13d269e80c8b",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.list_schemas?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.list_schemas"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists all data record schemas available for a dataset."
+          },
+          "response": [
+            {
+              "id": "3caf925f-4a15-45ba-bd81-aededd54a094",
+              "name": "A list of schema names.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_schemas?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_schemas"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-3caf925f-4a15-45ba-bd81-aededd54a094"
+            },
+            {
+              "id": "b3deda35-8a45-43ac-9680-fd6aed5424eb",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_schemas?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_schemas"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-b3deda35-8a45-43ac-9680-fd6aed5424eb"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-261ad0cb-eb19-40ca-9e86-13d269e80c8b"
+        }
+      ],
+      "id": "19c4af38-a44b-4e54-b292-0b0fb31dd3f4",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-19c4af38-a44b-4e54-b292-0b0fb31dd3f4"
+    },
+    {
+      "name": "metadata.list_fields",
+      "item": [
+        {
+          "name": "List fields",
+          "id": "40855815-fffc-41bd-8174-8308bbbae6c9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.list_fields?schema=<string>&encoding=json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.list_fields"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "key": "encoding",
+                  "value": "json"
+                }
+              ]
+            },
+            "description": "Lists the fields of a record schema for a given encoding."
+          },
+          "response": [
+            {
+              "id": "19c4aaff-0011-49b4-99c8-26d958fa7db6",
+              "name": "A list of fields with names and types.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_fields?schema=<string>&encoding=json",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_fields"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "json"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-19c4aaff-0011-49b4-99c8-26d958fa7db6"
+            },
+            {
+              "id": "a55ea1a8-13e8-4021-b9e9-3a26d8f462f8",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_fields?schema=<string>&encoding=json",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_fields"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "json"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-a55ea1a8-13e8-4021-b9e9-3a26d8f462f8"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-40855815-fffc-41bd-8174-8308bbbae6c9"
+        }
+      ],
+      "id": "0cd6487d-9f29-4919-906b-e62cc12ac92d",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-0cd6487d-9f29-4919-906b-e62cc12ac92d"
+    },
+    {
+      "name": "metadata.list_unit_prices",
+      "item": [
+        {
+          "name": "List unit prices",
+          "id": "01ab0020-5315-4b6f-8aaa-3c1ab43869f4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.list_unit_prices?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.list_unit_prices"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Lists the per-unit prices for each data schema and feed mode of a dataset."
+          },
+          "response": [
+            {
+              "id": "c63c3a27-471e-49dd-bca6-934afc47f767",
+              "name": "Unit prices per schema and mode.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_unit_prices?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_unit_prices"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-c63c3a27-471e-49dd-bca6-934afc47f767"
+            },
+            {
+              "id": "2de54edd-fbb7-44da-8517-e19c7df4b79b",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.list_unit_prices?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.list_unit_prices"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-2de54edd-fbb7-44da-8517-e19c7df4b79b"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-01ab0020-5315-4b6f-8aaa-3c1ab43869f4"
+        }
+      ],
+      "id": "533c625d-7a93-4986-b09d-b1e24beac3c3",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-533c625d-7a93-4986-b09d-b1e24beac3c3"
+    },
+    {
+      "name": "metadata.get_dataset_condition",
+      "item": [
+        {
+          "name": "Get dataset condition",
+          "id": "8f0fdc43-19f7-470c-b178-f897fb054512",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.get_dataset_condition?dataset=<string>&start_date=<date>&end_date=<date>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.get_dataset_condition"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "description": "Returns the data-quality condition (available, degraded, pending, missing) per day for a dataset and date range."
+          },
+          "response": [
+            {
+              "id": "f73949ff-9091-4d57-9307-fbd472dc051f",
+              "name": "Per-day condition entries.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_dataset_condition?dataset=<string>&start_date=<date>&end_date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_dataset_condition"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-f73949ff-9091-4d57-9307-fbd472dc051f"
+            },
+            {
+              "id": "93529612-ae08-4ac0-8e8e-4ee6df6e9469",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_dataset_condition?dataset=<string>&start_date=<date>&end_date=<date>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_dataset_condition"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-93529612-ae08-4ac0-8e8e-4ee6df6e9469"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-8f0fdc43-19f7-470c-b178-f897fb054512"
+        }
+      ],
+      "id": "f9cf4a70-e4ec-4af2-854d-20c93b3cd088",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-f9cf4a70-e4ec-4af2-854d-20c93b3cd088"
+    },
+    {
+      "name": "metadata.get_dataset_range",
+      "item": [
+        {
+          "name": "Get dataset range",
+          "id": "ad3b01a8-1837-4f6b-bbd1-caa9f5124515",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.get_dataset_range?dataset=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.get_dataset_range"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns the earliest and latest available datetime for a dataset."
+          },
+          "response": [
+            {
+              "id": "1f3cd468-8d4a-4758-a108-adce13a2076b",
+              "name": "The available start and end range for the dataset.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_dataset_range?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_dataset_range"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-1f3cd468-8d4a-4758-a108-adce13a2076b"
+            },
+            {
+              "id": "95b099ad-35dd-4626-8bdd-e3e96eaf399f",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_dataset_range?dataset=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_dataset_range"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-95b099ad-35dd-4626-8bdd-e3e96eaf399f"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-ad3b01a8-1837-4f6b-bbd1-caa9f5124515"
+        }
+      ],
+      "id": "a915a0e7-ea10-43fb-a02a-e487459436d2",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-a915a0e7-ea10-43fb-a02a-e487459436d2"
+    },
+    {
+      "name": "metadata.get_record_count",
+      "item": [
+        {
+          "name": "Get record count",
+          "id": "898c04de-9806-4edf-9ff9-58902ae88e50",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.get_record_count?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.get_record_count"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns the number of records a timeseries query would return, without streaming the data."
+          },
+          "response": [
+            {
+              "id": "b7b7db63-92cd-4c8d-be93-865caf51e6a2",
+              "name": "The record count for the query.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_record_count?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_record_count"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-b7b7db63-92cd-4c8d-be93-865caf51e6a2"
+            },
+            {
+              "id": "f2703838-fc8a-4b96-9d29-c00b71f78273",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_record_count?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_record_count"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-f2703838-fc8a-4b96-9d29-c00b71f78273"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-898c04de-9806-4edf-9ff9-58902ae88e50"
+        }
+      ],
+      "id": "47716f00-189d-46bd-a458-b1b682212b9b",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-47716f00-189d-46bd-a458-b1b682212b9b"
+    },
+    {
+      "name": "metadata.get_billable_size",
+      "item": [
+        {
+          "name": "Get billable size",
+          "id": "4c0f2bfd-9de1-4cf9-983e-aeb2ca92e851",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.get_billable_size?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.get_billable_size"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns the uncompressed binary size in bytes that a timeseries query would bill."
+          },
+          "response": [
+            {
+              "id": "096f9f25-5696-4691-879a-a11689cb0e07",
+              "name": "The billable size in bytes.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_billable_size?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_billable_size"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-096f9f25-5696-4691-879a-a11689cb0e07"
+            },
+            {
+              "id": "c84b3e29-1ef4-41f4-9f1b-e370558026bf",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_billable_size?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_billable_size"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-c84b3e29-1ef4-41f4-9f1b-e370558026bf"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-4c0f2bfd-9de1-4cf9-983e-aeb2ca92e851"
+        }
+      ],
+      "id": "0f9806e6-df71-4a2c-8571-584a966c1388",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-0f9806e6-df71-4a2c-8571-584a966c1388"
+    },
+    {
+      "name": "metadata.get_cost",
+      "item": [
+        {
+          "name": "Get cost",
+          "id": "de14dbc9-9cd7-4c7d-8370-c763ec311559",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/metadata.get_cost?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>&mode=historical",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "metadata.get_cost"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end",
+                  "value": "<string>"
+                },
+                {
+                  "key": "mode",
+                  "value": "historical"
+                }
+              ]
+            },
+            "description": "Returns the estimated US dollar cost of a timeseries query before running it."
+          },
+          "response": [
+            {
+              "id": "fa0e0291-b401-4687-bd7e-38ef81ceb870",
+              "name": "The estimated cost in US dollars.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_cost?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>&mode=historical",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_cost"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mode",
+                      "value": "historical"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-fa0e0291-b401-4687-bd7e-38ef81ceb870"
+            },
+            {
+              "id": "b8da01a8-a33c-4a06-8407-dc8ae87aa0fb",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/metadata.get_cost?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>&mode=historical",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "metadata.get_cost"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "mode",
+                      "value": "historical"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:16.000Z",
+              "updatedAt": "2026-07-28T01:29:16.000Z",
+              "uid": "35240-b8da01a8-a33c-4a06-8407-dc8ae87aa0fb"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:16.000Z",
+          "updatedAt": "2026-07-28T01:29:16.000Z",
+          "uid": "35240-de14dbc9-9cd7-4c7d-8370-c763ec311559"
+        }
+      ],
+      "id": "48444b93-0e09-48e0-8001-688cfb15a156",
+      "createdAt": "2026-07-28T01:29:16.000Z",
+      "updatedAt": "2026-07-28T01:29:16.000Z",
+      "uid": "35240-48444b93-0e09-48e0-8001-688cfb15a156"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://hist.databento.com/v0"
+    }
+  ]
+}

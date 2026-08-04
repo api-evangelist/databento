@@ -1,0 +1,573 @@
+{
+  "info": {
+    "_postman_id": "2e1023aa-d0cc-40c4-8e3d-5f7a5750dc83",
+    "name": "Databento Historical and Reference Batch Timeseries API",
+    "description": "Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.\n\nContact Support:\n Name: Databento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:15.000Z",
+    "updatedAt": "2026-07-28T01:29:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2e1023aa-d0cc-40c4-8e3d-5f7a5750dc83"
+  },
+  "item": [
+    {
+      "name": "timeseries.get_range",
+      "item": [
+        {
+          "name": "Get timeseries range",
+          "id": "c260f3fd-d5a7-4a98-b79b-6279bb8fc27c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/timeseries.get_range?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>&stype_in=continuous&stype_out=<string>&encoding=json&compression=zstd&limit=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "timeseries.get_range"
+              ],
+              "query": [
+                {
+                  "description": "(Required) ",
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end",
+                  "value": "<string>"
+                },
+                {
+                  "key": "stype_in",
+                  "value": "continuous"
+                },
+                {
+                  "key": "stype_out",
+                  "value": "<string>"
+                },
+                {
+                  "key": "encoding",
+                  "value": "json"
+                },
+                {
+                  "key": "compression",
+                  "value": "zstd"
+                },
+                {
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Streams historical records for the given dataset, symbols, schema, and time range as an HTTP streaming response in DBN, CSV, or JSON. Billed per byte streamed. The same operation also accepts POST for large symbol lists."
+          },
+          "response": [
+            {
+              "id": "2ddef81e-cf0a-43dc-8c00-eaf1ad03589e",
+              "name": "A stream of records in the requested encoding.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/timeseries.get_range?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>&stype_in=continuous&stype_out=<string>&encoding=json&compression=zstd&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "continuous"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "json"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "zstd"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:15.000Z",
+              "updatedAt": "2026-07-28T01:29:15.000Z",
+              "uid": "35240-2ddef81e-cf0a-43dc-8c00-eaf1ad03589e"
+            },
+            {
+              "id": "13342fb3-5c4d-4814-943a-f7920388ea2b",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/timeseries.get_range?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>&stype_in=continuous&stype_out=<string>&encoding=json&compression=zstd&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "continuous"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "json"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "zstd"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:15.000Z",
+              "updatedAt": "2026-07-28T01:29:15.000Z",
+              "uid": "35240-13342fb3-5c4d-4814-943a-f7920388ea2b"
+            },
+            {
+              "id": "c27d6c66-3dc1-42c1-aa40-0ff40b715a70",
+              "name": "The request parameters failed validation.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/timeseries.get_range?dataset=<string>&symbols=<string>&schema=<string>&start=<string>&end=<string>&stype_in=continuous&stype_out=<string>&encoding=json&compression=zstd&limit=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) ",
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "continuous"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "json"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "zstd"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:15.000Z",
+              "updatedAt": "2026-07-28T01:29:15.000Z",
+              "uid": "35240-c27d6c66-3dc1-42c1-aa40-0ff40b715a70"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:15.000Z",
+          "updatedAt": "2026-07-28T01:29:15.000Z",
+          "uid": "35240-c260f3fd-d5a7-4a98-b79b-6279bb8fc27c"
+        },
+        {
+          "name": "Get timeseries range (POST)",
+          "id": "e72087b9-41e0-4894-af15-57f182e472b0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end",
+                  "value": "<string>"
+                },
+                {
+                  "key": "encoding",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/timeseries.get_range",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "timeseries.get_range"
+              ]
+            },
+            "description": "Same as the GET form, accepting parameters as a form body for large symbol lists."
+          },
+          "response": [
+            {
+              "id": "5f9e8df3-48a6-4b1f-8a35-1dedeee23b64",
+              "name": "A stream of records in the requested encoding.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/timeseries.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeseries.get_range"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:15.000Z",
+              "updatedAt": "2026-07-28T01:29:15.000Z",
+              "uid": "35240-5f9e8df3-48a6-4b1f-8a35-1dedeee23b64"
+            },
+            {
+              "id": "2ff13862-8aae-489e-9177-1ecf51d7a797",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/timeseries.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "timeseries.get_range"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:15.000Z",
+              "updatedAt": "2026-07-28T01:29:15.000Z",
+              "uid": "35240-2ff13862-8aae-489e-9177-1ecf51d7a797"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:15.000Z",
+          "updatedAt": "2026-07-28T01:29:15.000Z",
+          "uid": "35240-e72087b9-41e0-4894-af15-57f182e472b0"
+        }
+      ],
+      "id": "6d365f70-b38a-4947-afb9-039e4afa72b3",
+      "createdAt": "2026-07-28T01:29:15.000Z",
+      "updatedAt": "2026-07-28T01:29:15.000Z",
+      "uid": "35240-6d365f70-b38a-4947-afb9-039e4afa72b3"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://hist.databento.com/v0"
+    }
+  ]
+}

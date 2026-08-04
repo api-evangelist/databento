@@ -1,0 +1,852 @@
+{
+  "info": {
+    "_postman_id": "a0e937aa-5fca-4f77-ac79-f41b87cc277a",
+    "name": "Databento Historical and Batch Reference API",
+    "description": "Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.\n\nContact Support:\n Name: Databento",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:29:31.000Z",
+    "updatedAt": "2026-07-28T01:29:31.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a0e937aa-5fca-4f77-ac79-f41b87cc277a"
+  },
+  "item": [
+    {
+      "name": "security_master.get_range",
+      "item": [
+        {
+          "name": "Get security master range",
+          "id": "23ed2074-5eda-4868-bff0-175e36bcde68",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "stype_in",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/security_master.get_range",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security_master.get_range"
+              ]
+            },
+            "description": "Returns point-in-time security master records (instrument definitions and identifiers) for symbols over a date range."
+          },
+          "response": [
+            {
+              "id": "55f1e51c-b226-495f-a8db-cc4c62d4aa80",
+              "name": "Security master records.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/security_master.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "security_master.get_range"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-55f1e51c-b226-495f-a8db-cc4c62d4aa80"
+            },
+            {
+              "id": "40665859-b9a3-4bb0-845a-d763e630786e",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/security_master.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "security_master.get_range"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-40665859-b9a3-4bb0-845a-d763e630786e"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:31.000Z",
+          "updatedAt": "2026-07-28T01:29:31.000Z",
+          "uid": "35240-23ed2074-5eda-4868-bff0-175e36bcde68"
+        }
+      ],
+      "id": "e5e44594-12f6-4965-9df2-635b6b7fe310",
+      "createdAt": "2026-07-28T01:29:31.000Z",
+      "updatedAt": "2026-07-28T01:29:31.000Z",
+      "uid": "35240-e5e44594-12f6-4965-9df2-635b6b7fe310"
+    },
+    {
+      "name": "security_master.get_last",
+      "item": [
+        {
+          "name": "Get latest security master",
+          "id": "6c72af2d-25b5-4374-bc44-0795ac5a32fe",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "stype_in",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/security_master.get_last",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "security_master.get_last"
+              ]
+            },
+            "description": "Returns the most recent security master records for the requested symbols."
+          },
+          "response": [
+            {
+              "id": "31fd86cb-91d9-47bf-bae4-4319f7cbb8e6",
+              "name": "The latest security master records.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/security_master.get_last",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "security_master.get_last"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-31fd86cb-91d9-47bf-bae4-4319f7cbb8e6"
+            },
+            {
+              "id": "9d695432-b0f4-4e28-aac0-dd421bd6e084",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/security_master.get_last",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "security_master.get_last"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-9d695432-b0f4-4e28-aac0-dd421bd6e084"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:31.000Z",
+          "updatedAt": "2026-07-28T01:29:31.000Z",
+          "uid": "35240-6c72af2d-25b5-4374-bc44-0795ac5a32fe"
+        }
+      ],
+      "id": "814c6842-6f39-41a6-a9f8-8b6970661954",
+      "createdAt": "2026-07-28T01:29:31.000Z",
+      "updatedAt": "2026-07-28T01:29:31.000Z",
+      "uid": "35240-814c6842-6f39-41a6-a9f8-8b6970661954"
+    },
+    {
+      "name": "corporate_actions.get_range",
+      "item": [
+        {
+          "name": "Get corporate actions range",
+          "id": "002baf5f-297c-4f2e-83d3-4a825f3bf867",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "events",
+                  "value": "<string>"
+                },
+                {
+                  "key": "stype_in",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/corporate_actions.get_range",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "corporate_actions.get_range"
+              ]
+            },
+            "description": "Returns corporate action events (splits, dividends, symbol changes, and more) for symbols over a date range."
+          },
+          "response": [
+            {
+              "id": "e23b578b-856b-42fc-bf2d-c807c7de4c32",
+              "name": "Corporate action event records.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "events",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/corporate_actions.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "corporate_actions.get_range"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-e23b578b-856b-42fc-bf2d-c807c7de4c32"
+            },
+            {
+              "id": "6a4250b3-04fb-4fd7-a020-e7ec58d846bf",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "events",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/corporate_actions.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "corporate_actions.get_range"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-6a4250b3-04fb-4fd7-a020-e7ec58d846bf"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:31.000Z",
+          "updatedAt": "2026-07-28T01:29:31.000Z",
+          "uid": "35240-002baf5f-297c-4f2e-83d3-4a825f3bf867"
+        }
+      ],
+      "id": "0fd6ff55-3941-4746-86ee-5f783c591dc3",
+      "createdAt": "2026-07-28T01:29:31.000Z",
+      "updatedAt": "2026-07-28T01:29:31.000Z",
+      "uid": "35240-0fd6ff55-3941-4746-86ee-5f783c591dc3"
+    },
+    {
+      "name": "adjustment_factors.get_range",
+      "item": [
+        {
+          "name": "Get adjustment factors range",
+          "id": "672b74f1-38e5-47b4-a86b-4d288569ac93",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "description": "(Required) ",
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) ",
+                  "key": "start_date",
+                  "value": "<date>"
+                },
+                {
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "key": "stype_in",
+                  "value": "<string>"
+                },
+                {
+                  "key": "end_date",
+                  "value": "<date>"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/adjustment_factors.get_range",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "adjustment_factors.get_range"
+              ]
+            },
+            "description": "Returns price and volume adjustment factors used to build back-adjusted series, for symbols over a date range."
+          },
+          "response": [
+            {
+              "id": "ba3ff389-8d18-42cc-8c52-0fb9291d4046",
+              "name": "Adjustment factor records.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/adjustment_factors.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adjustment_factors.get_range"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-ba3ff389-8d18-42cc-8c52-0fb9291d4046"
+            },
+            {
+              "id": "febd30ec-5747-4234-8126-5ec1c56c0cdc",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: basic",
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "start_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "end_date",
+                      "value": "<date>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/adjustment_factors.get_range",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "adjustment_factors.get_range"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"detail\": \"<string>\",\n  \"case_id\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:29:31.000Z",
+              "updatedAt": "2026-07-28T01:29:31.000Z",
+              "uid": "35240-febd30ec-5747-4234-8126-5ec1c56c0cdc"
+            }
+          ],
+          "createdAt": "2026-07-28T01:29:31.000Z",
+          "updatedAt": "2026-07-28T01:29:31.000Z",
+          "uid": "35240-672b74f1-38e5-47b4-a86b-4d288569ac93"
+        }
+      ],
+      "id": "13eafa65-8f45-4171-8e32-a162f5527a35",
+      "createdAt": "2026-07-28T01:29:31.000Z",
+      "updatedAt": "2026-07-28T01:29:31.000Z",
+      "uid": "35240-13eafa65-8f45-4171-8e32-a162f5527a35"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://hist.databento.com/v0"
+    }
+  ]
+}
