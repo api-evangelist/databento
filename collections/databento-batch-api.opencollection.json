@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Databento Historical and Reference Batch API",
+    "version": "0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit batch job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/batch.submit_job",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "dataset",
+                  "value": ""
+                },
+                {
+                  "name": "symbols",
+                  "value": ""
+                },
+                {
+                  "name": "schema",
+                  "value": ""
+                },
+                {
+                  "name": "start",
+                  "value": ""
+                },
+                {
+                  "name": "end",
+                  "value": ""
+                },
+                {
+                  "name": "encoding",
+                  "value": ""
+                },
+                {
+                  "name": "compression",
+                  "value": ""
+                },
+                {
+                  "name": "split_duration",
+                  "value": ""
+                },
+                {
+                  "name": "split_symbols",
+                  "value": ""
+                },
+                {
+                  "name": "split_size",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Submits an asynchronous batch job that materializes a historical request into downloadable flat files, optionally split by day, symbol, or size."
+        },
+        {
+          "info": {
+            "name": "List batch jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/batch.list_jobs",
+            "params": [
+              {
+                "name": "states",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated states such as received, queued, processing, done, expired."
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists batch jobs for the account, optionally filtered by state and submission time."
+        },
+        {
+          "info": {
+            "name": "List batch files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/batch.list_files",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the output files for a completed batch job, including HTTPS and FTP download URIs and hashes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,17 +1,13 @@
 generated: '2026-07-22'
 method: derived
 status: candidate
-source: openapi/databento-metadata-api-openapi.yml, openapi/databento-timeseries-api-openapi.yml,
-  openapi/databento-symbology-api-openapi.yml, openapi/databento-batch-api-openapi.yml,
-  openapi/databento-reference-api-openapi.yml
-notes: >-
-  Databento publishes no official hosted MCP server (searched docs, the
-  databento GitHub org, npm, and the MCP registries on 2026-07-22). Several
-  community servers wrap the API - e.g.
-  https://github.com/Nice-Wolf-Studio/databento-mcp-server and
-  https://github.com/deepentropy/databento-mcp - all requiring the user's own
-  DATABENTO_API_KEY. The tool list below is a candidate surface derived from
-  the public HTTP API operations, not a published server.
+source: openapi/databento-metadata-api-openapi.yml, openapi/databento-timeseries-api-openapi.yml, openapi/databento-symbology-api-openapi.yml,
+  openapi/databento-batch-api-openapi.yml, openapi/databento-reference-api-openapi.yml
+notes: Databento publishes no official hosted MCP server (searched docs, the databento GitHub org, npm,
+  and the MCP registries on 2026-07-22). Several community servers wrap the API - e.g. https://github.com/Nice-Wolf-Studio/databento-mcp-server
+  and https://github.com/deepentropy/databento-mcp - all requiring the user's own DATABENTO_API_KEY. The
+  tool list below is a candidate surface derived from the public HTTP API operations, not a published
+  server.
 community_servers:
 - name: databento-mcp-server
   url: https://github.com/Nice-Wolf-Studio/databento-mcp-server
@@ -80,3 +76,9 @@ tools:
 - name: adjustment_factors_get_range
   description: Get price adjustment factors over a date range
   source_operation: openapi/databento-reference-api-openapi.yml#adjustmentFactorsGetRange
+deployment:
+  mode: none
+  verified: derived
+  tools: 19
+  checked: '2026-08-12'
+  source: catalog MCP census

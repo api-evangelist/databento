@@ -1,0 +1,605 @@
+{
+  "item": [
+    {
+      "id": "c08adadd-a769-46a3-866d-b1175ea7d15e",
+      "name": "Timeseries",
+      "description": {
+        "content": "Stream historical records for a symbol set over a time range.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "670dc0ac-ed20-4e61-a85a-a7bb08488eec",
+          "name": "Get timeseries range",
+          "request": {
+            "name": "Get timeseries range",
+            "description": {
+              "content": "Streams historical records for the given dataset, symbols, schema, and time range as an HTTP streaming response in DBN, CSV, or JSON. Billed per byte streamed. The same operation also accepts POST for large symbol lists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeseries.get_range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "stype_in",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "stype_out",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "encoding",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "compression",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d73ece3-48bf-48ee-9e1f-df5b367f1251",
+              "name": "A stream of records in the requested encoding.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "GLBX.MDP3"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "ESH4"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "trades"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2024-02-12"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2024-02-17"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7a98159b-37f8-469d-8810-ec03527b6ad9",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "GLBX.MDP3"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "ESH4"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "trades"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2024-02-12"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2024-02-17"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"case_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca325eac-c06c-4dd0-ba4b-4b1ee76ee1e3",
+              "name": "The request parameters failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "dataset",
+                      "value": "GLBX.MDP3"
+                    },
+                    {
+                      "key": "symbols",
+                      "value": "ESH4"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "trades"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2024-02-12"
+                    },
+                    {
+                      "key": "end",
+                      "value": "2024-02-17"
+                    },
+                    {
+                      "key": "stype_in",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "stype_out",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "encoding",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "compression",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"case_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08f96d17-e7c2-49bd-bcb0-3004a9455f87",
+          "name": "Get timeseries range (POST)",
+          "request": {
+            "name": "Get timeseries range (POST)",
+            "description": {
+              "content": "Same as the GET form, accepting parameters as a form body for large symbol lists.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "timeseries.get_range"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "dataset",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "symbols",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "schema",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "encoding",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d381f26-997f-46d8-b7be-74feff8d5dd4",
+              "name": "A stream of records in the requested encoding.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "encoding",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "721f0128-acc1-431b-a006-26e5515c5249",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timeseries.get_range"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "dataset",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "symbols",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "schema",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "end",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "encoding",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"string\",\n  \"case_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://hist.databento.com/v0",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "75ad7a09-3827-4d87-8c4d-a6bdbf3242ad",
+    "name": "Databento Historical and Reference Batch Timeseries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.\n\nContact Support:\n Name: Databento",
+      "type": "text/plain"
+    }
+  }
+}

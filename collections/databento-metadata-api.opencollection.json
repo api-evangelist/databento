@@ -1,0 +1,283 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Databento Historical and Reference Batch Metadata API",
+    "version": "0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List publishers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.list_publishers"
+          },
+          "docs": "Lists all publishers and their details."
+        },
+        {
+          "info": {
+            "name": "List datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.list_datasets",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all available dataset codes, optionally filtered by an available date range."
+        },
+        {
+          "info": {
+            "name": "List schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.list_schemas",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists all data record schemas available for a dataset."
+        },
+        {
+          "info": {
+            "name": "List fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.list_fields",
+            "params": [
+              {
+                "name": "schema",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "encoding",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the fields of a record schema for a given encoding."
+        },
+        {
+          "info": {
+            "name": "List unit prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.list_unit_prices",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists the per-unit prices for each data schema and feed mode of a dataset."
+        },
+        {
+          "info": {
+            "name": "Get dataset condition",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.get_dataset_condition",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the data-quality condition (available, degraded, pending, missing) per day for a dataset and date range."
+        },
+        {
+          "info": {
+            "name": "Get dataset range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.get_dataset_range",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the earliest and latest available datetime for a dataset."
+        },
+        {
+          "info": {
+            "name": "Get record count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.get_record_count",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "schema",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the number of records a timeseries query would return, without streaming the data."
+        },
+        {
+          "info": {
+            "name": "Get billable size",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.get_billable_size",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "schema",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the uncompressed binary size in bytes that a timeseries query would bill."
+        },
+        {
+          "info": {
+            "name": "Get cost",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/metadata.get_cost",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "symbols",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "schema",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "mode",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns the estimated US dollar cost of a timeseries query before running it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

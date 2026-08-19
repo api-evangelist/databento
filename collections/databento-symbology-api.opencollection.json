@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Databento Historical and Reference Batch Symbology API",
+    "version": "0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Symbology",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resolve symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/symbology.resolve",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "dataset",
+                  "value": ""
+                },
+                {
+                  "name": "symbols",
+                  "value": ""
+                },
+                {
+                  "name": "stype_in",
+                  "value": ""
+                },
+                {
+                  "name": "stype_out",
+                  "value": ""
+                },
+                {
+                  "name": "start_date",
+                  "value": ""
+                },
+                {
+                  "name": "end_date",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Resolves a list of symbols from one symbology type to another for a dataset over a date range - for example mapping raw symbols to instrument IDs, or continuous contract references to raw symbols."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

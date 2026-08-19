@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Databento Historical and Batch Reference API",
+    "version": "0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get security master range",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/security_master.get_range",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "dataset",
+                  "value": ""
+                },
+                {
+                  "name": "symbols",
+                  "value": ""
+                },
+                {
+                  "name": "stype_in",
+                  "value": ""
+                },
+                {
+                  "name": "start_date",
+                  "value": ""
+                },
+                {
+                  "name": "end_date",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Returns point-in-time security master records (instrument definitions and identifiers) for symbols over a date range."
+        },
+        {
+          "info": {
+            "name": "Get latest security master",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/security_master.get_last",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "dataset",
+                  "value": ""
+                },
+                {
+                  "name": "symbols",
+                  "value": ""
+                },
+                {
+                  "name": "stype_in",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Returns the most recent security master records for the requested symbols."
+        },
+        {
+          "info": {
+            "name": "Get corporate actions range",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/corporate_actions.get_range",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "dataset",
+                  "value": ""
+                },
+                {
+                  "name": "symbols",
+                  "value": ""
+                },
+                {
+                  "name": "events",
+                  "value": ""
+                },
+                {
+                  "name": "stype_in",
+                  "value": ""
+                },
+                {
+                  "name": "start_date",
+                  "value": ""
+                },
+                {
+                  "name": "end_date",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Returns corporate action events (splits, dividends, symbol changes, and more) for symbols over a date range."
+        },
+        {
+          "info": {
+            "name": "Get adjustment factors range",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/adjustment_factors.get_range",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "dataset",
+                  "value": ""
+                },
+                {
+                  "name": "symbols",
+                  "value": ""
+                },
+                {
+                  "name": "stype_in",
+                  "value": ""
+                },
+                {
+                  "name": "start_date",
+                  "value": ""
+                },
+                {
+                  "name": "end_date",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Returns price and volume adjustment factors used to build back-adjusted series, for symbols over a date range."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

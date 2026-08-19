@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Databento Historical and Reference Batch Timeseries API",
+    "version": "0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Timeseries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get timeseries range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://hist.databento.com/v0/timeseries.get_range",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "GLBX.MDP3",
+                "type": "query"
+              },
+              {
+                "name": "symbols",
+                "value": "ESH4",
+                "type": "query"
+              },
+              {
+                "name": "schema",
+                "value": "trades",
+                "type": "query"
+              },
+              {
+                "name": "start",
+                "value": "2024-02-12",
+                "type": "query"
+              },
+              {
+                "name": "end",
+                "value": "2024-02-17",
+                "type": "query"
+              },
+              {
+                "name": "stype_in",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "stype_out",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "encoding",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "compression",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Streams historical records for the given dataset, symbols, schema, and time range as an HTTP streaming response in DBN, CSV, or JSON. Billed per byte streamed. The same operation also accepts POST for large symbol lists."
+        },
+        {
+          "info": {
+            "name": "Get timeseries range (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://hist.databento.com/v0/timeseries.get_range",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "dataset",
+                  "value": ""
+                },
+                {
+                  "name": "symbols",
+                  "value": ""
+                },
+                {
+                  "name": "schema",
+                  "value": ""
+                },
+                {
+                  "name": "start",
+                  "value": ""
+                },
+                {
+                  "name": "end",
+                  "value": ""
+                },
+                {
+                  "name": "encoding",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Same as the GET form, accepting parameters as a form body for large symbol lists."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
