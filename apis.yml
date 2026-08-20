@@ -40,6 +40,12 @@ apis:
   tags:
   - Historical Market Data
   - Market Data
+  - Time Series
+  - Trading
+  - Financial Data
+  tags_raw:
+  - Historical Market Data
+  - Market Data
   - Timeseries
   - Trading
   - Financial Data
