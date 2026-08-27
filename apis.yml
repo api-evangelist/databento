@@ -193,14 +193,187 @@ apis:
     definitions and identifiers), corporate actions (splits, dividends, symbol changes, and other events),
     and adjustment factors for building back-adjusted price series. Served over the same REST HTTP surface
     as the historical API.
-- aid: databento:databento-platform-openapi-official
-  name: Databento OpenAPI specification
-  description: Databento OpenAPI specification from Databento — 158 path(s) described in OpenAPI.
+- aid: databento:databento-adjustment-factors-api
+  name: Databento Adjustment Factors API
+  description: The adjustment_factors API from Databento — 1 operation(s) for adjustment_factors.
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
+  tags:
+  - adjustment_factors
   properties:
   - type: OpenAPI
-    url: openapi/databento-platform-openapi-official.json
+    url: openapi/databento-adjustment-factors-api-openapi.yml
+- aid: databento:databento-analytics-api
+  name: Databento Analytics API
+  description: The analytics API from Databento — 1 operation(s) for analytics.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-analytics-api-openapi.yml
+- aid: databento:databento-auth-api
+  name: Databento Auth API
+  description: The auth API from Databento — 12 operation(s) for auth.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - auth
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-auth-api-openapi.yml
+- aid: databento:databento-billing-api
+  name: Databento Billing API
+  description: The billing API from Databento — 14 operation(s) for billing.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - billing
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-billing-api-openapi.yml
+- aid: databento:databento-corporate-actions-api
+  name: Databento Corporate Actions API
+  description: The corporate_actions API from Databento — 1 operation(s) for corporate_actions.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - corporate_actions
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-corporate-actions-api-openapi.yml
+- aid: databento:databento-databento-openapi-specification-api
+  name: Databento Databento OpenAPI Specification API
+  description: >-
+    The Databento OpenAPI Specification API from Databento — 1 operation(s) for databento openapi specification.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - Databento OpenAPI Specification
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-databento-openapi-specification-api-openapi.yml
+- aid: databento:databento-dataset-api
+  name: Databento Dataset API
+  description: The dataset API from Databento — 17 operation(s) for dataset.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - dataset
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-dataset-api-openapi.yml
+- aid: databento:databento-display-api
+  name: Databento Display API
+  description: The display API from Databento — 1 operation(s) for display.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - display
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-display-api-openapi.yml
+- aid: databento:databento-docs-api
+  name: Databento Docs API
+  description: The docs API from Databento — 3 operation(s) for docs.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - docs
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-docs-api-openapi.yml
+- aid: databento:databento-instrument-api
+  name: Databento Instrument API
+  description: The instrument API from Databento — 3 operation(s) for instrument.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - instrument
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-instrument-api-openapi.yml
+- aid: databento:databento-latency-api
+  name: Databento Latency API
+  description: The latency API from Databento — 6 operation(s) for latency.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - latency
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-latency-api-openapi.yml
+- aid: databento:databento-licensing-api
+  name: Databento Licensing API
+  description: The licensing API from Databento — 12 operation(s) for licensing.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - licensing
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-licensing-api-openapi.yml
+- aid: databento:databento-log-post-param-vals-api
+  name: Databento Log Post Param Vals API
+  description: The log_post_param_vals API from Databento — 70 operation(s) for log_post_param_vals.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - log_post_param_vals
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-log-post-param-vals-api-openapi.yml
+- aid: databento:databento-registration-api
+  name: Databento Registration API
+  description: The registration API from Databento — 9 operation(s) for registration.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - registration
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-registration-api-openapi.yml
+- aid: databento:databento-security-master-api
+  name: Databento Security Master API
+  description: The security_master API from Databento — 2 operation(s) for security_master.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - security_master
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-security-master-api-openapi.yml
+- aid: databento:databento-teams-api
+  name: Databento Teams API
+  description: The teams API from Databento — 11 operation(s) for teams.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - teams
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-teams-api-openapi.yml
+- aid: databento:databento-usage-api
+  name: Databento Usage API
+  description: The usage API from Databento — 11 operation(s) for usage.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - usage
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-usage-api-openapi.yml
+- aid: databento:databento-users-api
+  name: Databento Users API
+  description: The users API from Databento — 28 operation(s) for users.
+  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-users-api-openapi.yml
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/databento/overview
