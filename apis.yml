@@ -11,6 +11,18 @@ description: Databento is a market data platform that delivers historical and li
   Databento Binary Encoding (DBN). Official Python, C++, and Rust client libraries
   wrap both surfaces, and a Reference API provides security master, corporate
   actions, and adjustment factor data.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
