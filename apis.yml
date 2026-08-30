@@ -52,7 +52,7 @@ apis:
   tags:
   - Historical Market Data
   - Market Data
-  - Time Series
+  - Timeseries
   - Trading
   - Financial Data
   tags_raw:
@@ -211,6 +211,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Adjustment Factors
+  tags_raw:
   - adjustment_factors
   properties:
   - type: OpenAPI
@@ -221,6 +223,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Analytics
+  tags_raw:
   - analytics
   properties:
   - type: OpenAPI
@@ -231,6 +235,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Authentication
+  tags_raw:
   - auth
   properties:
   - type: OpenAPI
@@ -241,6 +247,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Billing
+  tags_raw:
   - billing
   properties:
   - type: OpenAPI
@@ -251,6 +259,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Corporate Actions
+  tags_raw:
   - corporate_actions
   properties:
   - type: OpenAPI
@@ -272,6 +282,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Dataset
+  tags_raw:
   - dataset
   properties:
   - type: OpenAPI
@@ -282,6 +294,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Display
+  tags_raw:
   - display
   properties:
   - type: OpenAPI
@@ -292,6 +306,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Docs
+  tags_raw:
   - docs
   properties:
   - type: OpenAPI
@@ -302,6 +318,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Instrument
+  tags_raw:
   - instrument
   properties:
   - type: OpenAPI
@@ -312,6 +330,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Latency
+  tags_raw:
   - latency
   properties:
   - type: OpenAPI
@@ -322,6 +342,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Licensing
+  tags_raw:
   - licensing
   properties:
   - type: OpenAPI
@@ -331,7 +353,8 @@ apis:
   description: The log_post_param_vals API from Databento — 70 operation(s) for log_post_param_vals.
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
-  tags:
+  tags: []
+  tags_raw:
   - log_post_param_vals
   properties:
   - type: OpenAPI
@@ -342,6 +365,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Registration
+  tags_raw:
   - registration
   properties:
   - type: OpenAPI
@@ -352,6 +377,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Security Master
+  tags_raw:
   - security_master
   properties:
   - type: OpenAPI
@@ -362,6 +389,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Team
+  tags_raw:
   - teams
   properties:
   - type: OpenAPI
@@ -372,6 +401,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - Usage
+  tags_raw:
   - usage
   properties:
   - type: OpenAPI
@@ -382,6 +413,8 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
