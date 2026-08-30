@@ -1,0 +1,5961 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Log Post Param Vals API
+  version: 0.167.1
+tags:
+- name: log_post_param_vals
+paths:
+  /v0/batch/me:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Submit Batch Request With Token Auth
+      operationId: submit_batch_request_with_token_auth_v0_batch_me_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: symbols
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Symbols
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: encoding
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Encoding
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: stype_out
+        in: query
+        required: false
+        schema:
+          type: string
+          default: instrument_id
+          title: Stype Out
+      - name: compression
+        in: query
+        required: false
+        schema:
+          type: string
+          default: none
+          title: Compression
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+      - name: pretty_px
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Pretty Px
+      - name: pretty_ts
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Pretty Ts
+      - name: map_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Map Symbols
+      - name: split_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Split Symbols
+      - name: split_duration
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Split Duration
+      - name: split_size
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Split Size
+      - name: packaging
+        in: query
+        required: false
+        schema:
+          type: string
+          default: none
+          title: Packaging
+      - name: delivery
+        in: query
+        required: false
+        schema:
+          type: string
+          default: download
+          title: Delivery
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      responses:
+        '200':
+          description: Successful request (all symbols resolve)
+          content:
+            application/json:
+              schema: {}
+        '206':
+          description: Successful request (with partial symbol resolution)
+        '400':
+          description: If bad or unacceptable query param
+        '401':
+          description: If user authentication fails
+        '402':
+          description: If insufficient funds
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If no data found for request
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Batch Jobs With Auth Token
+      operationId: list_batch_jobs_with_auth_token_v0_batch_me_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 500
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch.submit_job:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Submit Batch Request With Basic Auth
+      operationId: submit_batch_request_with_basic_auth_v0_batch_submit_job_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post'
+      responses:
+        '200':
+          description: Successful request (all symbols resolve)
+          content:
+            application/json:
+              schema: {}
+        '206':
+          description: Successful request (with partial symbol resolution)
+        '400':
+          description: If bad or unacceptable query param
+        '401':
+          description: If user authentication fails
+        '402':
+          description: If insufficient funds
+        '404':
+          description: If no data found for request
+        '422':
+          description: If unprocessable request, or no data found for request
+        '429':
+          description: If request rate limit exceeded
+  /v0/batch.list_jobs:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Batch Jobs
+      operationId: list_batch_jobs_v0_batch_list_jobs_get
+      parameters:
+      - name: states
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: States
+      - name: since
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Since
+      - name: short
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Short
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '404':
+          description: If no data found for request
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/progress/{job_id}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Job Progress By Id
+      operationId: get_job_progress_by_id_v0_batch_progress__job_id__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If job ID not found
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/files/{job_id}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Batch Files For Job
+      operationId: get_batch_files_for_job_v0_batch_files__job_id__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 100
+          title: Limit
+      - name: protocol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Protocol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '429':
+          description: If request rate limit exceeded
+        '501':
+          description: Unsupported delivery method
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch.list_files:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Batch Job Files With Basic Auth
+      operationId: list_batch_job_files_with_basic_auth_v0_batch_list_files_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: job_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BatchFileDetails'
+                title: Response List Batch Job Files With Basic Auth V0 Batch List Files Get
+        '401':
+          description: If user authentication fails
+        '404':
+          description: If job file not found
+        '410':
+          description: If job files are no longer available
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/me/job_description/{job_id}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Job Description By Id
+      operationId: get_job_description_by_id_v0_batch_me_job_description__job_id__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: instrument_name
+        in: query
+        required: true
+        schema:
+          type: boolean
+          title: Instrument Name
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchJobDescription'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If job ID not found
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/me/download/{job_id}/{filename}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Download Batch File With Token Auth
+      operationId: download_batch_file_with_token_auth_v0_batch_me_download__job_id___filename__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Filename
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If job file not found
+        '410':
+          description: If job files are no longer available
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch.download:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Download Batch Zip
+      operationId: download_batch_zip_v0_batch_download_get
+      parameters:
+      - name: job_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '404':
+          description: If job file not found
+        '410':
+          description: If job files are no longer available
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/download/{user_id}/{job_id}/{filename}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Download Batch File With Basic Auth
+      operationId: download_batch_file_with_basic_auth_v0_batch_download__user_id___job_id___filename__get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Job Id
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Filename
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '404':
+          description: If job file not found
+        '410':
+          description: If job files are no longer available
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/display:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Batch Job Display Mappings
+      operationId: get_batch_job_display_mappings_v0_batch_display_get
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/quote_job:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Quote Batch Request
+      operationId: quote_batch_request_v0_batch_quote_job_post
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: symbols
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Symbols
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: encoding
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Encoding
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: stype_out
+        in: query
+        required: false
+        schema:
+          type: string
+          default: instrument_id
+          title: Stype Out
+      - name: compression
+        in: query
+        required: false
+        schema:
+          type: string
+          default: none
+          title: Compression
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+      - name: split_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Split Symbols
+      - name: split_duration
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Split Duration
+      - name: split_size
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Split Size
+      - name: packaging
+        in: query
+        required: false
+        schema:
+          type: string
+          default: none
+          title: Packaging
+      - name: map_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Map Symbols
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchQuoteJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/batch/quote_user_job:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Quote User Batch Request
+      operationId: quote_user_batch_request_v0_batch_quote_user_job_post
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: symbols
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Symbols
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: encoding
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Encoding
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: stype_out
+        in: query
+        required: false
+        schema:
+          type: string
+          default: instrument_id
+          title: Stype Out
+      - name: compression
+        in: query
+        required: false
+        schema:
+          type: string
+          default: none
+          title: Compression
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+      - name: split_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Split Symbols
+      - name: split_duration
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Split Duration
+      - name: split_size
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Split Size
+      - name: packaging
+        in: query
+        required: false
+        schema:
+          type: string
+          default: none
+          title: Packaging
+      - name: map_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Map Symbols
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BatchQuoteJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/sample/download/{dataset}/{schema}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset File Sample
+      operationId: get_dataset_file_sample_v0_dataset_sample_download__dataset___schema__get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: schema
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: sample_type
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL
+          title: Sample Type
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/sample:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Sample
+      operationId: get_dataset_sample_v0_dataset_sample_get
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: stype_in
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Stype In
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: encoding
+        in: query
+        required: false
+        schema:
+          type: string
+          default: csv
+          title: Encoding
+      - name: pretty_px
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Pretty Px
+      - name: pretty_ts
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Pretty Ts
+      - name: map_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Map Symbols
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/dataset-profile/{dataset_id}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Profile
+      operationId: get_dataset_profile_v0_dataset_dataset_profile__dataset_id__get
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetProfileResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/dataset-details/{dataset_id}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Details
+      operationId: get_dataset_details_v0_dataset_dataset_details__dataset_id__get
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetDetailResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/schemas:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get All Schemas
+      operationId: get_all_schemas_v0_dataset_schemas_get
+      parameters:
+      - name: slim
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Slim
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/schema/{dataset_id}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Supported Schemas
+      operationId: get_dataset_supported_schemas_v0_dataset_schema__dataset_id__get
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset Id
+      - name: slim
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Slim
+      - name: unit_price
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Unit Price
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/catalog:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Catalog
+      operationId: get_dataset_catalog_v0_dataset_catalog_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 8
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetCatalogListView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/service/catalog:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Service Offering Catalog
+      operationId: get_service_offering_catalog_v0_dataset_service_catalog_get
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceCatalogView'
+                title: Response Get Service Offering Catalog V0 Dataset Service Catalog Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/backlog:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Backlog
+      operationId: get_dataset_backlog_v0_dataset_backlog_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 6
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetBacklogListView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/service/backlog:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Upcoming Services
+      operationId: get_upcoming_services_v0_dataset_service_backlog_get
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IncomingServiceView'
+                title: Response Get Upcoming Services V0 Dataset Service Backlog Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/{dataset}/availability:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Dataset Availability Period
+      operationId: dataset_availability_period_v0_dataset__dataset__availability_get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetAvailabilityResponse'
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/dataset/instrument_profile/{dataset}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Instrument List
+      operationId: get_instrument_list_v0_dataset_instrument_profile__dataset__get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetInstrumentTableHeaderView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/instrument_detail/{dataset}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Instrument Detail
+      operationId: get_instrument_detail_v0_dataset_instrument_detail__dataset__get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: search_by
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search By
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          default: symbol
+          title: Order By
+      - name: desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Desc
+      - name: asset_class
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Asset Class
+      - name: sector
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Sector
+      - name: product_group
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Product Group
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          exclusiveMinimum: 0
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetInstrumentTableView'
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/dataset/quote:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Quote Data Request
+      operationId: quote_data_request_v0_dataset_quote_get
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: mode
+        in: query
+        required: false
+        schema:
+          type: string
+          default: historical
+          title: Mode
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataRequestInquiry'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/search:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Search Instrument
+      operationId: search_instrument_v0_dataset_search_get
+      parameters:
+      - name: q
+        in: query
+        required: true
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 50
+          title: Q
+      - name: asset_class
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Asset Class
+      - name: category
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Category
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Schema
+      - name: publisher
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Publisher
+      - name: dataset
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Dataset
+      - name: venue
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Venue
+      - name: region
+        in: query
+        required: false
+        schema:
+          type: array
+          items: {}
+          default: []
+          title: Region
+      - name: available_history
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1
+          - type: 'null'
+          title: Available History
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasetInstrumentSearchView'
+                title: Response Search Instrument V0 Dataset Search Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/dataset/maintenance:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Maintenance Event
+      operationId: maintenance_event_v0_dataset_maintenance_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /v0/dataset/service_offerings/{service_group}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Service Offerings
+      operationId: get_service_offerings_v0_dataset_service_offerings__service_group__get
+      parameters:
+      - name: service_group
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Service Group
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceOfferingResponse'
+                title: Response Get Service Offerings V0 Dataset Service Offerings  Service Group  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/display/configuration:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Search Bar Config
+      operationId: get_search_bar_config_v0_display_configuration_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /v0/docs/search:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Docs Search Combo
+      operationId: docs_search_combo_v0_docs_search_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_docs_search_combo_v0_docs_search_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  anyOf:
+                  - type: boolean
+                  - items:
+                      additionalProperties:
+                        anyOf:
+                        - type: string
+                        - type: integer
+                        - type: 'null'
+                      type: object
+                    type: array
+                type: object
+                title: Response Docs Search Combo V0 Docs Search Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/docs/search_v3:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Docs Search Combo V3
+      operationId: docs_search_combo_v3_v0_docs_search_v3_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_docs_search_combo_v3_v0_docs_search_v3_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  anyOf:
+                  - type: boolean
+                  - items:
+                      additionalProperties:
+                        anyOf:
+                        - type: string
+                        - type: integer
+                        - type: 'null'
+                      type: object
+                    type: array
+                type: object
+                title: Response Docs Search Combo V3 V0 Docs Search V3 Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/docs/download:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Docs Download
+      operationId: docs_download_v0_docs_download_get
+      parameters:
+      - name: language
+        in: query
+        required: false
+        schema:
+          type: string
+          default: python
+          title: Language
+      - name: buildId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+          title: Buildid
+      - name: onePage
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Onepage
+      - name: ai-assets
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Ai-Assets
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/instrument/instrument_list:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Instrument List
+      operationId: get_instrument_list_v0_instrument_instrument_list_get
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: asset_class
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Asset Class
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Symbol
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Date
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          default: volume
+          title: Order By
+      - name: desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Desc
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentDetailListView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/instrument/related-datasets/{dataset}/{asset_class}/{instrument}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Related Datasets
+      operationId: get_related_datasets_v0_instrument_related_datasets__dataset___asset_class___instrument__get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: asset_class
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Asset Class
+      - name: instrument
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Instrument
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RelatedDatasetView'
+                title: Response Get Related Datasets V0 Instrument Related Datasets  Dataset   Asset Class   Instrument  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/instrument/validate/{dataset}/{asset_class}/{instrument}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Validate Instrument
+      operationId: validate_instrument_v0_instrument_validate__dataset___asset_class___instrument__get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: asset_class
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Asset Class
+      - name: instrument
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Instrument
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentDescription'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/histogram/{datacenter}:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Latency Histogram
+      operationId: get_latency_histogram_v0_latency_histogram__datacenter__get
+      parameters:
+      - name: datacenter
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Datacenter
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Location
+      - name: dataset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/LatencyHdrHistogramMessage'
+                - type: 'null'
+                title: Response Get Latency Histogram V0 Latency Histogram  Datacenter  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/last.json:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Last Latency Json
+      operationId: get_last_latency_json_v0_latency_last_json_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LatencyLastUpdate'
+                title: Response Get Last Latency Json V0 Latency Last Json Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/last.txt:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Last Latency Text
+      operationId: get_last_latency_text_v0_latency_last_txt_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/chart:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Latency Chart
+      operationId: get_latency_chart_v0_latency_chart_get
+      parameters:
+      - name: datacenter
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Datacenter
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Location
+      - name: interval
+        in: query
+        required: true
+        schema:
+          type: integer
+          multipleOf: 60
+          exclusiveMinimum: 0
+          title: Interval
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          exclusiveMinimum: 0
+          title: Count
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                title: Response Get Latency Chart V0 Latency Chart Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/percentile_history:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Latency Percentile History
+      operationId: get_latency_percentile_history_v0_latency_percentile_history_get
+      parameters:
+      - name: datacenter
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Datacenter
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Location
+      - name: histogram_type
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Histogram Type
+      - name: interval
+        in: query
+        required: true
+        schema:
+          type: integer
+          multipleOf: 60
+          exclusiveMinimum: 0
+          min: 60
+          title: Interval
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          exclusiveMinimum: 0
+          max: 2000
+          title: Count
+      - name: dataset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatencyPercentileHistory'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/valid_arguments:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Valid Arguments
+      operationId: get_valid_arguments_v0_latency_valid_arguments_get
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LatencyValidArguments'
+                title: Response Get Valid Arguments V0 Latency Valid Arguments Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_publishers:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Publishers
+      operationId: list_publishers_v0_metadata_list_publishers_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_datasets:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Available Datasets
+      operationId: list_available_datasets_v0_metadata_list_datasets_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_schemas:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Available Schemas
+      operationId: list_available_schemas_v0_metadata_list_schemas_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_fields:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Available Fields
+      operationId: list_available_fields_v0_metadata_list_fields_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: encoding
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Encoding
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_unit_prices:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: List Unit Prices
+      operationId: list_unit_prices_v0_metadata_list_unit_prices_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_dataset_range:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Range
+      operationId: get_dataset_range_v0_metadata_get_dataset_range_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_dataset_condition:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Dataset Condition
+      operationId: get_dataset_condition_v0_metadata_get_dataset_condition_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_record_count:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Post Get Record Count
+      operationId: post_get_record_count_v0_metadata_get_record_count_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_get_record_count_v0_metadata_get_record_count_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Record Count
+      operationId: get_record_count_v0_metadata_get_record_count_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          default: trades
+          title: Schema
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 18446744073709551615
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Limit
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_billable_size:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Post Get Billable Size
+      operationId: post_get_billable_size_v0_metadata_get_billable_size_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_get_billable_size_v0_metadata_get_billable_size_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Billable Size
+      operationId: get_billable_size_v0_metadata_get_billable_size_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          default: trades
+          title: Schema
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 18446744073709551615
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Limit
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_cost:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Post Get Cost
+      operationId: post_get_cost_v0_metadata_get_cost_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_get_cost_v0_metadata_get_cost_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Cost
+      operationId: get_cost_v0_metadata_get_cost_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          default: trades
+          title: Schema
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: mode
+        in: query
+        required: false
+        schema:
+          type: string
+          default: historical-streaming
+          title: Mode
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 18446744073709551615
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Limit
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/symbology.resolve:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Post Resolve Symbology Mappings
+      operationId: post_resolve_symbology_mappings_v0_symbology_resolve_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_resolve_symbology_mappings_v0_symbology_resolve_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Resolve Symbology Mappings
+      operationId: get_resolve_symbology_mappings_v0_symbology_resolve_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: symbols
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Symbols
+      - name: stype_in
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Stype In
+      - name: stype_out
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Stype Out
+      - name: start_date
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/timeseries.get_range:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Post Get Range
+      operationId: post_get_range_v0_timeseries_get_range_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_get_range_v0_timeseries_get_range_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Range
+      operationId: get_range_v0_timeseries_get_range_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: stype_out
+        in: query
+        required: false
+        schema:
+          type: string
+          default: instrument_id
+          title: Stype Out
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          default: trades
+          title: Schema
+      - name: encoding
+        in: query
+        required: false
+        schema:
+          type: string
+          default: csv
+          title: Encoding
+      - name: compression
+        in: query
+        required: false
+        schema:
+          type: string
+          default: none
+          title: Compression
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+      - name: pretty_px
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Pretty Px
+      - name: pretty_ts
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Pretty Ts
+      - name: map_symbols
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Map Symbols
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/request_timestamps:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Request Time Creation
+      operationId: get_request_time_creation_v0_usage_request_timestamps_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: request_ids
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Request Ids
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Request Time Creation V0 Usage Request Timestamps Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/request_timestamps:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Request Time Creation Team
+      operationId: get_request_time_creation_team_v0_usage_teams_request_timestamps_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: request_ids
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Request Ids
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Request Time Creation Team V0 Usage Teams Request Timestamps Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/recent:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Data Usage Recent
+      operationId: get_data_usage_recent_v0_usage_recent_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Recent V0 Usage Recent Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/recent:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Team Members Data Usage Recent
+      operationId: get_team_members_data_usage_recent_v0_usage_teams_recent_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Team Members Data Usage Recent V0 Usage Teams Recent Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/past_report:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Data Usage Past Report
+      operationId: get_data_usage_past_report_v0_usage_past_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Past Report V0 Usage Past Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/past_report:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Data Usage Team Past Report
+      operationId: get_data_usage_team_past_report_v0_usage_teams_past_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Team Past Report V0 Usage Teams Past Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/report:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Data Usage Report
+      operationId: get_data_usage_report_v0_usage_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Report V0 Usage Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/report:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Team Members Data Usage Report
+      operationId: get_team_members_data_usage_report_v0_usage_teams_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Team Members Data Usage Report V0 Usage Teams Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/mtd_usage:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Mtd Usage
+      operationId: get_mtd_usage_v0_usage_mtd_usage_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonthToDateUsage'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/mtd_usage:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Team Mtd Usage
+      operationId: get_team_mtd_usage_v0_usage_teams_mtd_usage_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonthToDateUsage'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/active_connections:
+    get:
+      tags:
+      - log_post_param_vals
+      summary: Get Active Connections
+      operationId: get_active_connections_v0_usage_active_connections_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LiveConnectionRecord'
+                title: Response Get Active Connections V0 Usage Active Connections Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/adjustment_factors.get_range:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Query Adjustment Factors Range
+      operationId: query_adjustment_factors_range_v0_adjustment_factors_get_range_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/corporate_actions.get_range:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Query Corporate Actions Range
+      operationId: query_corporate_actions_range_v0_corporate_actions_get_range_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_query_corporate_actions_range_v0_corporate_actions_get_range_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/security_master.get_last:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Query Security Master Last
+      operationId: query_security_master_last_v0_security_master_get_last_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_query_security_master_last_v0_security_master_get_last_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/security_master.get_range:
+    post:
+      tags:
+      - log_post_param_vals
+      summary: Query Security Master Pit Range
+      operationId: query_security_master_pit_range_v0_security_master_get_range_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_query_security_master_pit_range_v0_security_master_get_range_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_query_security_master_pit_range_v0_security_master_get_range_post:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        index:
+          type: string
+          title: Index
+          default: ts_effective
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - start
+      title: Body_query_security_master_pit_range_v0_security_master_get_range_post
+    LatencyPercentileHistory:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_type:
+          type: string
+          title: Histogram Type
+        history:
+          items:
+            $ref: '#/components/schemas/LatencyHistoryItem'
+          type: array
+          title: History
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - histogram_type
+      - history
+      title: LatencyPercentileHistory
+    DatasetDetailResponse:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+        colloquial_name:
+          type: string
+          title: Colloquial Name
+        about:
+          type: string
+          title: About
+        brief:
+          type: string
+          title: Brief
+        venue:
+          type: string
+          title: Venue
+        venue_list:
+          items:
+            type: string
+          type: array
+          title: Venue List
+          default: []
+        included_datasets:
+          items:
+            $ref: '#/components/schemas/IncludedDataset'
+          type: array
+          title: Included Datasets
+          default: []
+        publisher:
+          type: string
+          title: Publisher
+        publisher_brief_name:
+          type: string
+          title: Publisher Brief Name
+          default: ''
+        asset_class:
+          items:
+            type: string
+          type: array
+          title: Asset Class
+        region:
+          type: string
+          title: Region
+        category:
+          items:
+            type: string
+          type: array
+          title: Category
+        exported_schemas:
+          items:
+            type: string
+          type: array
+          title: Exported Schemas
+        encodings:
+          items:
+            type: string
+          type: array
+          title: Encodings
+        origin:
+          type: string
+          title: Origin
+        source_resolution:
+          type: string
+          title: Source Resolution
+        databento_resolution:
+          type: string
+          title: Databento Resolution
+        historical_release_time:
+          type: string
+          title: Historical Release Time
+          default: ''
+        historical_release_tz:
+          type: string
+          title: Historical Release Tz
+          default: ''
+        release:
+          items:
+            $ref: '#/components/schemas/ReleaseConfig'
+          type: array
+          title: Release
+          default: []
+        profile_last_update:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Profile Last Update
+        production_ready:
+          type: boolean
+          title: Production Ready
+        historical_data_ready:
+          type: boolean
+          title: Historical Data Ready
+        intraday_data_ready:
+          type: boolean
+          title: Intraday Data Ready
+        live_data_ready:
+          type: boolean
+          title: Live Data Ready
+        data_start:
+          type: string
+          title: Data Start
+        data_end:
+          type: string
+          title: Data End
+        available_from:
+          type: integer
+          title: Available From
+        available_to:
+          type: integer
+          title: Available To
+        instrument_count:
+          type: integer
+          title: Instrument Count
+        statistics_last_update:
+          type: integer
+          title: Statistics Last Update
+        schema_availability:
+          items:
+            $ref: '#/components/schemas/DatasetSchemaStatistics'
+          type: array
+          title: Schema Availability
+        schema_availability_unrestricted:
+          items:
+            $ref: '#/components/schemas/DatasetSchemaStatistics'
+          type: array
+          title: Schema Availability Unrestricted
+        schema_availability_nocost:
+          items:
+            $ref: '#/components/schemas/DatasetSchemaStatistics'
+          type: array
+          title: Schema Availability Nocost
+          default: []
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - colloquial_name
+      - about
+      - brief
+      - venue
+      - publisher
+      - asset_class
+      - region
+      - category
+      - exported_schemas
+      - encodings
+      - origin
+      - source_resolution
+      - databento_resolution
+      - profile_last_update
+      - production_ready
+      - historical_data_ready
+      - intraday_data_ready
+      - live_data_ready
+      - data_start
+      - data_end
+      - available_from
+      - available_to
+      - instrument_count
+      - statistics_last_update
+      - schema_availability
+      - schema_availability_unrestricted
+      title: DatasetDetailResponse
+    Body_docs_search_combo_v0_docs_search_post:
+      properties:
+        searchText:
+          type: string
+          title: Searchtext
+        language:
+          type: string
+          title: Language
+        liveLang:
+          type: string
+          title: Livelang
+        historicalLang:
+          type: string
+          title: Historicallang
+        mode:
+          type: string
+          title: Mode
+        build_id:
+          type: string
+          title: Build Id
+      type: object
+      required:
+      - searchText
+      - language
+      - liveLang
+      - historicalLang
+      - mode
+      - build_id
+      title: Body_docs_search_combo_v0_docs_search_post
+    DatasetCatalogListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetCatalogView'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: DatasetCatalogListView
+    BatchQuoteJobResponse:
+      properties:
+        estimated_size:
+          type: integer
+          title: Estimated Size
+        estimated_cost_usd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimated Cost Usd
+        net_estimated_cost_usd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Net Estimated Cost Usd
+        standard_plan_cost_usd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Standard Plan Cost Usd
+        estimated_file_count:
+          type: integer
+          title: Estimated File Count
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+        errors:
+          items:
+            type: string
+          type: array
+          title: Errors
+        can_submit:
+          type: boolean
+          title: Can Submit
+      type: object
+      required:
+      - estimated_size
+      - estimated_cost_usd
+      - net_estimated_cost_usd
+      - standard_plan_cost_usd
+      - estimated_file_count
+      - warnings
+      - errors
+      - can_submit
+      title: BatchQuoteJobResponse
+    DatasetAvailabilityResponseRange:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - start
+      - end
+      title: DatasetAvailabilityResponseRange
+    RelatedDatasetView:
+      properties:
+        service_group:
+          type: string
+          title: Service Group
+        dataset:
+          type: string
+          title: Dataset
+        asset_class:
+          type: string
+          title: Asset Class
+        instrument:
+          type: string
+          title: Instrument
+        total_products:
+          type: integer
+          title: Total Products
+      type: object
+      required:
+      - service_group
+      - dataset
+      - asset_class
+      - instrument
+      - total_products
+      title: RelatedDatasetView
+    Body_post_resolve_symbology_mappings_v0_symbology_resolve_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        symbols:
+          type: string
+          title: Symbols
+        stype_in:
+          type: string
+          title: Stype In
+        stype_out:
+          type: string
+          title: Stype Out
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - symbols
+      - stype_in
+      - stype_out
+      - start_date
+      title: Body_post_resolve_symbology_mappings_v0_symbology_resolve_post
+    LiveConnectionRecord:
+      properties:
+        established_timestamp:
+          type: integer
+          title: Established Timestamp
+        request_id:
+          type: string
+          title: Request Id
+        user_id:
+          type: string
+          title: User Id
+        session_id:
+          type: string
+          title: Session Id
+        api_key:
+          type: string
+          title: Api Key
+        user_name:
+          type: string
+          title: User Name
+        gateway:
+          type: string
+          title: Gateway
+        dataset:
+          type: string
+          title: Dataset
+        schema:
+          type: string
+          title: Schema
+      type: object
+      required:
+      - established_timestamp
+      - request_id
+      - user_id
+      - session_id
+      - api_key
+      - user_name
+      - gateway
+      - dataset
+      - schema
+      title: LiveConnectionRecord
+    BatchJobDescription:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        symbols:
+          items:
+            type: string
+          type: array
+          title: Symbols
+        stype_in:
+          type: string
+          title: Stype In
+        stype_out:
+          type: string
+          title: Stype Out
+        schema_name:
+          type: string
+          title: Schema Name
+        start:
+          type: integer
+          title: Start
+        end:
+          type: integer
+          title: End
+        encoding:
+          type: string
+          title: Encoding
+        delivery:
+          type: string
+          title: Delivery
+        compression:
+          type: string
+          title: Compression
+        pretty_px:
+          type: boolean
+          title: Pretty Px
+          default: false
+        pretty_ts:
+          type: boolean
+          title: Pretty Ts
+          default: false
+        map_symbols:
+          type: boolean
+          title: Map Symbols
+          default: false
+        split_symbols:
+          type: boolean
+          title: Split Symbols
+          default: false
+        limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Limit
+        split_duration:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Split Duration
+        split_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Split Size
+        packaging:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Packaging
+        symbol_detail:
+          items:
+            $ref: '#/components/schemas/InstrumentDescription'
+          type: array
+          title: Symbol Detail
+          default: []
+      type: object
+      required:
+      - dataset
+      - symbols
+      - stype_in
+      - stype_out
+      - schema_name
+      - start
+      - end
+      - encoding
+      - delivery
+      - compression
+      title: BatchJobDescription
+    ServiceCatalogView:
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceOfferingResponse'
+        default_dataset:
+          $ref: '#/components/schemas/DatasetCatalogView'
+      type: object
+      required:
+      - service
+      - default_dataset
+      title: ServiceCatalogView
+    ServiceOfferingResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        service_name:
+          type: string
+          title: Service Name
+        service_type:
+          type: string
+          title: Service Type
+        service_tier:
+          type: string
+          title: Service Tier
+        self_service:
+          type: boolean
+          title: Self Service
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        billing_interval:
+          type: integer
+          title: Billing Interval
+        unit_price:
+          type: integer
+          title: Unit Price
+        commitment_period:
+          type: integer
+          title: Commitment Period
+        service_spec:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Service Spec
+        sub_datasets:
+          items:
+            type: string
+          type: array
+          title: Sub Datasets
+          default: []
+        historical_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Historical Data Ready Datasets
+          default: []
+        live_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Live Data Ready Datasets
+          default: []
+        license_flow_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: License Flow Ready Datasets
+          default: []
+        allowed_live_datasets:
+          items:
+            type: string
+          type: array
+          title: Allowed Live Datasets
+          default: []
+      type: object
+      required:
+      - id
+      - service_name
+      - service_type
+      - service_tier
+      - self_service
+      - dataset_id
+      - billing_interval
+      - unit_price
+      - commitment_period
+      - service_spec
+      title: ServiceOfferingResponse
+    Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - start
+      title: Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post
+    MonthToDateUsage:
+      properties:
+        usage_bytes:
+          type: integer
+          title: Usage Bytes
+        usage_cents:
+          type: integer
+          title: Usage Cents
+      type: object
+      required:
+      - usage_bytes
+      - usage_cents
+      title: MonthToDateUsage
+    LatencyValidArguments:
+      properties:
+        datacenter:
+          type: string
+          title: Datacenter
+        location:
+          type: string
+          title: Location
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+      type: object
+      required:
+      - datacenter
+      - location
+      - dataset
+      title: LatencyValidArguments
+    DataUsageRecord:
+      properties:
+        timestamp:
+          type: integer
+          title: Timestamp
+        user_id:
+          type: string
+          title: User Id
+        api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Key
+        user_name:
+          type: string
+          title: User Name
+        dataset:
+          type: string
+          title: Dataset
+        schema:
+          type: string
+          title: Schema
+        mode:
+          type: string
+          title: Mode
+        usage_sum:
+          type: integer
+          title: Usage Sum
+        cost_sum:
+          type: number
+          title: Cost Sum
+      type: object
+      required:
+      - timestamp
+      - user_id
+      - api_key
+      - user_name
+      - dataset
+      - schema
+      - mode
+      - usage_sum
+      - cost_sum
+      title: DataUsageRecord
+    DatasetBacklogView:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+        colloquial_name:
+          type: string
+          title: Colloquial Name
+        dataset_introduction:
+          type: string
+          title: Dataset Introduction
+        dataset_tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Dataset Tags
+          default: []
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - colloquial_name
+      - dataset_introduction
+      title: DatasetBacklogView
+    Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        symbols:
+          type: string
+          title: Symbols
+        schema_:
+          type: string
+          title: Schema
+        encoding:
+          type: string
+          title: Encoding
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        stype_out:
+          type: string
+          title: Stype Out
+          default: instrument_id
+        compression:
+          type: string
+          title: Compression
+          default: none
+        limit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+        pretty_px:
+          type: boolean
+          title: Pretty Px
+          default: false
+        pretty_ts:
+          type: boolean
+          title: Pretty Ts
+          default: false
+        map_symbols:
+          type: boolean
+          title: Map Symbols
+          default: false
+        split_symbols:
+          type: boolean
+          title: Split Symbols
+          default: false
+        split_duration:
+          type: string
+          title: Split Duration
+          default: day
+        split_size:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Split Size
+        packaging:
+          type: string
+          title: Packaging
+          default: none
+        delivery:
+          type: string
+          title: Delivery
+          default: download
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - symbols
+      - schema_
+      - encoding
+      - start
+      title: Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post
+    BatchFileDetails:
+      properties:
+        filename:
+          type: string
+          title: Filename
+        size:
+          type: integer
+          title: Size
+        hash:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hash
+        urls:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Urls
+      type: object
+      required:
+      - filename
+      - size
+      title: BatchFileDetails
+    Dataset:
+      type: string
+      enum:
+      - GLBX.MDP3
+      - XNAS.ITCH
+      - XBOS.ITCH
+      - XPSX.ITCH
+      - BATS.PITCH
+      - BATY.PITCH
+      - EDGA.PITCH
+      - EDGX.PITCH
+      - XNYS.PILLAR
+      - XCIS.PILLAR
+      - XASE.PILLAR
+      - XCHI.PILLAR
+      - XCIS.BBO
+      - XCIS.TRADES
+      - MEMX.MEMOIR
+      - EPRL.DOM
+      - FINN.NLS
+      - FINY.TRADES
+      - OPRA.PILLAR
+      - DBEQ.BASIC
+      - ARCX.PILLAR
+      - IEXG.TOPS
+      - EQUS.PLUS
+      - XNYS.BBO
+      - XNYS.TRADES
+      - XNAS.QBBO
+      - XNAS.NLS
+      - IFEU.IMPACT
+      - NDEX.IMPACT
+      - EQUS.ALL
+      - XNAS.BASIC
+      - EQUS.SUMMARY
+      - XCIS.TRADESBBO
+      - XNYS.TRADESBBO
+      - EQUS.MINI
+      - IFUS.IMPACT
+      - IFLL.IMPACT
+      - XEUR.EOBI
+      - XEEE.EOBI
+      - XCBF.PITCH
+      - OCEA.MEMOIR
+      - MAIN.CGIF
+      - EQUS.SIP
+      - MSCI.CGIF
+      - FTSE.CGIF
+      - INAV.CGIF
+      - MSTAR.CGIF
+      - CCCY.CGIF
+      - CGI.CGIF
+      title: Dataset
+    ReasonRefCode:
+      type: string
+      enum:
+      - degraded
+      - non-trading
+      - pending
+      title: ReasonRefCode
+    Body_post_get_range_v0_timeseries_get_range_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        stype_out:
+          type: string
+          title: Stype Out
+          default: instrument_id
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        encoding:
+          type: string
+          title: Encoding
+          default: csv
+        compression:
+          type: string
+          title: Compression
+          default: none
+        pretty_px:
+          type: boolean
+          title: Pretty Px
+          default: false
+        pretty_ts:
+          type: boolean
+          title: Pretty Ts
+          default: false
+        map_symbols:
+          type: boolean
+          title: Map Symbols
+          default: false
+        limit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_range_v0_timeseries_get_range_post
+    DatasetAvailabilityResponse:
+      properties:
+        historical:
+          anyOf:
+          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
+          - type: 'null'
+        intraday:
+          anyOf:
+          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
+          - type: 'null'
+        controls:
+          additionalProperties:
+            $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
+          type: object
+          title: Controls
+          default: {}
+      type: object
+      title: DatasetAvailabilityResponse
+    InstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: InstrumentDescription
+    DatasetSchemaStatistics:
+      properties:
+        dbn_schema:
+          type: string
+          title: Dbn Schema
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - dbn_schema
+      - start
+      - end
+      title: DatasetSchemaStatistics
+    Body_post_get_record_count_v0_metadata_get_record_count_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_record_count_v0_metadata_get_record_count_post
+    Body_query_corporate_actions_range_v0_corporate_actions_get_range_post:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        index:
+          type: string
+          title: Index
+          default: event_date
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        events:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Events
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        exchanges:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Exchanges
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - start
+      title: Body_query_corporate_actions_range_v0_corporate_actions_get_range_post
+    DatasetInstrumentSearchView:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          type: string
+          title: Asset Class
+        security_type:
+          type: string
+          title: Security Type
+        sector:
+          type: string
+          title: Sector
+        dataset_id:
+          type: string
+          title: Dataset Id
+        service_group:
+          type: string
+          title: Service Group
+        dataset_name:
+          type: string
+          title: Dataset Name
+        available_from:
+          type: string
+          title: Available From
+        available_to:
+          type: string
+          title: Available To
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          default: North America
+        schemas:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Schemas
+          default: []
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      - asset_class
+      - security_type
+      - sector
+      - dataset_id
+      - service_group
+      - dataset_name
+      - available_from
+      - available_to
+      title: DatasetInstrumentSearchView
+    InstrumentListTableView:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        key:
+          type: string
+          title: Key
+        sortable:
+          type: boolean
+          title: Sortable
+        filterable:
+          type: boolean
+          title: Filterable
+        filter_options:
+          items:
+            type: string
+          type: array
+          title: Filter Options
+      type: object
+      required:
+      - display_name
+      - key
+      - sortable
+      - filterable
+      - filter_options
+      title: InstrumentListTableView
+    IncomingServiceView:
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceOfferingResponse'
+        default_dataset:
+          $ref: '#/components/schemas/DatasetBacklogView'
+      type: object
+      required:
+      - service
+      - default_dataset
+      title: IncomingServiceView
+    Body_query_security_master_last_v0_security_master_get_last_post:
+      properties:
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      title: Body_query_security_master_last_v0_security_master_get_last_post
+    Body_post_get_cost_v0_metadata_get_cost_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        mode:
+          type: string
+          title: Mode
+          default: historical-streaming
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_cost_v0_metadata_get_cost_post
+    DatasetInstrumentTableView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DailyInstrumentDescription'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: DatasetInstrumentTableView
+    IncludedDataset:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      title: IncludedDataset
+    Body_docs_search_combo_v3_v0_docs_search_v3_post:
+      properties:
+        search_text:
+          type: string
+          title: Search Text
+        live_language:
+          type: string
+          title: Live Language
+        historical_language:
+          type: string
+          title: Historical Language
+        build_id:
+          type: string
+          title: Build Id
+          default: ''
+      type: object
+      required:
+      - search_text
+      - live_language
+      - historical_language
+      title: Body_docs_search_combo_v3_v0_docs_search_v3_post
+    DatasetProfileResponse:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+        colloquial_name:
+          type: string
+          title: Colloquial Name
+        about:
+          type: string
+          title: About
+        brief:
+          type: string
+          title: Brief
+        venue:
+          type: string
+          title: Venue
+        venue_list:
+          items:
+            type: string
+          type: array
+          title: Venue List
+          default: []
+        included_datasets:
+          items:
+            $ref: '#/components/schemas/IncludedDataset'
+          type: array
+          title: Included Datasets
+          default: []
+        publisher:
+          type: string
+          title: Publisher
+        publisher_brief_name:
+          type: string
+          title: Publisher Brief Name
+          default: ''
+        asset_class:
+          items:
+            type: string
+          type: array
+          title: Asset Class
+        region:
+          type: string
+          title: Region
+        category:
+          items:
+            type: string
+          type: array
+          title: Category
+        exported_schemas:
+          items:
+            type: string
+          type: array
+          title: Exported Schemas
+        encodings:
+          items:
+            type: string
+          type: array
+          title: Encodings
+        origin:
+          type: string
+          title: Origin
+        source_resolution:
+          type: string
+          title: Source Resolution
+        databento_resolution:
+          type: string
+          title: Databento Resolution
+        historical_release_time:
+          type: string
+          title: Historical Release Time
+          default: ''
+        historical_release_tz:
+          type: string
+          title: Historical Release Tz
+          default: ''
+        release:
+          items:
+            $ref: '#/components/schemas/ReleaseConfig'
+          type: array
+          title: Release
+          default: []
+        profile_last_update:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Profile Last Update
+        production_ready:
+          type: boolean
+          title: Production Ready
+        historical_data_ready:
+          type: boolean
+          title: Historical Data Ready
+        intraday_data_ready:
+          type: boolean
+          title: Intraday Data Ready
+        live_data_ready:
+          type: boolean
+          title: Live Data Ready
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - colloquial_name
+      - about
+      - brief
+      - venue
+      - publisher
+      - asset_class
+      - region
+      - category
+      - exported_schemas
+      - encodings
+      - origin
+      - source_resolution
+      - databento_resolution
+      - profile_last_update
+      - production_ready
+      - historical_data_ready
+      - intraday_data_ready
+      - live_data_ready
+      title: DatasetProfileResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LatencyHdrHistogramMessage:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_blob:
+          type: string
+          format: binary
+          title: Histogram Blob
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - histogram_blob
+      - start
+      - end
+      title: LatencyHdrHistogramMessage
+    DataRequestInquiry:
+      properties:
+        cost:
+          type: number
+          title: Cost
+        size:
+          type: integer
+          title: Size
+        message:
+          type: string
+          title: Message
+        status:
+          type: integer
+          title: Status
+      type: object
+      required:
+      - cost
+      - size
+      - message
+      - status
+      title: DataRequestInquiry
+    DatasetBacklogListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetBacklogView'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: DatasetBacklogListView
+    LatencyLastUpdate:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+        last_update:
+          type: string
+          title: Last Update
+        latency_type:
+          type: string
+          title: Latency Type
+        p50:
+          type: integer
+          title: P50
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - last_update
+      - latency_type
+      - p50
+      title: LatencyLastUpdate
+    InstrumentDetailListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        actual_date:
+          type: string
+          title: Actual Date
+        instrument_first_seen_date:
+          type: string
+          title: Instrument First Seen Date
+        instrument_last_seen_date:
+          type: string
+          title: Instrument Last Seen Date
+        data:
+          items:
+            items:
+              anyOf:
+              - type: string
+              - type: number
+              - type: integer
+              - type: 'null'
+            type: array
+          type: array
+          title: Data
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        code:
+          anyOf:
+          - $ref: '#/components/schemas/ReasonRefCode'
+          - type: 'null'
+      type: object
+      required:
+      - count
+      - actual_date
+      - instrument_first_seen_date
+      - instrument_last_seen_date
+      - data
+      title: InstrumentDetailListView
+    ReleaseConfig:
+      properties:
+        access_method:
+          type: string
+          title: Access Method
+        release_time:
+          type: string
+          title: Release Time
+        tz:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tz
+        license_required:
+          type: boolean
+          title: License Required
+      type: object
+      required:
+      - access_method
+      - release_time
+      - license_required
+      title: ReleaseConfig
+    DailyInstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+        product_group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Product Group
+        volume:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Volume
+        open_interest:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Open Interest
+        sector:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sector
+        close_price:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Close Price
+        last_update_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Update Date
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: DailyInstrumentDescription
+    Body_post_get_billable_size_v0_metadata_get_billable_size_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_billable_size_v0_metadata_get_billable_size_post
+    LatencyHistoryItem:
+      properties:
+        percentile:
+          type: number
+          title: Percentile
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+        value:
+          type: integer
+          title: Value
+      type: object
+      required:
+      - percentile
+      - start
+      - end
+      - value
+      title: LatencyHistoryItem
+    DatasetCatalogView:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+        colloquial_name:
+          type: string
+          title: Colloquial Name
+        dataset_introduction:
+          type: string
+          title: Dataset Introduction
+        lowest_price:
+          type: string
+          title: Lowest Price
+        unit_prices:
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
+          type: object
+          title: Unit Prices
+        pricing_plan:
+          additionalProperties:
+            type: string
+          type: object
+          title: Pricing Plan
+        recommend_instruments:
+          items:
+            $ref: '#/components/schemas/InstrumentDescription'
+          type: array
+          title: Recommend Instruments
+        total_instrument_count:
+          type: integer
+          title: Total Instrument Count
+        live_data_ready:
+          type: boolean
+          title: Live Data Ready
+        asset_class:
+          items:
+            type: string
+          type: array
+          title: Asset Class
+        dataset_tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Dataset Tags
+          default: []
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - colloquial_name
+      - dataset_introduction
+      - lowest_price
+      - unit_prices
+      - pricing_plan
+      - recommend_instruments
+      - total_instrument_count
+      - live_data_ready
+      - asset_class
+      title: DatasetCatalogView
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DatasetInstrumentTableHeaderView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        columns:
+          items:
+            $ref: '#/components/schemas/InstrumentListTableView'
+          type: array
+          title: Columns
+      type: object
+      required:
+      - count
+      - columns
+      title: DatasetInstrumentTableHeaderView
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

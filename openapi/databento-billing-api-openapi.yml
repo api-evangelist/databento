@@ -1,0 +1,1173 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Billing API
+  version: 0.167.1
+tags:
+- name: billing
+paths:
+  /v0/billing/dashboard:
+    get:
+      tags:
+      - billing
+      summary: Get Dashboard Data
+      operationId: get_dashboard_data_v0_billing_dashboard_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingDashboardView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/billing/invoices:
+    get:
+      tags:
+      - billing
+      summary: List Invoice
+      operationId: list_invoice_v0_billing_invoices_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Query
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 5
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceListResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/billing/upcoming_invoice:
+    get:
+      tags:
+      - billing
+      summary: Upcoming Invoice
+      operationId: upcoming_invoice_v0_billing_upcoming_invoice_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDraftStateView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/billing/invoice/{invoice_id}:
+    get:
+      tags:
+      - billing
+      summary: Get Invoice Detail
+      operationId: get_invoice_detail_v0_billing_invoice__invoice_id__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Invoice Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/billing/events:
+    post:
+      tags:
+      - billing
+      summary: Events
+      operationId: events_v0_billing_events_post
+      parameters:
+      - name: stripe-signature
+        in: header
+        required: false
+        schema:
+          type: string
+          title: Stripe-Signature
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/billing/tin:
+    post:
+      tags:
+      - billing
+      summary: Tin Updated
+      operationId: tin_updated_v0_billing_tin_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+  /v0/billing/credits:
+    get:
+      tags:
+      - billing
+      summary: Get Credit Activity
+      operationId: get_credit_activity_v0_billing_credits_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 5
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditDashboardView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/billing/team_budget:
+    get:
+      tags:
+      - billing
+      summary: Read Team Budget
+      operationId: read_team_budget_v0_billing_team_budget_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetChange'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+    post:
+      tags:
+      - billing
+      summary: Change Team Budget
+      operationId: change_team_budget_v0_billing_team_budget_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BudgetChange'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetChange'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/billing/unpaid_invoice:
+    get:
+      tags:
+      - billing
+      summary: Check Team Unpaid Invoice
+      operationId: check_team_unpaid_invoice_v0_billing_unpaid_invoice_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamBillingStatus'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/billing/invoice/download/{invoice_id}:
+    get:
+      tags:
+      - billing
+      summary: Download Invoice
+      operationId: download_invoice_v0_billing_invoice_download__invoice_id__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: invoice_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Invoice Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/billing/premiumservice/activate/{service_id}:
+    get:
+      tags:
+      - billing
+      summary: Check Premium Service Activation
+      operationId: check_premium_service_activation_v0_billing_premiumservice_activate__service_id__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: service_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Service Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionActivationPreflightCheck'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If the service is not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - billing
+      summary: Activate Premium Service
+      operationId: activate_premium_service_v0_billing_premiumservice_activate__service_id__post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionActivationConfirmation'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If the service is not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/billing/subscriptions:
+    get:
+      tags:
+      - billing
+      summary: Display Subscriptions
+      operationId: display_subscriptions_v0_billing_subscriptions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionDetail'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If the service is not found
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/billing/premiumservice/cancel/{service_id}:
+    post:
+      tags:
+      - billing
+      summary: Cancel Premium Service
+      operationId: cancel_premium_service_v0_billing_premiumservice_cancel__service_id__post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: service_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Service Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceCancellationSurvey'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If the service is not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/billing/redeem_credit_code:
+    post:
+      tags:
+      - billing
+      summary: Redeem Credit Code
+      operationId: redeem_credit_code_v0_billing_redeem_credit_code_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Code
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '400':
+          description: If the credit code is invalid
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CustomerAddressType:
+      type: string
+      enum:
+      - Business
+      - Billing
+      title: CustomerAddressType
+    TeamBillingStatus:
+      properties:
+        has_overdue_invoice:
+          type: boolean
+          title: Has Overdue Invoice
+        has_delinquent_invoice:
+          type: boolean
+          title: Has Delinquent Invoice
+        deadline:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Deadline
+      type: object
+      required:
+      - has_overdue_invoice
+      - has_delinquent_invoice
+      title: TeamBillingStatus
+    InvoiceDataUsageView:
+      properties:
+        data_usage_charge:
+          type: integer
+          title: Data Usage Charge
+        total_charge:
+          type: integer
+          title: Total Charge
+        data:
+          items:
+            $ref: '#/components/schemas/DataUsageByDatasetView'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data_usage_charge
+      - total_charge
+      - data
+      title: InvoiceDataUsageView
+    DataUsageRowView:
+      properties:
+        schema_name:
+          type: string
+          title: Schema Name
+        usage:
+          type: integer
+          title: Usage
+        rate:
+          type: integer
+          title: Rate
+        cost:
+          type: integer
+          title: Cost
+      type: object
+      required:
+      - schema_name
+      - usage
+      - rate
+      - cost
+      title: DataUsageRowView
+    InvoiceListView:
+      properties:
+        id:
+          type: string
+          title: Id
+        ref_id:
+          type: integer
+          title: Ref Id
+        date:
+          type: string
+          title: Date
+        status:
+          type: string
+          title: Status
+        description:
+          type: string
+          title: Description
+        payment_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Payment Method
+        card_brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Card Brand
+        amount:
+          type: integer
+          title: Amount
+        download_ready:
+          type: boolean
+          title: Download Ready
+        accept_payment:
+          type: boolean
+          title: Accept Payment
+        payment_link:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Payment Link
+      type: object
+      required:
+      - id
+      - ref_id
+      - date
+      - status
+      - description
+      - amount
+      - download_ready
+      - accept_payment
+      - payment_link
+      title: InvoiceListView
+    BillingDashboardView:
+      properties:
+        outstanding_balance:
+          type: integer
+          title: Outstanding Balance
+        next_payment:
+          type: string
+          title: Next Payment
+        credits_remain:
+          type: integer
+          title: Credits Remain
+        ts_next_credit_expiration:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ts Next Credit Expiration
+        budget:
+          type: integer
+          title: Budget
+        collection_method:
+          type: string
+          title: Collection Method
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+        last_4:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last 4
+        billing_address:
+          $ref: '#/components/schemas/TeamContactView'
+        subscriptions:
+          $ref: '#/components/schemas/SubscriptionDetail'
+      type: object
+      required:
+      - outstanding_balance
+      - next_payment
+      - credits_remain
+      - budget
+      - collection_method
+      - brand
+      - last_4
+      - billing_address
+      - subscriptions
+      title: BillingDashboardView
+    SubscriptionDetail:
+      properties:
+        licenses:
+          items:
+            $ref: '#/components/schemas/LicenseSubscriptionItem'
+          type: array
+          title: Licenses
+        plans:
+          items:
+            $ref: '#/components/schemas/PlanSubscriptionItem'
+          type: array
+          title: Plans
+      type: object
+      required:
+      - licenses
+      - plans
+      title: SubscriptionDetail
+    InvoiceListResponse:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/InvoiceListView'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: InvoiceListResponse
+    InvoiceDraftStateView:
+      properties:
+        data_usage_charge:
+          type: integer
+          title: Data Usage Charge
+        credit_applicable:
+          type: integer
+          title: Credit Applicable
+        total_data_usage_balance:
+          type: integer
+          title: Total Data Usage Balance
+        data_usage:
+          $ref: '#/components/schemas/InvoiceDataUsageView'
+        subscriptions:
+          $ref: '#/components/schemas/SubscriptionDetail'
+      type: object
+      required:
+      - data_usage_charge
+      - credit_applicable
+      - total_data_usage_balance
+      - data_usage
+      - subscriptions
+      title: InvoiceDraftStateView
+    CreditDashboardView:
+      properties:
+        total_amount:
+          type: integer
+          title: Total Amount
+        universal_amount:
+          type: integer
+          title: Universal Amount
+        historical_only_amount:
+          type: integer
+          title: Historical Only Amount
+        realtime_only_amount:
+          type: integer
+          title: Realtime Only Amount
+        license_only_amount:
+          type: integer
+          title: License Only Amount
+        next_expiration_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Expiration Date
+        next_expiration_amount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Next Expiration Amount
+        items:
+          items:
+            $ref: '#/components/schemas/CreditListView'
+          type: array
+          title: Items
+      type: object
+      required:
+      - total_amount
+      - universal_amount
+      - historical_only_amount
+      - realtime_only_amount
+      - license_only_amount
+      - items
+      title: CreditDashboardView
+    ServiceCancellationSurvey:
+      properties:
+        reasons:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Reasons
+      type: object
+      title: ServiceCancellationSurvey
+    PlanSubscriptionItem:
+      properties:
+        plan_subscription_id:
+          type: integer
+          title: Plan Subscription Id
+        team_id:
+          type: string
+          title: Team Id
+        service_name:
+          type: string
+          title: Service Name
+        service_description:
+          type: string
+          title: Service Description
+        service_type:
+          type: string
+          title: Service Type
+        service_tier:
+          type: string
+          title: Service Tier
+        service_group:
+          type: string
+          title: Service Group
+        dataset:
+          type: string
+          title: Dataset
+        cost:
+          type: integer
+          title: Cost
+        next_billing_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Billing Date
+        current_cycle_start:
+          type: string
+          title: Current Cycle Start
+        current_cycle_end:
+          type: string
+          title: Current Cycle End
+        termination_date:
+          type: string
+          title: Termination Date
+        billing_interval:
+          type: integer
+          title: Billing Interval
+        status:
+          type: string
+          title: Status
+        sub_datasets:
+          items:
+            type: string
+          type: array
+          title: Sub Datasets
+          default: []
+        historical_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Historical Data Ready Datasets
+          default: []
+        live_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Live Data Ready Datasets
+          default: []
+        license_flow_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: License Flow Ready Datasets
+          default: []
+        allowed_live_datasets:
+          items:
+            type: string
+          type: array
+          title: Allowed Live Datasets
+          default: []
+      type: object
+      required:
+      - plan_subscription_id
+      - team_id
+      - service_name
+      - service_description
+      - service_type
+      - service_tier
+      - service_group
+      - dataset
+      - cost
+      - next_billing_date
+      - current_cycle_start
+      - current_cycle_end
+      - termination_date
+      - billing_interval
+      - status
+      title: PlanSubscriptionItem
+    LicenseSubscriptionItem:
+      properties:
+        license_subscription_id:
+          type: integer
+          title: License Subscription Id
+        team_id:
+          type: string
+          title: Team Id
+        provider:
+          type: string
+          title: Provider
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        professional:
+          type: boolean
+          title: Professional
+        asset_class:
+          items:
+            type: string
+          type: array
+          title: Asset Class
+        cost:
+          type: integer
+          title: Cost
+        next_billing_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Billing Date
+        current_cycle_start:
+          type: string
+          title: Current Cycle Start
+        current_cycle_end:
+          type: string
+          title: Current Cycle End
+        termination_date:
+          type: string
+          title: Termination Date
+        billing_interval:
+          type: integer
+          title: Billing Interval
+        status:
+          type: string
+          title: Status
+        service_group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Service Group
+        reference_data_license_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reference Data License Tier
+        symbols_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Symbols Used
+        symbols_allowed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Symbols Allowed
+      type: object
+      required:
+      - license_subscription_id
+      - team_id
+      - provider
+      - name
+      - description
+      - professional
+      - asset_class
+      - cost
+      - next_billing_date
+      - current_cycle_start
+      - current_cycle_end
+      - termination_date
+      - billing_interval
+      - status
+      - service_group
+      title: LicenseSubscriptionItem
+    SubscriptionActivationConfirmation:
+      properties:
+        service_offering_id:
+          type: integer
+          title: Service Offering Id
+        cost_cents:
+          type: integer
+          title: Cost Cents
+        credit_cents:
+          type: integer
+          title: Credit Cents
+        balance_due_cents:
+          type: integer
+          title: Balance Due Cents
+      type: object
+      required:
+      - service_offering_id
+      - cost_cents
+      - credit_cents
+      - balance_due_cents
+      title: SubscriptionActivationConfirmation
+    CreditListView:
+      properties:
+        date:
+          type: string
+          title: Date
+        amount:
+          type: integer
+          title: Amount
+        balance:
+          type: integer
+          title: Balance
+        description:
+          type: string
+          title: Description
+        redeem_activity:
+          items:
+            $ref: '#/components/schemas/CreditRedeemView'
+          type: array
+          title: Redeem Activity
+        expiration:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Expiration
+        restriction:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Restriction
+      type: object
+      required:
+      - date
+      - amount
+      - balance
+      - description
+      - redeem_activity
+      title: CreditListView
+    SubscriptionActivationPreflightCheck:
+      properties:
+        allowed:
+          type: boolean
+          title: Allowed
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        cost_cents:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cost Cents
+        credit_cents:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Credit Cents
+        balance_due_cents:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Balance Due Cents
+      type: object
+      required:
+      - allowed
+      title: SubscriptionActivationPreflightCheck
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CreditRedeemView:
+      properties:
+        coupon_name:
+          type: string
+          title: Coupon Name
+        redeem_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Redeem Reason
+        amount:
+          type: integer
+          title: Amount
+        redeem_time:
+          type: string
+          title: Redeem Time
+      type: object
+      required:
+      - coupon_name
+      - redeem_reason
+      - amount
+      - redeem_time
+      title: CreditRedeemView
+    DataUsageByDatasetView:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_display_name:
+          type: string
+          title: Dataset Display Name
+        usage_detail:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/DataUsageRowView'
+            type: array
+          type: object
+          title: Usage Detail
+        data_usage_charge:
+          type: integer
+          title: Data Usage Charge
+      type: object
+      required:
+      - dataset_id
+      - dataset_display_name
+      - usage_detail
+      - data_usage_charge
+      title: DataUsageByDatasetView
+    TeamContactView:
+      properties:
+        address_line1:
+          type: string
+          title: Address Line1
+        city:
+          type: string
+          title: City
+        state_province_region:
+          type: string
+          title: State Province Region
+        country_region:
+          type: string
+          title: Country Region
+        postal_code:
+          type: string
+          title: Postal Code
+        phone_cc:
+          type: string
+          title: Phone Cc
+        phone_num:
+          type: string
+          title: Phone Num
+        address_type:
+          $ref: '#/components/schemas/CustomerAddressType'
+        company_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Name
+        address_line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address Line2
+      type: object
+      required:
+      - address_line1
+      - city
+      - state_province_region
+      - country_region
+      - postal_code
+      - phone_cc
+      - phone_num
+      - address_type
+      title: TeamContactView
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BudgetChange:
+      properties:
+        budget_control_on:
+          type: boolean
+          title: Budget Control On
+        notification_on:
+          type: boolean
+          title: Notification On
+        notification_on_percent:
+          type: integer
+          title: Notification On Percent
+        amount:
+          type: integer
+          title: Amount
+      type: object
+      required:
+      - budget_control_on
+      - notification_on
+      - notification_on_percent
+      - amount
+      title: BudgetChange
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

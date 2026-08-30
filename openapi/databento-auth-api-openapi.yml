@@ -1,0 +1,474 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Auth API
+  version: 0.167.1
+tags:
+- name: auth
+paths:
+  /v0/auth/login:
+    post:
+      tags:
+      - auth
+      summary: Login
+      operationId: login_v0_auth_login_post
+      parameters:
+      - name: db_device_id
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Db Device Id
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_login_v0_auth_login_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: If user email password authentication fails, or if user is not found.
+        '403':
+          description: If user does not have sufficient permissions. If team does not have sufficient permissions.
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/auth/logout:
+    post:
+      tags:
+      - auth
+      summary: Logout
+      operationId: logout_v0_auth_logout_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails
+        '404':
+          description: If user not found
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/auth/recover/{email}:
+    post:
+      tags:
+      - auth
+      summary: Recover Account
+      operationId: recover_account_v0_auth_recover__email__post
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+          format: email
+          title: Email
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/auth/reset-password:
+    post:
+      tags:
+      - auth
+      summary: Reset Password
+      operationId: reset_password_v0_auth_reset_password_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_reset_password_v0_auth_reset_password_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails or invalid OTP
+        '422':
+          description: If password validation fails
+  /v0/auth/confirm-email-resend:
+    post:
+      tags:
+      - auth
+      summary: Confirm Email Resend
+      operationId: confirm_email_resend_v0_auth_confirm_email_resend_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails or invalid OTP
+        '404':
+          description: If user or OTP not found
+        '429':
+          description: If requests exceed rate limit
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/auth/confirm-email-otp:
+    post:
+      tags:
+      - auth
+      summary: Confirm Email Otp
+      operationId: confirm_email_otp_v0_auth_confirm_email_otp_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+              title: Otp
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails or invalid OTP
+        '404':
+          description: If user or OTP not found
+        '429':
+          description: If request rate limit exceeded
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/auth/confirm-email-token:
+    post:
+      tags:
+      - auth
+      summary: Confirm Email Token
+      operationId: confirm_email_token_v0_auth_confirm_email_token_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: string
+              title: Token
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails or invalid OTP
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/auth/cram:
+    post:
+      tags:
+      - auth
+      summary: Authenticate Cram
+      operationId: authenticate_cram_v0_auth_cram_post
+      parameters:
+      - name: challenge
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Challenge
+      - name: user_reply
+        in: query
+        required: true
+        schema:
+          type: string
+          title: User Reply
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: caller_pid
+        in: query
+        required: true
+        schema:
+          type: integer
+          title: Caller Pid
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If user reply or bucket ID malformed (e.g. no hyphen), If `dataset` is invalid or not found.
+        '401':
+          description: If no user API key matches on CRAM user reply
+        '403':
+          description: If user not in good standing, is deactivated, or has no entitlement for dataset
+        '404':
+          description: If user for API key not found
+        '422':
+          description: If dataset is not production ready, or not available for live
+  /v0/auth/test:
+    post:
+      tags:
+      - auth
+      summary: Test Access Token
+      operationId: test_access_token_v0_auth_test_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '404':
+          description: If user not found
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/auth/test-permissive:
+    post:
+      tags:
+      - auth
+      summary: Test Permissive
+      operationId: test_permissive_v0_auth_test_permissive_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  anyOf:
+                  - type: string
+                  - type: 'null'
+                type: object
+                title: Response Test Permissive V0 Auth Test Permissive Post
+  /v0/auth/frill_user_token/{board}:
+    get:
+      tags:
+      - auth
+      summary: Generate Frill Sso Token
+      operationId: generate_frill_sso_token_v0_auth_frill_user_token__board__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: board
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Board
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Generate Frill Sso Token V0 Auth Frill User Token  Board  Get
+        '401':
+          description: If user email password authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/auth/intercom_user_hmac:
+    get:
+      tags:
+      - auth
+      summary: Generate Intercom User Hmac
+      operationId: generate_intercom_user_hmac_v0_auth_intercom_user_hmac_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Generate Intercom User Hmac V0 Auth Intercom User Hmac Get
+        '401':
+          description: If user email password authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DetailResponse:
+      properties:
+        detail:
+          additionalProperties: true
+          type: object
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: DetailResponse
+    Token:
+      properties:
+        token_type:
+          type: string
+          title: Token Type
+          default: Bearer
+        access_token:
+          type: string
+          title: Access Token
+        expires_in:
+          type: integer
+          title: Expires In
+        expires_on:
+          type: integer
+          title: Expires On
+        refresh_token:
+          type: string
+          title: Refresh Token
+      type: object
+      required:
+      - access_token
+      - expires_in
+      - expires_on
+      - refresh_token
+      title: Token
+    Body_reset_password_v0_auth_reset_password_post:
+      properties:
+        token:
+          type: string
+          title: Token
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - token
+      - new_password
+      title: Body_reset_password_v0_auth_reset_password_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_login_v0_auth_login_post:
+      properties:
+        grant_type:
+          anyOf:
+          - type: string
+            pattern: password
+          - type: 'null'
+          title: Grant Type
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+      type: object
+      required:
+      - username
+      - password
+      title: Body_login_v0_auth_login_post
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

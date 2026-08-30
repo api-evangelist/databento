@@ -1,0 +1,1159 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Licensing API
+  version: 0.167.1
+tags:
+- name: licensing
+paths:
+  /v0/licensing/me:
+    get:
+      tags:
+      - licensing
+      summary: Get Data Licensing View
+      operationId: get_data_licensing_view_v0_licensing_me_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataLicenseSubscriptionView'
+                title: Response Get Data Licensing View V0 Licensing Me Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/available_licenses:
+    get:
+      tags:
+      - licensing
+      summary: Get Available Data Licenses
+      operationId: get_available_data_licenses_v0_licensing_available_licenses_get
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataLicenseView'
+                title: Response Get Available Data Licenses V0 Licensing Available Licenses Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/me/status:
+    get:
+      tags:
+      - licensing
+      summary: Get Data Licensing Subscription Status
+      operationId: get_data_licensing_subscription_status_v0_licensing_me_status_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetLicensingStatus'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/documents/{group}/{filename}:
+    get:
+      tags:
+      - licensing
+      summary: Get Public Licensing Document
+      operationId: get_public_licensing_document_v0_licensing_documents__group___filename__get
+      parameters:
+      - name: group
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Group
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Filename
+      - name: download
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Download
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/templates/{provider}/{filename}:
+    get:
+      tags:
+      - licensing
+      summary: Get Data License Template
+      operationId: get_data_license_template_v0_licensing_templates__provider___filename__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Filename
+      - name: download
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Download
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found, or license template not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/me/preview:
+    get:
+      tags:
+      - licensing
+      summary: Get Pdf Preview
+      operationId: get_pdf_preview_v0_licensing_me_preview_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found, or license template not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/me/files/{provider}/{name}/{kind}/{date}:
+    get:
+      tags:
+      - licensing
+      summary: Download License File
+      operationId: download_license_file_v0_licensing_me_files__provider___name___kind___date__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      - name: kind
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/LicenseFormKind'
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Date
+      - name: download
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Download
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found, or file not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - licensing
+      summary: Upload License Files
+      operationId: upload_license_files_v0_licensing_me_files__provider___name___kind___date__post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      - name: kind
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/LicenseFormKind'
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Date
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_license_files_v0_licensing_me_files__provider___name___kind___date__post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If file is not a valid PDF
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '409':
+          description: If file already exists
+        '413':
+          description: If a file size exceeds `MAX_LICENSE_FILE_SIZE`, or total file count exceeds `MAX_LICENSE_FILE_COUNT`
+        '502':
+          description: If there is an unexpected error with the malware scanning server
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/me/subscriptions:
+    post:
+      tags:
+      - licensing
+      summary: Submit New Data License Subscription
+      operationId: submit_new_data_license_subscription_v0_licensing_me_subscriptions_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDataLicenseSubscription'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataLicenseSubscriptionView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/me/subscriptions/{provider}/{name}:
+    delete:
+      tags:
+      - licensing
+      summary: Terminate A Data License Subscription
+      operationId: terminate_a_data_license_subscription_v0_licensing_me_subscriptions__provider___name__delete
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: provider
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Provider
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataLicenseSubscriptionView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/licensing/me/subscriptions/reference/upgrade:
+    post:
+      tags:
+      - licensing
+      summary: Upgrade Reference Data Additional Symbols
+      operationId: upgrade_reference_data_additional_symbols_v0_licensing_me_subscriptions_reference_upgrade_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpgradeReferenceDataSubscription'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataLicenseSubscriptionView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found, or subscription not found
+        '422':
+          description: If subscription is not upgradeable or validation fails
+  /v0/licensing/me/subscriptions/reference/quote:
+    post:
+      tags:
+      - licensing
+      summary: Quote Reference Data License Subscription
+      operationId: quote_reference_data_license_subscription_v0_licensing_me_subscriptions_reference_quote_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDataLicenseSubscription'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionActivationPreflightCheck'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found, or subscription not found
+        '422':
+          description: If subscription is not upgradeable or validation fails
+  /v0/licensing/me/survey:
+    post:
+      tags:
+      - licensing
+      summary: New License Survey
+      operationId: new_license_survey_v0_licensing_me_survey_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewLicenseSurvey'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found, or license template not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_upload_license_files_v0_licensing_me_files__provider___name___kind___date__post:
+      properties:
+        files:
+          items:
+            type: string
+            format: binary
+          type: array
+          title: Files
+      type: object
+      required:
+      - files
+      title: Body_upload_license_files_v0_licensing_me_files__provider___name___kind___date__post
+    UserInputKind:
+      type: string
+      enum:
+      - text
+      - checkbox
+      - signature
+      title: UserInputKind
+    LicensingEventType:
+      type: string
+      enum:
+      - application-submitted
+      - application-withdrawn
+      - application-rejected
+      - application-approved
+      - update-submitted
+      - update-withdrawn
+      - update-rejected
+      - update-approved
+      - update-scheduled
+      - termination-submitted
+      - termination-withdrawn
+      - subscription-scheduled
+      - subscription-activated
+      - subscription-terminated
+      - subscription-terminated-early
+      title: LicensingEventType
+    LicensingEvent:
+      properties:
+        event_type:
+          $ref: '#/components/schemas/LicensingEventType'
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+      type: object
+      required:
+      - event_type
+      - content
+      - ts_created
+      title: LicensingEvent
+    AssetClass:
+      type: string
+      enum:
+      - Options
+      - Futures
+      - Equities
+      - ETF
+      - Spots
+      - Others
+      title: AssetClass
+    LicenseSubscriptionStatus:
+      type: string
+      enum:
+      - not-active
+      - pending-app-review
+      - pending-update-review
+      - scheduled-activation
+      - scheduled-update
+      - scheduled-terminate
+      - active
+      title: LicenseSubscriptionStatus
+    LicenseType:
+      type: string
+      enum:
+      - display usage
+      - non-display usage
+      - top-of-book display usage
+      - imbalance non-display usage
+      - non-display delayed usage
+      - external redistribution
+      - internal redistribution
+      - connection
+      - starter
+      - starter additional
+      - unlimited us
+      - unlimited global
+      - trial
+      title: LicenseType
+    CreateDataLicenseSubscription:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        name:
+          type: string
+          title: Name
+        service_type:
+          $ref: '#/components/schemas/ServiceType'
+        internal_redistribution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Internal Redistribution
+        external_redistribution:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: External Redistribution
+        display_devices:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Display Devices
+        non_display_devices:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Non Display Devices
+        connections:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Connections
+        professional:
+          type: boolean
+          title: Professional
+        price_cents:
+          type: integer
+          minimum: 0.0
+          title: Price Cents
+        processing_fee_cents:
+          type: integer
+          minimum: 0.0
+          title: Processing Fee Cents
+        start_date:
+          type: string
+          title: Start Date
+        billing_interval:
+          type: integer
+          title: Billing Interval
+          default: 1
+        forms:
+          items:
+            $ref: '#/components/schemas/LicenseForm'
+          type: array
+          title: Forms
+        license_type:
+          anyOf:
+          - $ref: '#/components/schemas/LicenseType'
+          - type: 'null'
+        additional_symbols:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Additional Symbols
+      type: object
+      required:
+      - provider
+      - name
+      - service_type
+      - professional
+      - price_cents
+      - processing_fee_cents
+      - start_date
+      - forms
+      title: CreateDataLicenseSubscription
+    LicensingAction:
+      type: string
+      enum:
+      - submit-application
+      - submit-update
+      - submit-termination
+      - withdraw-application
+      - withdraw-update
+      - withdraw-termination
+      - reject-application
+      - reject-update
+      - approve-application
+      - approve-update
+      - schedule-update
+      - schedule-subscription
+      - activate-subscription
+      - terminate-subscription
+      - terminate-subscription-early
+      title: LicensingAction
+    LicenseSurveyQuestion:
+      properties:
+        question:
+          type: string
+          title: Question
+        answer:
+          items:
+            type: string
+          type: array
+          title: Answer
+      type: object
+      required:
+      - question
+      - answer
+      title: LicenseSurveyQuestion
+    ServiceType:
+      type: string
+      enum:
+      - regular
+      - external
+      - bespoke
+      title: ServiceType
+    LicensedDataset:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+          default: ''
+      type: object
+      required:
+      - provider
+      - name
+      title: LicensedDataset
+    NewLicenseSurvey:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        questions:
+          items:
+            $ref: '#/components/schemas/LicenseSurveyQuestion'
+          type: array
+          title: Questions
+      type: object
+      required:
+      - dataset
+      - questions
+      title: NewLicenseSurvey
+    UserInput:
+      properties:
+        field_id:
+          type: string
+          title: Field Id
+        value:
+          anyOf:
+          - type: string
+          - type: integer
+          - type: boolean
+          title: Value
+        kind:
+          anyOf:
+          - $ref: '#/components/schemas/UserInputKind'
+          - type: 'null'
+        pos_x:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Pos X
+        pos_y:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Pos Y
+      type: object
+      required:
+      - field_id
+      - value
+      title: UserInput
+    LicenseFormKind:
+      type: string
+      enum:
+      - attestation
+      - external
+      title: LicenseFormKind
+    DataLicenseSubscriptionView:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        asset_class:
+          items:
+            $ref: '#/components/schemas/AssetClass'
+          type: array
+          title: Asset Class
+        internal_redistribution:
+          type: boolean
+          title: Internal Redistribution
+        external_redistribution:
+          type: boolean
+          title: External Redistribution
+        display_devices:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Display Devices
+        non_display_devices:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Non Display Devices
+        connections:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Connections
+        professional:
+          type: boolean
+          title: Professional
+        service_type:
+          $ref: '#/components/schemas/ServiceType'
+        price_cents:
+          type: integer
+          minimum: 0.0
+          title: Price Cents
+        processing_fee_cents:
+          type: integer
+          minimum: 0.0
+          title: Processing Fee Cents
+        created_date:
+          type: string
+          title: Created Date
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        status:
+          $ref: '#/components/schemas/LicenseSubscriptionStatus'
+        actions:
+          items:
+            $ref: '#/components/schemas/LicensingAction'
+          type: array
+          title: Actions
+        events:
+          items:
+            $ref: '#/components/schemas/LicensingEvent'
+          type: array
+          title: Events
+        has_paperwork:
+          type: boolean
+          title: Has Paperwork
+      type: object
+      required:
+      - provider
+      - name
+      - description
+      - asset_class
+      - internal_redistribution
+      - external_redistribution
+      - professional
+      - service_type
+      - price_cents
+      - processing_fee_cents
+      - created_date
+      - start_date
+      - end_date
+      - status
+      - actions
+      - events
+      - has_paperwork
+      title: DataLicenseSubscriptionView
+    DatasetLicensingStatus:
+      properties:
+        subscribed_datasets:
+          items:
+            $ref: '#/components/schemas/LicensedDataset'
+          type: array
+          title: Subscribed Datasets
+        available_datasets:
+          items:
+            $ref: '#/components/schemas/LicensedDataset'
+          type: array
+          title: Available Datasets
+        exclusions:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          propertyNames:
+            $ref: '#/components/schemas/LicensedDataset'
+          type: object
+          title: Exclusions
+      type: object
+      required:
+      - subscribed_datasets
+      - available_datasets
+      - exclusions
+      title: DatasetLicensingStatus
+    UpgradeReferenceDataSubscription:
+      properties:
+        provider:
+          type: string
+          title: Provider
+        name:
+          type: string
+          title: Name
+        additional_symbols:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Additional Symbols
+      type: object
+      required:
+      - provider
+      - name
+      - additional_symbols
+      title: UpgradeReferenceDataSubscription
+    LicenseForm:
+      properties:
+        name:
+          type: string
+          title: Name
+        inputs:
+          items:
+            $ref: '#/components/schemas/UserInput'
+          type: array
+          title: Inputs
+        agreed_esign:
+          type: boolean
+          title: Agreed Esign
+      type: object
+      required:
+      - name
+      - inputs
+      - agreed_esign
+      title: LicenseForm
+    SubscriptionActivationPreflightCheck:
+      properties:
+        allowed:
+          type: boolean
+          title: Allowed
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        cost_cents:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cost Cents
+        credit_cents:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Credit Cents
+        balance_due_cents:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Balance Due Cents
+      type: object
+      required:
+      - allowed
+      title: SubscriptionActivationPreflightCheck
+    DataLicenseView:
+      properties:
+        id:
+          type: integer
+          title: Id
+        provider:
+          type: string
+          title: Provider
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        asset_class:
+          items:
+            $ref: '#/components/schemas/AssetClass'
+          type: array
+          title: Asset Class
+        license_type:
+          $ref: '#/components/schemas/LicenseType'
+        service_type:
+          $ref: '#/components/schemas/ServiceType'
+        professional:
+          type: boolean
+          title: Professional
+        price:
+          type: integer
+          minimum: 0.0
+          title: Price
+        processing_fee:
+          type: integer
+          minimum: 0.0
+          title: Processing Fee
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+        ts_updated:
+          type: string
+          format: date-time
+          title: Ts Updated
+      type: object
+      required:
+      - id
+      - provider
+      - name
+      - description
+      - asset_class
+      - license_type
+      - service_type
+      - professional
+      - price
+      - processing_fee
+      - ts_created
+      - ts_updated
+      title: DataLicenseView
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

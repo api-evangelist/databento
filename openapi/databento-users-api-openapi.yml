@@ -1,0 +1,1747 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Users API
+  version: 0.167.1
+tags:
+- name: users
+paths:
+  /v0/users/me:
+    get:
+      tags:
+      - users
+      summary: Read Current User
+      operationId: read_current_user_v0_users_me_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/name:
+    put:
+      tags:
+      - users
+      summary: Update Current User Name
+      operationId: update_current_user_name_v0_users_me_name_put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserNameUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: If full name exceeds character limit of 255
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/email_update_intent:
+    get:
+      tags:
+      - users
+      summary: Get Email Update Intent
+      operationId: get_email_update_intent_v0_users_me_email_update_intent_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - users
+      summary: Create Email Update Intent
+      operationId: create_email_update_intent_v0_users_me_email_update_intent_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateNewEmail'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserEmailUpdateIntent'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '409':
+          description: If the email already exists.
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - users
+      summary: Delete Email Update Intent
+      operationId: delete_email_update_intent_v0_users_me_email_update_intent_delete
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/email_update:
+    get:
+      tags:
+      - users
+      summary: Get Email Update Intent Detail
+      operationId: get_email_update_intent_detail_v0_users_email_update_get
+      parameters:
+      - name: request_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Request Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If email update status is not `CONFIRMED`
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - users
+      summary: Update User Email
+      operationId: update_user_email_v0_users_email_update_put
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserEmailUpdateConfirm'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/password:
+    put:
+      tags:
+      - users
+      summary: Update Current User Password
+      operationId: update_current_user_password_v0_users_me_password_put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPasswordUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/keys:
+    post:
+      tags:
+      - users
+      summary: Create Current User Key
+      operationId: create_current_user_key_v0_users_me_keys_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserApiKeyCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions, or if the maximum number of API keys would be exceeded
+        '400':
+          description: 'If key `name` validation fails '
+        '409':
+          description: If API key with the same `name` already exists
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - users
+      summary: Read Current User Keys
+      operationId: read_current_user_keys_v0_users_me_keys_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserApiKeyResponse'
+                title: Response Read Current User Keys V0 Users Me Keys Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/keys/{name}:
+    get:
+      tags:
+      - users
+      summary: Read Current User Key By Name
+      operationId: read_current_user_key_by_name_v0_users_me_keys__name__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKeyResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or API key not found
+        '422':
+          description: If `name` validation fails
+    put:
+      tags:
+      - users
+      summary: Update Current User Key By Name
+      operationId: update_current_user_key_by_name_v0_users_me_keys__name__put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserApiKeyUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or API key not found
+        '422':
+          description: If `name` validation fails
+    delete:
+      tags:
+      - users
+      summary: Delete Current User Key By Name
+      operationId: delete_current_user_key_by_name_v0_users_me_keys__name__delete
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or API key not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/keys/{name}/rotate:
+    put:
+      tags:
+      - users
+      summary: Rotate Current User Key By Name
+      operationId: rotate_current_user_key_by_name_v0_users_me_keys__name__rotate_put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Name
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or API key not found
+        '422':
+          description: If `name` validation fails
+  /v0/users/me/settings:
+    get:
+      tags:
+      - users
+      summary: List Settings
+      operationId: list_settings_v0_users_me_settings_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSettingsView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - users
+      summary: Update Settings
+      operationId: update_settings_v0_users_me_settings_put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSettingsUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/tutorials:
+    get:
+      tags:
+      - users
+      summary: List Tutorials
+      operationId: list_tutorials_v0_users_me_tutorials_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/tutorials/{tutorial_id}/completed:
+    post:
+      tags:
+      - users
+      summary: Update Tutorial Completed
+      operationId: update_tutorial_completed_v0_users_me_tutorials__tutorial_id__completed_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: tutorial_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tutorial Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/billing:
+    post:
+      tags:
+      - users
+      summary: Billing Capture
+      operationId: billing_capture_v0_users_me_billing_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeSetupIntent'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/add_card:
+    post:
+      tags:
+      - users
+      summary: Add Payment Card
+      operationId: add_payment_card_v0_users_me_add_card_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: payment_method
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Payment Method
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Add Payment Card V0 Users Me Add Card Post
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/update_default:
+    post:
+      tags:
+      - users
+      summary: Update Default
+      operationId: update_default_v0_users_me_update_default_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethod'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/edit_card:
+    post:
+      tags:
+      - users
+      summary: Edit Card
+      operationId: edit_card_v0_users_me_edit_card_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardEdit'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/list_cards:
+    get:
+      tags:
+      - users
+      summary: List Cards
+      operationId: list_cards_v0_users_me_list_cards_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+                title: Response List Cards V0 Users Me List Cards Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/delete_card:
+    post:
+      tags:
+      - users
+      summary: Delete Card
+      operationId: delete_card_v0_users_me_delete_card_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethod'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                title: Response Delete Card V0 Users Me Delete Card Post
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/cart:
+    post:
+      tags:
+      - users
+      summary: Save Cart
+      operationId: save_cart_v0_users_me_cart_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCart'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - users
+      summary: Read Cart
+      operationId: read_cart_v0_users_me_cart_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/notifications:
+    get:
+      tags:
+      - users
+      summary: Read Notifications
+      operationId: read_notifications_v0_users_me_notifications_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/notifications/read:
+    post:
+      tags:
+      - users
+      summary: Read And Update Notifications
+      operationId: read_and_update_notifications_v0_users_me_notifications_read_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/notifications/mark_as_read:
+    post:
+      tags:
+      - users
+      summary: Mark Notifications As Read
+      operationId: mark_notifications_as_read_v0_users_me_notifications_mark_as_read_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationMsgIds'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/notifications/has_unread:
+    get:
+      tags:
+      - users
+      summary: Has Unread Notifications
+      operationId: has_unread_notifications_v0_users_me_notifications_has_unread_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/notifications/clear:
+    post:
+      tags:
+      - users
+      summary: Clear Notifications
+      operationId: clear_notifications_v0_users_me_notifications_clear_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/alerts:
+    get:
+      tags:
+      - users
+      summary: Get Alert Messages
+      operationId: get_alert_messages_v0_users_me_alerts_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/alerts/dismissed/{msg_id}:
+    put:
+      tags:
+      - users
+      summary: Dismiss An Alert Message
+      operationId: dismiss_an_alert_message_v0_users_me_alerts_dismissed__msg_id__put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: msg_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Msg Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If the alert message cannot be dismissed
+        '404':
+          description: If the alert message is not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/me/alerts/dismissed:
+    delete:
+      tags:
+      - users
+      summary: Clear Dismissed State
+      operationId: clear_dismissed_state_v0_users_me_alerts_dismissed_delete
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/sales_inquiry:
+    post:
+      tags:
+      - users
+      summary: Create Sales Inquiry
+      operationId: create_sales_inquiry_v0_users_sales_inquiry_post
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: db_session_id
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Db Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesInquiryCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/users/calendly_meeting_scheduled:
+    post:
+      tags:
+      - users
+      summary: Calendly Meeting Scheduled
+      operationId: calendly_meeting_scheduled_v0_users_calendly_meeting_scheduled_post
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: calendly-webhook-signature
+        in: header
+        required: false
+        schema:
+          type: string
+          default: ''
+          title: Calendly-Webhook-Signature
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    UserPasswordUpdate:
+      properties:
+        old_password:
+          type: string
+          title: Old Password
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - old_password
+      - new_password
+      title: UserPasswordUpdate
+    StripeSetupIntent:
+      properties:
+        setup_intent:
+          additionalProperties: true
+          type: object
+          title: Setup Intent
+        client_secret:
+          type: string
+          title: Client Secret
+      type: object
+      required:
+      - setup_intent
+      - client_secret
+      title: StripeSetupIntent
+    UserEmailUpdateConfirm:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+      type: object
+      required:
+      - request_id
+      title: UserEmailUpdateConfirm
+    CardEdit:
+      properties:
+        payment_method:
+          type: string
+          title: Payment Method
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        add_1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Add 1
+        add_2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Add 2
+        address_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address State
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+        month:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Month
+        year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Year
+      type: object
+      required:
+      - payment_method
+      title: CardEdit
+    UserApiKeyUpdate:
+      properties:
+        new_name:
+          type: string
+          title: New Name
+      type: object
+      required:
+      - new_name
+      title: UserApiKeyUpdate
+    UserEmailUpdateIntent:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        user_id:
+          type: string
+          title: User Id
+        status:
+          $ref: '#/components/schemas/EmailUpdateStatus'
+        new_email:
+          type: string
+          format: email
+          title: New Email
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+      type: object
+      required:
+      - request_id
+      - user_id
+      - status
+      - new_email
+      - ts_created
+      title: UserEmailUpdateIntent
+    NotificationMsgIds:
+      properties:
+        msg_ids:
+          items:
+            type: string
+          type: array
+          title: Msg Ids
+      type: object
+      required:
+      - msg_ids
+      title: NotificationMsgIds
+    UserStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - deactivated
+      title: UserStatus
+    SalesInquiryCreate:
+      properties:
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        phone_num:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone Num
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        company_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Name
+        interest_product:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Interest Product
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+        sales_inquiry_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sales Inquiry Type
+          default: contact_form
+      additionalProperties: true
+      type: object
+      title: SalesInquiryCreate
+    UserNameUpdate:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+      type: object
+      required:
+      - full_name
+      title: UserNameUpdate
+    TeamRole:
+      type: string
+      enum:
+      - owner
+      - admin
+      - accounting
+      - member
+      title: TeamRole
+    Registration:
+      type: string
+      enum:
+      - SIGNUP_EMAIL
+      - SIGNUP_CONTACT
+      - SIGNUP_PAYMENT
+      - EMAIL
+      - CONTACT
+      - PAYMENT
+      - DONE
+      title: Registration
+    UserSettingsView:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+        gateway_latency:
+          type: string
+          title: Gateway Latency
+        receiver_latency:
+          type: string
+          title: Receiver Latency
+        show_live_data_cta:
+          type: boolean
+          title: Show Live Data Cta
+          default: true
+        download_center_intro:
+          type: boolean
+          title: Download Center Intro
+          default: true
+        getting_started_pinned:
+          type: boolean
+          title: Getting Started Pinned
+          default: true
+      type: object
+      required:
+      - timezone
+      - gateway_latency
+      - receiver_latency
+      title: UserSettingsView
+    UserResponse:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        role:
+          $ref: '#/components/schemas/TeamRole'
+        status:
+          $ref: '#/components/schemas/UserStatus'
+        is_good_standing:
+          type: boolean
+          title: Is Good Standing
+        registration:
+          anyOf:
+          - $ref: '#/components/schemas/Registration'
+          - type: 'null'
+          default: EMAIL
+        stripe_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stripe Id
+        id:
+          type: string
+          title: Id
+        team_id:
+          type: string
+          title: Team Id
+      type: object
+      required:
+      - email
+      - role
+      - status
+      - is_good_standing
+      - id
+      - team_id
+      title: UserResponse
+    UserApiKeyResponse:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+        ts_updated:
+          type: string
+          format: date-time
+          title: Ts Updated
+      type: object
+      required:
+      - user_id
+      - name
+      - value
+      - ts_created
+      - ts_updated
+      title: UserApiKeyResponse
+    UserCart:
+      properties:
+        content:
+          type: string
+          title: Content
+      type: object
+      required:
+      - content
+      title: UserCart
+    DetailResponse:
+      properties:
+        detail:
+          additionalProperties: true
+          type: object
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: DetailResponse
+    UserSettingsUpdate:
+      properties:
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+        gateway_latency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gateway Latency
+        receiver_latency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Receiver Latency
+        show_live_data_cta:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Show Live Data Cta
+        download_center_intro:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Download Center Intro
+        getting_started_pinned:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Getting Started Pinned
+      type: object
+      title: UserSettingsUpdate
+    UserApiKeyCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - name
+      title: UserApiKeyCreate
+    PaymentMethod:
+      properties:
+        payment_method:
+          type: string
+          title: Payment Method
+      type: object
+      required:
+      - payment_method
+      title: PaymentMethod
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Card:
+      properties:
+        brand:
+          type: string
+          title: Brand
+        exp_month:
+          type: integer
+          title: Exp Month
+        exp_year:
+          type: integer
+          title: Exp Year
+        last_4:
+          type: string
+          title: Last 4
+        default_card:
+          type: boolean
+          title: Default Card
+        payment_method:
+          type: string
+          title: Payment Method
+      type: object
+      required:
+      - brand
+      - exp_month
+      - exp_year
+      - last_4
+      - default_card
+      - payment_method
+      title: Card
+    EmailUpdateStatus:
+      type: string
+      enum:
+      - UNCONFIRMED
+      - CONFIRMED
+      title: EmailUpdateStatus
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UserUpdateNewEmail:
+      properties:
+        new_email:
+          type: string
+          format: email
+          title: New Email
+      type: object
+      required:
+      - new_email
+      title: UserUpdateNewEmail
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

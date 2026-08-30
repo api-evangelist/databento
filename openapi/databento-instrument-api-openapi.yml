@@ -1,0 +1,345 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Instrument API
+  version: 0.167.1
+tags:
+- name: instrument
+paths:
+  /v0/instrument/instrument_list:
+    get:
+      tags:
+      - instrument
+      summary: Get Instrument List
+      operationId: get_instrument_list_v0_instrument_instrument_list_get
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: asset_class
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Asset Class
+      - name: symbol
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Symbol
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Date
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          default: volume
+          title: Order By
+      - name: desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Desc
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentDetailListView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/instrument/related-datasets/{dataset}/{asset_class}/{instrument}:
+    get:
+      tags:
+      - instrument
+      summary: Get Related Datasets
+      operationId: get_related_datasets_v0_instrument_related_datasets__dataset___asset_class___instrument__get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: asset_class
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Asset Class
+      - name: instrument
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Instrument
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RelatedDatasetView'
+                title: Response Get Related Datasets V0 Instrument Related Datasets  Dataset   Asset Class   Instrument  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/instrument/validate/{dataset}/{asset_class}/{instrument}:
+    get:
+      tags:
+      - instrument
+      summary: Validate Instrument
+      operationId: validate_instrument_v0_instrument_validate__dataset___asset_class___instrument__get
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: asset_class
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Asset Class
+      - name: instrument
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Instrument
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentDescription'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    InstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: InstrumentDescription
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RelatedDatasetView:
+      properties:
+        service_group:
+          type: string
+          title: Service Group
+        dataset:
+          type: string
+          title: Dataset
+        asset_class:
+          type: string
+          title: Asset Class
+        instrument:
+          type: string
+          title: Instrument
+        total_products:
+          type: integer
+          title: Total Products
+      type: object
+      required:
+      - service_group
+      - dataset
+      - asset_class
+      - instrument
+      - total_products
+      title: RelatedDatasetView
+    InstrumentDetailListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        actual_date:
+          type: string
+          title: Actual Date
+        instrument_first_seen_date:
+          type: string
+          title: Instrument First Seen Date
+        instrument_last_seen_date:
+          type: string
+          title: Instrument Last Seen Date
+        data:
+          items:
+            items:
+              anyOf:
+              - type: string
+              - type: number
+              - type: integer
+              - type: 'null'
+            type: array
+          type: array
+          title: Data
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        code:
+          anyOf:
+          - $ref: '#/components/schemas/ReasonRefCode'
+          - type: 'null'
+      type: object
+      required:
+      - count
+      - actual_date
+      - instrument_first_seen_date
+      - instrument_last_seen_date
+      - data
+      title: InstrumentDetailListView
+    ReasonRefCode:
+      type: string
+      enum:
+      - degraded
+      - non-trading
+      - pending
+      title: ReasonRefCode
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

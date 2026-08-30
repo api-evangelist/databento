@@ -1,0 +1,1170 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Teams API
+  version: 0.167.1
+tags:
+- name: teams
+paths:
+  /v0/teams/me/members:
+    get:
+      tags:
+      - teams
+      summary: Get Team Members View
+      operationId: get_team_members_view_v0_teams_me_members_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMembersView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/members/{user_id}:
+    get:
+      tags:
+      - teams
+      summary: Get Team Member
+      operationId: get_team_member_v0_teams_me_members__user_id__get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMemberView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - teams
+      summary: Update Team Member
+      operationId: update_team_member_v0_teams_me_members__user_id__patch
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamMemberUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMemberView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions or `user_id` belongs to the team owner
+        '404':
+          description: If user not found
+        '422':
+          description: If monthly_limit greater than `MAX_BUDGET_LIMIT_CENTS`
+    delete:
+      tags:
+      - teams
+      summary: Delete Member
+      operationId: delete_member_v0_teams_me_members__user_id__delete
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions, if the user to delete is the owner
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me:
+    get:
+      tags:
+      - teams
+      summary: Get Team Details
+      operationId: get_team_details_v0_teams_me_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamDetailsView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - teams
+      summary: Update Team Details
+      operationId: update_team_details_v0_teams_me_patch
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamDetailsUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If team not found
+        '422':
+          description: If team name is invalid
+    delete:
+      tags:
+      - teams
+      summary: Delete Team
+      operationId: delete_team_v0_teams_me_delete
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions, if the team cannot be deleted, or the team has already been deleted
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/contact:
+    get:
+      tags:
+      - teams
+      summary: Get Contact
+      operationId: get_contact_v0_teams_me_contact_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+    put:
+      tags:
+      - teams
+      summary: Update Contact
+      operationId: update_contact_v0_teams_me_contact_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamContactUpdate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamContactView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If existing contact not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+  /v0/teams/me/members/invitations:
+    post:
+      tags:
+      - teams
+      summary: Invite New Members
+      operationId: invite_new_members_v0_teams_me_members_invitations_post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/TeamInvitationCreate'
+              title: Create
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamInvitationView'
+                title: Response Invite New Members V0 Teams Me Members Invitations Post
+        '400':
+          description: If maximum number of message characters is exceeded (4096)
+        '401':
+          description: If user authentication fails
+        '403':
+          description: 'If user does not have sufficient permissions, if an invitation is for an ''owner'' team role, if maximum number of invitees is exceeded (20), if maximum number of team members would be exceeded (1000), '
+        '422':
+          description: 'If email address is invalid, if email address is already in use or invited '
+    put:
+      tags:
+      - teams
+      summary: Edit Existing Invitation
+      operationId: edit_existing_invitation_v0_teams_me_members_invitations_put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamInvitationUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamInvitationView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If invitation not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/members/invitations/resent/{email}:
+    post:
+      tags:
+      - teams
+      summary: Resend Existing Invitation
+      operationId: resend_existing_invitation_v0_teams_me_members_invitations_resent__email__post
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+          format: email
+          title: Email
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamInvitationView'
+        '400':
+          description: If invitee email is malformed
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions or attempting to resend invite within 24 hours
+        '404':
+          description: If the existing invitation is not found
+        '409':
+          description: If the invitee email is already in use
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/members/invitations/{email}:
+    delete:
+      tags:
+      - teams
+      summary: Cancel Existing Invitation
+      operationId: cancel_existing_invitation_v0_teams_me_members_invitations__email__delete
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: email
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Email
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If invitee email is malformed
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If invitation not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/members/owner/{user_id}:
+    put:
+      tags:
+      - teams
+      summary: Transfer Team Ownership
+      operationId: transfer_team_ownership_v0_teams_me_members_owner__user_id__put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: User Id
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/delete_status:
+    get:
+      tags:
+      - teams
+      summary: Get Team Delete Status
+      operationId: get_team_delete_status_v0_teams_me_delete_status_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamDeleteStatus'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/billing_preference:
+    get:
+      tags:
+      - teams
+      summary: Get Billing Preference
+      operationId: get_billing_preference_v0_teams_me_billing_preference_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamBillingPreferenceDetailView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - teams
+      summary: Update Billing Preference
+      operationId: update_billing_preference_v0_teams_me_billing_preference_put
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamBillingPreference'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamBillingPreferenceDetailView'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/teams/me/trial:
+    get:
+      tags:
+      - teams
+      summary: Get Team Trial
+      operationId: get_team_trial_v0_teams_me_trial_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/TeamTrialDetails'
+                - type: 'null'
+                title: Response Get Team Trial V0 Teams Me Trial Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TeamMemberUpdate:
+      properties:
+        role:
+          anyOf:
+          - $ref: '#/components/schemas/TeamRole'
+          - type: 'null'
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/UserStatus'
+          - type: 'null'
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
+      type: object
+      title: TeamMemberUpdate
+    TeamInvitationCreate:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        role:
+          $ref: '#/components/schemas/TeamRole'
+          default: member
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
+      type: object
+      required:
+      - email
+      title: TeamInvitationCreate
+    TeamDeleteStatus:
+      properties:
+        all_invoices_paid:
+          type: boolean
+          title: All Invoices Paid
+        no_outstanding_balance:
+          type: boolean
+          title: No Outstanding Balance
+        no_active_enterprise_plan:
+          type: boolean
+          title: No Active Enterprise Plan
+      type: object
+      required:
+      - all_invoices_paid
+      - no_outstanding_balance
+      - no_active_enterprise_plan
+      title: TeamDeleteStatus
+    TeamTaxID:
+      properties:
+        tax_id_types:
+          type: string
+          title: Tax Id Types
+        country:
+          type: string
+          title: Country
+        value:
+          type: string
+          title: Value
+        status:
+          type: string
+          title: Status
+          default: pending
+      type: object
+      required:
+      - tax_id_types
+      - country
+      - value
+      title: TeamTaxID
+    TeamTrialDetails:
+      properties:
+        is_active:
+          type: boolean
+          title: Is Active
+        note:
+          type: string
+          title: Note
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        datasets:
+          items:
+            type: string
+          type: array
+          title: Datasets
+      type: object
+      required:
+      - is_active
+      - note
+      - start_date
+      - end_date
+      - datasets
+      title: TeamTrialDetails
+    CustomerAddressType:
+      type: string
+      enum:
+      - Business
+      - Billing
+      title: CustomerAddressType
+    UserStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - deactivated
+      title: UserStatus
+    TeamRole:
+      type: string
+      enum:
+      - owner
+      - admin
+      - accounting
+      - member
+      title: TeamRole
+    TeamMemberView:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        email:
+          type: string
+          format: email
+          title: Email
+        role:
+          $ref: '#/components/schemas/TeamRole'
+        status:
+          type: string
+          title: Status
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
+      type: object
+      required:
+      - email
+      - role
+      - status
+      title: TeamMemberView
+    TeamContactUpdate:
+      properties:
+        address_line1:
+          type: string
+          title: Address Line1
+        city:
+          type: string
+          title: City
+        state_province_region:
+          type: string
+          title: State Province Region
+        country_region:
+          type: string
+          title: Country Region
+        postal_code:
+          type: string
+          title: Postal Code
+        phone_cc:
+          type: string
+          title: Phone Cc
+        phone_num:
+          type: string
+          title: Phone Num
+        address_type:
+          type: string
+          title: Address Type
+        company_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Name
+        address_line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address Line2
+      type: object
+      required:
+      - address_line1
+      - city
+      - state_province_region
+      - country_region
+      - postal_code
+      - phone_cc
+      - phone_num
+      - address_type
+      title: TeamContactUpdate
+    TeamInvitationView:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        inviter_name:
+          type: string
+          title: Inviter Name
+        inviter_email:
+          type: string
+          title: Inviter Email
+        role:
+          $ref: '#/components/schemas/TeamRole'
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
+        can_resend:
+          type: boolean
+          title: Can Resend
+          default: true
+      type: object
+      required:
+      - email
+      - inviter_name
+      - inviter_email
+      - role
+      title: TeamInvitationView
+    TeamDetailsUpdate:
+      properties:
+        team_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Name
+        contact:
+          anyOf:
+          - $ref: '#/components/schemas/TeamContactUpdate'
+          - type: 'null'
+      type: object
+      title: TeamDetailsUpdate
+    TeamInvitationUpdate:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        role:
+          $ref: '#/components/schemas/TeamRole'
+          default: member
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
+      type: object
+      required:
+      - email
+      title: TeamInvitationUpdate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TeamDetailsView:
+      properties:
+        team_id:
+          type: string
+          title: Team Id
+        team_name:
+          type: string
+          title: Team Name
+        contact:
+          anyOf:
+          - $ref: '#/components/schemas/TeamContactView'
+          - type: 'null'
+        is_good_standing:
+          type: boolean
+          title: Is Good Standing
+        account_type:
+          type: string
+          title: Account Type
+      type: object
+      required:
+      - team_id
+      - team_name
+      - is_good_standing
+      - account_type
+      title: TeamDetailsView
+    TeamBillingPreference:
+      properties:
+        collection_method:
+          type: string
+          title: Collection Method
+          default: charge_automatically
+        send_to_owner:
+          type: boolean
+          title: Send To Owner
+          default: true
+        send_to_admin:
+          type: boolean
+          title: Send To Admin
+          default: false
+        send_to_accountant:
+          type: boolean
+          title: Send To Accountant
+          default: true
+        other_recipients:
+          items:
+            type: string
+          type: array
+          title: Other Recipients
+          default: []
+        tax_id:
+          anyOf:
+          - $ref: '#/components/schemas/TeamTaxID'
+          - type: 'null'
+      type: object
+      title: TeamBillingPreference
+    TeamContactView:
+      properties:
+        address_line1:
+          type: string
+          title: Address Line1
+        city:
+          type: string
+          title: City
+        state_province_region:
+          type: string
+          title: State Province Region
+        country_region:
+          type: string
+          title: Country Region
+        postal_code:
+          type: string
+          title: Postal Code
+        phone_cc:
+          type: string
+          title: Phone Cc
+        phone_num:
+          type: string
+          title: Phone Num
+        address_type:
+          $ref: '#/components/schemas/CustomerAddressType'
+        company_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Name
+        address_line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address Line2
+      type: object
+      required:
+      - address_line1
+      - city
+      - state_province_region
+      - country_region
+      - postal_code
+      - phone_cc
+      - phone_num
+      - address_type
+      title: TeamContactView
+    TeamMembersView:
+      properties:
+        team_id:
+          type: string
+          title: Team Id
+        team_name:
+          type: string
+          title: Team Name
+        members:
+          items:
+            $ref: '#/components/schemas/TeamMemberView'
+          type: array
+          title: Members
+        invites:
+          items:
+            $ref: '#/components/schemas/TeamInvitationView'
+          type: array
+          title: Invites
+      type: object
+      required:
+      - team_id
+      - team_name
+      - members
+      - invites
+      title: TeamMembersView
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TeamBillingPreferenceDetailView:
+      properties:
+        collection_method:
+          type: string
+          title: Collection Method
+        send_to_owner:
+          type: boolean
+          title: Send To Owner
+        owner_emails:
+          items:
+            type: string
+          type: array
+          title: Owner Emails
+          default: []
+        send_to_admin:
+          type: boolean
+          title: Send To Admin
+        admin_emails:
+          items:
+            type: string
+          type: array
+          title: Admin Emails
+          default: []
+        send_to_accountant:
+          type: boolean
+          title: Send To Accountant
+        accountant_emails:
+          items:
+            type: string
+          type: array
+          title: Accountant Emails
+          default: []
+        other_recipients:
+          items:
+            type: string
+          type: array
+          title: Other Recipients
+          default: []
+        recipient_count:
+          type: integer
+          title: Recipient Count
+        billing_address:
+          $ref: '#/components/schemas/TeamContactView'
+        tax_id:
+          anyOf:
+          - $ref: '#/components/schemas/TeamTaxID'
+          - type: 'null'
+      type: object
+      required:
+      - collection_method
+      - send_to_owner
+      - send_to_admin
+      - send_to_accountant
+      - recipient_count
+      - billing_address
+      title: TeamBillingPreferenceDetailView
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

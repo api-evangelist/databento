@@ -1,0 +1,509 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Latency API
+  version: 0.167.1
+tags:
+- name: latency
+paths:
+  /v0/latency/histogram/{datacenter}:
+    get:
+      tags:
+      - latency
+      summary: Get Latency Histogram
+      operationId: get_latency_histogram_v0_latency_histogram__datacenter__get
+      parameters:
+      - name: datacenter
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Datacenter
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Location
+      - name: dataset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/LatencyHdrHistogramMessage'
+                - type: 'null'
+                title: Response Get Latency Histogram V0 Latency Histogram  Datacenter  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/last.json:
+    get:
+      tags:
+      - latency
+      summary: Get Last Latency Json
+      operationId: get_last_latency_json_v0_latency_last_json_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LatencyLastUpdate'
+                title: Response Get Last Latency Json V0 Latency Last Json Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/last.txt:
+    get:
+      tags:
+      - latency
+      summary: Get Last Latency Text
+      operationId: get_last_latency_text_v0_latency_last_txt_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/chart:
+    get:
+      tags:
+      - latency
+      summary: Get Latency Chart
+      operationId: get_latency_chart_v0_latency_chart_get
+      parameters:
+      - name: datacenter
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Datacenter
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Location
+      - name: interval
+        in: query
+        required: true
+        schema:
+          type: integer
+          multipleOf: 60
+          exclusiveMinimum: 0
+          title: Interval
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          exclusiveMinimum: 0
+          title: Count
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: integer
+                title: Response Get Latency Chart V0 Latency Chart Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/percentile_history:
+    get:
+      tags:
+      - latency
+      summary: Get Latency Percentile History
+      operationId: get_latency_percentile_history_v0_latency_percentile_history_get
+      parameters:
+      - name: datacenter
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Datacenter
+      - name: location
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Location
+      - name: histogram_type
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Histogram Type
+      - name: interval
+        in: query
+        required: true
+        schema:
+          type: integer
+          multipleOf: 60
+          exclusiveMinimum: 0
+          min: 60
+          title: Interval
+      - name: count
+        in: query
+        required: true
+        schema:
+          type: integer
+          exclusiveMinimum: 0
+          max: 2000
+          title: Count
+      - name: dataset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatencyPercentileHistory'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/latency/valid_arguments:
+    get:
+      tags:
+      - latency
+      summary: Get Valid Arguments
+      operationId: get_valid_arguments_v0_latency_valid_arguments_get
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LatencyValidArguments'
+                title: Response Get Valid Arguments V0 Latency Valid Arguments Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    LatencyPercentileHistory:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_type:
+          type: string
+          title: Histogram Type
+        history:
+          items:
+            $ref: '#/components/schemas/LatencyHistoryItem'
+          type: array
+          title: History
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - histogram_type
+      - history
+      title: LatencyPercentileHistory
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LatencyValidArguments:
+      properties:
+        datacenter:
+          type: string
+          title: Datacenter
+        location:
+          type: string
+          title: Location
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+      type: object
+      required:
+      - datacenter
+      - location
+      - dataset
+      title: LatencyValidArguments
+    LatencyHdrHistogramMessage:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_blob:
+          type: string
+          format: binary
+          title: Histogram Blob
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - histogram_blob
+      - start
+      - end
+      title: LatencyHdrHistogramMessage
+    LatencyLastUpdate:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+        last_update:
+          type: string
+          title: Last Update
+        latency_type:
+          type: string
+          title: Latency Type
+        p50:
+          type: integer
+          title: P50
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - last_update
+      - latency_type
+      - p50
+      title: LatencyLastUpdate
+    Dataset:
+      type: string
+      enum:
+      - GLBX.MDP3
+      - XNAS.ITCH
+      - XBOS.ITCH
+      - XPSX.ITCH
+      - BATS.PITCH
+      - BATY.PITCH
+      - EDGA.PITCH
+      - EDGX.PITCH
+      - XNYS.PILLAR
+      - XCIS.PILLAR
+      - XASE.PILLAR
+      - XCHI.PILLAR
+      - XCIS.BBO
+      - XCIS.TRADES
+      - MEMX.MEMOIR
+      - EPRL.DOM
+      - FINN.NLS
+      - FINY.TRADES
+      - OPRA.PILLAR
+      - DBEQ.BASIC
+      - ARCX.PILLAR
+      - IEXG.TOPS
+      - EQUS.PLUS
+      - XNYS.BBO
+      - XNYS.TRADES
+      - XNAS.QBBO
+      - XNAS.NLS
+      - IFEU.IMPACT
+      - NDEX.IMPACT
+      - EQUS.ALL
+      - XNAS.BASIC
+      - EQUS.SUMMARY
+      - XCIS.TRADESBBO
+      - XNYS.TRADESBBO
+      - EQUS.MINI
+      - IFUS.IMPACT
+      - IFLL.IMPACT
+      - XEUR.EOBI
+      - XEEE.EOBI
+      - XCBF.PITCH
+      - OCEA.MEMOIR
+      - MAIN.CGIF
+      - EQUS.SIP
+      - MSCI.CGIF
+      - FTSE.CGIF
+      - INAV.CGIF
+      - MSTAR.CGIF
+      - CCCY.CGIF
+      - CGI.CGIF
+      title: Dataset
+    LatencyHistoryItem:
+      properties:
+        percentile:
+          type: number
+          title: Percentile
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+        value:
+          type: integer
+          title: Value
+      type: object
+      required:
+      - percentile
+      - start
+      - end
+      - value
+      title: LatencyHistoryItem
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

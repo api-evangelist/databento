@@ -1,0 +1,137 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Adjustment Factors API
+  version: 0.167.1
+tags:
+- name: adjustment_factors
+paths:
+  /v0/adjustment_factors.get_range:
+    post:
+      tags:
+      - adjustment_factors
+      summary: Query Adjustment Factors Range
+      operationId: query_adjustment_factors_range_v0_adjustment_factors_get_range_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: user-agent
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User-Agent
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - start
+      title: Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

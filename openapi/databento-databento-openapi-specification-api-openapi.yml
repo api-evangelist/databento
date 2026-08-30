@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI Specification API
+  version: 0.167.1
+tags:
+- name: Databento OpenAPI Specification
+paths:
+  /v0/:
+    get:
+      summary: Read Api Root
+      operationId: read_api_root_v0__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      tags:
+      - Databento OpenAPI Specification
+components:
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

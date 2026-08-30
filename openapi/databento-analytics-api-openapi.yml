@@ -1,0 +1,171 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Analytics API
+  version: 0.167.1
+tags:
+- name: analytics
+paths:
+  /v0/analytics/collect:
+    post:
+      tags:
+      - analytics
+      summary: Create Usage Collect Entry
+      operationId: create_usage_collect_entry_v0_analytics_collect_post
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      - name: db_session_id
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Db Session Id
+      - name: db_device_id
+        in: cookie
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Db Device Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionTrackCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SessionTrackCreate:
+      properties:
+        device_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Device Id
+        utm_source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Utm Source
+        utm_medium:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Utm Medium
+        utm_campaign:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Utm Campaign
+        utm_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Utm Id
+        utm_term:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Utm Term
+        utm_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Utm Content
+        gclid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gclid
+        gbraid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gbraid
+        wbraid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Wbraid
+        gad_source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gad Source
+        gad_campaignid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gad Campaignid
+        page_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Page Url
+        referrer:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Referrer
+      type: object
+      title: SessionTrackCreate
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

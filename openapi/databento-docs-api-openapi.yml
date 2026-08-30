@@ -1,0 +1,220 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Docs API
+  version: 0.167.1
+tags:
+- name: docs
+paths:
+  /v0/docs/search:
+    post:
+      tags:
+      - docs
+      summary: Docs Search Combo
+      operationId: docs_search_combo_v0_docs_search_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_docs_search_combo_v0_docs_search_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  anyOf:
+                  - type: boolean
+                  - items:
+                      additionalProperties:
+                        anyOf:
+                        - type: string
+                        - type: integer
+                        - type: 'null'
+                      type: object
+                    type: array
+                type: object
+                title: Response Docs Search Combo V0 Docs Search Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/docs/search_v3:
+    post:
+      tags:
+      - docs
+      summary: Docs Search Combo V3
+      operationId: docs_search_combo_v3_v0_docs_search_v3_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_docs_search_combo_v3_v0_docs_search_v3_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  anyOf:
+                  - type: boolean
+                  - items:
+                      additionalProperties:
+                        anyOf:
+                        - type: string
+                        - type: integer
+                        - type: 'null'
+                      type: object
+                    type: array
+                type: object
+                title: Response Docs Search Combo V3 V0 Docs Search V3 Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/docs/download:
+    get:
+      tags:
+      - docs
+      summary: Docs Download
+      operationId: docs_download_v0_docs_download_get
+      parameters:
+      - name: language
+        in: query
+        required: false
+        schema:
+          type: string
+          default: python
+          title: Language
+      - name: buildId
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ''
+          title: Buildid
+      - name: onePage
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Onepage
+      - name: ai-assets
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Ai-Assets
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_docs_search_combo_v3_v0_docs_search_v3_post:
+      properties:
+        search_text:
+          type: string
+          title: Search Text
+        live_language:
+          type: string
+          title: Live Language
+        historical_language:
+          type: string
+          title: Historical Language
+        build_id:
+          type: string
+          title: Build Id
+          default: ''
+      type: object
+      required:
+      - search_text
+      - live_language
+      - historical_language
+      title: Body_docs_search_combo_v3_v0_docs_search_v3_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_docs_search_combo_v0_docs_search_post:
+      properties:
+        searchText:
+          type: string
+          title: Searchtext
+        language:
+          type: string
+          title: Language
+        liveLang:
+          type: string
+          title: Livelang
+        historicalLang:
+          type: string
+          title: Historicallang
+        mode:
+          type: string
+          title: Mode
+        build_id:
+          type: string
+          title: Build Id
+      type: object
+      required:
+      - searchText
+      - language
+      - liveLang
+      - historicalLang
+      - mode
+      - build_id
+      title: Body_docs_search_combo_v0_docs_search_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

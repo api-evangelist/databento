@@ -1,0 +1,30 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Display API
+  version: 0.167.1
+tags:
+- name: display
+paths:
+  /v0/display/configuration:
+    get:
+      tags:
+      - display
+      summary: Get Search Bar Config
+      operationId: get_search_bar_config_v0_display_configuration_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic

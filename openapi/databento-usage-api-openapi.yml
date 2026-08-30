@@ -1,0 +1,684 @@
+openapi: 3.2.0
+info:
+  title: Databento OpenAPI specification Usage API
+  version: 0.167.1
+tags:
+- name: usage
+paths:
+  /v0/usage/request_timestamps:
+    get:
+      tags:
+      - usage
+      summary: Get Request Time Creation
+      operationId: get_request_time_creation_v0_usage_request_timestamps_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: request_ids
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Request Ids
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Request Time Creation V0 Usage Request Timestamps Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/request_timestamps:
+    get:
+      tags:
+      - usage
+      summary: Get Request Time Creation Team
+      operationId: get_request_time_creation_team_v0_usage_teams_request_timestamps_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: request_ids
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Request Ids
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Request Time Creation Team V0 Usage Teams Request Timestamps Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/recent:
+    get:
+      tags:
+      - usage
+      summary: Get Data Usage Recent
+      operationId: get_data_usage_recent_v0_usage_recent_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Recent V0 Usage Recent Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/recent:
+    get:
+      tags:
+      - usage
+      summary: Get Team Members Data Usage Recent
+      operationId: get_team_members_data_usage_recent_v0_usage_teams_recent_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Team Members Data Usage Recent V0 Usage Teams Recent Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/past_report:
+    get:
+      tags:
+      - usage
+      summary: Get Data Usage Past Report
+      operationId: get_data_usage_past_report_v0_usage_past_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Past Report V0 Usage Past Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/past_report:
+    get:
+      tags:
+      - usage
+      summary: Get Data Usage Team Past Report
+      operationId: get_data_usage_team_past_report_v0_usage_teams_past_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Team Past Report V0 Usage Teams Past Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/report:
+    get:
+      tags:
+      - usage
+      summary: Get Data Usage Report
+      operationId: get_data_usage_report_v0_usage_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Data Usage Report V0 Usage Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/report:
+    get:
+      tags:
+      - usage
+      summary: Get Team Members Data Usage Report
+      operationId: get_team_members_data_usage_report_v0_usage_teams_report_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: true
+        schema:
+          type: string
+          title: End
+      - name: frequency
+        in: query
+        required: false
+        schema:
+          type: string
+          default: day
+          title: Frequency
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataUsageRecord'
+                title: Response Get Team Members Data Usage Report V0 Usage Teams Report Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/mtd_usage:
+    get:
+      tags:
+      - usage
+      summary: Get Mtd Usage
+      operationId: get_mtd_usage_v0_usage_mtd_usage_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonthToDateUsage'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/teams/mtd_usage:
+    get:
+      tags:
+      - usage
+      summary: Get Team Mtd Usage
+      operationId: get_team_mtd_usage_v0_usage_teams_mtd_usage_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonthToDateUsage'
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/usage/active_connections:
+    get:
+      tags:
+      - usage
+      summary: Get Active Connections
+      operationId: get_active_connections_v0_usage_active_connections_get
+      security:
+      - OAuth2PasswordBearerWithCookie: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LiveConnectionRecord'
+                title: Response Get Active Connections V0 Usage Active Connections Get
+        '401':
+          description: If user authentication fails
+        '403':
+          description: If user does not have sufficient permissions
+        '404':
+          description: If user or team not found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    MonthToDateUsage:
+      properties:
+        usage_bytes:
+          type: integer
+          title: Usage Bytes
+        usage_cents:
+          type: integer
+          title: Usage Cents
+      type: object
+      required:
+      - usage_bytes
+      - usage_cents
+      title: MonthToDateUsage
+    LiveConnectionRecord:
+      properties:
+        established_timestamp:
+          type: integer
+          title: Established Timestamp
+        request_id:
+          type: string
+          title: Request Id
+        user_id:
+          type: string
+          title: User Id
+        session_id:
+          type: string
+          title: Session Id
+        api_key:
+          type: string
+          title: Api Key
+        user_name:
+          type: string
+          title: User Name
+        gateway:
+          type: string
+          title: Gateway
+        dataset:
+          type: string
+          title: Dataset
+        schema:
+          type: string
+          title: Schema
+      type: object
+      required:
+      - established_timestamp
+      - request_id
+      - user_id
+      - session_id
+      - api_key
+      - user_name
+      - gateway
+      - dataset
+      - schema
+      title: LiveConnectionRecord
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DataUsageRecord:
+      properties:
+        timestamp:
+          type: integer
+          title: Timestamp
+        user_id:
+          type: string
+          title: User Id
+        api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Key
+        user_name:
+          type: string
+          title: User Name
+        dataset:
+          type: string
+          title: Dataset
+        schema:
+          type: string
+          title: Schema
+        mode:
+          type: string
+          title: Mode
+        usage_sum:
+          type: integer
+          title: Usage Sum
+        cost_sum:
+          type: number
+          title: Cost Sum
+      type: object
+      required:
+      - timestamp
+      - user_id
+      - api_key
+      - user_name
+      - dataset
+      - schema
+      - mode
+      - usage_sum
+      - cost_sum
+      title: DataUsageRecord
+  securitySchemes:
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic
