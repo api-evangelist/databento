@@ -52,7 +52,7 @@ apis:
   tags:
   - Historical Market Data
   - Market Data
-  - Timeseries
+  - Time Series
   - Trading
   - Financial Data
   tags_raw:
