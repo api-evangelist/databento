@@ -416,7 +416,7 @@ common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/databento/overview
 - type: OpenAPI
-  url: openapi/databento-platform-openapi-official.json
+  url: openapi/_original/databento-platform-openapi-official.json
   name: Official Databento platform OpenAPI (hist.databento.com/openapi.json)
 - type: Overlay
   url: overlays/databento-platform-official-overlay.yaml
