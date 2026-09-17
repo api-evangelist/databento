@@ -45,38 +45,6 @@ created: '2026-07-11'
 modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
-- aid: databento:databento-historical-timeseries-api
-  name: Databento Historical Timeseries API
-  tags:
-  - Historical Market Data
-  - Market Data
-  - Time Series
-  - Trading
-  - Financial Data
-  tags_raw:
-  - Historical Market Data
-  - Market Data
-  - Timeseries
-  - Trading
-  - Financial Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
-  baseURL: https://hist.databento.com/v0
-  properties:
-  - url: https://databento.com/docs/api-reference-historical
-    type: Documentation
-  - url: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
-    type: APIReference
-  - url: openapi/databento-timeseries-api-openapi.yml
-    type: OpenAPI
-  - url: collections/databento.postman_collection.json
-    type: PostmanCollection
-  - url: collections/databento.opencollection.json
-    type: OpenCollection
-  description: Streams historical market data over HTTP for a requested date/time range. A single request
-    selects a dataset, one or more symbols, a schema (MBO full order book, MBP-1/MBP-10, trades, OHLCV
-    bars, statistics, and more), and a time range, and returns normalized records in DBN, CSV, or JSON.
-    Billed per byte streamed. Ideal for backtesting, research, and reference/tick data retrieval.
 - aid: databento:databento-metadata-api
   name: Databento Metadata API
   tags:
@@ -99,10 +67,11 @@ apis:
     type: PostmanCollection
   - url: collections/databento.opencollection.json
     type: OpenCollection
-  description: Discovery and cost-estimation endpoints for the historical catalog. List publishers, datasets,
-    schemas, and fields; look up per-dataset date ranges and data-quality conditions; and pre-compute
-    the record count, billable size, and dollar cost of a query before you run it. Essential for planning
-    research and controlling spend on financial and reference data.
+  description: >-
+    Discovery and cost-estimation endpoints for the historical catalog. List publishers, datasets, schemas,
+    and fields; look up per-dataset date ranges and data-quality conditions; and pre-compute the record
+    count, billable size, and dollar cost of a query before you run it. Essential for planning research
+    and controlling spend on financial and reference data.
 - aid: databento:databento-symbology-api
   name: Databento Symbology API
   tags:
@@ -123,10 +92,10 @@ apis:
     type: PostmanCollection
   - url: collections/databento.opencollection.json
     type: OpenCollection
-  description: Resolves symbols between Databento's symbology systems - raw symbol, instrument ID, parent,
-    and continuous contract - for a dataset over a date range. Lets consumers map tickers, exchange instrument
-    IDs, and continuous futures references onto the identifiers used across the historical and live data
-    schemas.
+  description: >-
+    Resolves symbols between Databento's symbology systems - raw symbol, instrument ID, parent, and continuous
+    contract - for a dataset over a date range. Lets consumers map tickers, exchange instrument IDs, and
+    continuous futures references onto the identifiers used across the historical and live data schemas.
 - aid: databento:databento-batch-api
   name: Databento Batch API
   tags:
@@ -149,10 +118,11 @@ apis:
     type: PostmanCollection
   - url: collections/databento.opencollection.json
     type: OpenCollection
-  description: Submits asynchronous batch jobs that materialize large historical requests into downloadable
-    flat files (DBN, CSV, or JSON), optionally split by day, symbol, or size. Submit a job, list your
-    jobs and their state, and list the generated files with HTTPS and FTP download URIs. Files remain
-    re-downloadable for 30 days at no extra cost.
+  description: >-
+    Submits asynchronous batch jobs that materialize large historical requests into downloadable flat
+    files (DBN, CSV, or JSON), optionally split by day, symbol, or size. Submit a job, list your jobs
+    and their state, and list the generated files with HTTPS and FTP download URIs. Files remain re-downloadable
+    for 30 days at no extra cost.
 - aid: databento:databento-live-streaming-api
   name: Databento Live Streaming API
   tags:
@@ -171,11 +141,12 @@ apis:
     type: Authentication
   - url: https://databento.com/docs/standards-and-conventions/databento-binary-encoding
     type: Documentation
-  description: Low-latency live market data delivered over a raw TCP binary streaming protocol using Databento
-    Binary Encoding (DBN) - the same normalized schemas as the historical API. Sessions authenticate with
-    a CRAM challenge-response handshake using your API key, then subscribe to symbols and schemas per
-    dataset gateway. This is a binary TCP protocol, not a documented public WebSocket; it is consumed
-    via the official Python, C++, and Rust clients and has no OpenAPI description.
+  description: >-
+    Low-latency live market data delivered over a raw TCP binary streaming protocol using Databento Binary
+    Encoding (DBN) - the same normalized schemas as the historical API. Sessions authenticate with a CRAM
+    challenge-response handshake using your API key, then subscribe to symbols and schemas per dataset
+    gateway. This is a binary TCP protocol, not a documented public WebSocket; it is consumed via the
+    official Python, C++, and Rust clients and has no OpenAPI description.
 - aid: databento:databento-reference-api
   name: Databento Reference API
   tags:
@@ -194,10 +165,11 @@ apis:
     type: APIReference
   - url: openapi/databento-reference-api-openapi.yml
     type: OpenAPI
-  description: Reference and non-price data that complements the market data feeds - a security master
-    (instrument definitions and identifiers), corporate actions (splits, dividends, symbol changes, and
-    other events), and adjustment factors for building back-adjusted price series. Served over the same
-    REST HTTP surface as the historical API.
+  description: >-
+    Reference and non-price data that complements the market data feeds - a security master (instrument
+    definitions and identifiers), corporate actions (splits, dividends, symbol changes, and other events),
+    and adjustment factors for building back-adjusted price series. Served over the same REST HTTP surface
+    as the historical API.
 - aid: databento:databento-adjustment-factors-api
   name: Databento Adjustment Factors API
   description: The adjustment_factors API from Databento — 1 operation(s) for adjustment_factors.
@@ -260,8 +232,8 @@ apis:
     url: openapi/databento-corporate-actions-api-openapi.yml
 - aid: databento:databento-databento-openapi-specification-api
   name: Databento OpenAPI Specification API
-  description: The Databento OpenAPI Specification API from Databento — 1 operation(s) for databento openapi
-    specification.
+  description: >-
+    The Databento OpenAPI Specification API from Databento — 1 operation(s) for databento openapi specification.
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
@@ -412,6 +384,24 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/databento-users-api-openapi.yml
+- aid: databento:databento-time-series-api
+  name: Databento Time Series API
+  description: Stream historical records for a symbol set over a time range.
+  humanURL: https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets
+  baseURL: https://hist.databento.com/v0
+  tags:
+  - Time Series
+  properties:
+  - type: OpenAPI
+    url: openapi/databento-time-series-api-openapi.yml
+  - type: Documentation
+    url: https://databento.com/docs/api-reference-historical
+  - type: APIReference
+    url: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
+  - type: PostmanCollection
+    url: collections/databento.postman_collection.json
+  - type: OpenCollection
+    url: collections/databento.opencollection.json
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/databento/overview
