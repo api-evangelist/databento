@@ -247,7 +247,7 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
-  - Dataset
+  - Datasets
   tags_raw:
   - dataset
   properties:
@@ -259,7 +259,7 @@ apis:
   humanURL: https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range
   baseURL: https://hist.databento.com/v0
   tags:
-  - Display
+  - Displays
   tags_raw:
   - display
   properties:
