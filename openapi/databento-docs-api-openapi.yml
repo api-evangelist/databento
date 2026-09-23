@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Docs API
   version: 0.167.1
 tags:
-- name: docs
+- name: Docs
 paths:
   /v0/docs/search:
     post:
       tags:
-      - docs
+      - Docs
       summary: Docs Search Combo
       operationId: docs_search_combo_v0_docs_search_post
       requestBody:
@@ -45,7 +45,7 @@ paths:
   /v0/docs/search_v3:
     post:
       tags:
-      - docs
+      - Docs
       summary: Docs Search Combo V3
       operationId: docs_search_combo_v3_v0_docs_search_v3_post
       requestBody:
@@ -82,7 +82,7 @@ paths:
   /v0/docs/download:
     get:
       tags:
-      - docs
+      - Docs
       summary: Docs Download
       operationId: docs_download_v0_docs_download_get
       parameters:
@@ -149,6 +149,15 @@ components:
       - live_language
       - historical_language
       title: Body_docs_search_combo_v3_v0_docs_search_v3_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -199,15 +208,6 @@ components:
       - mode
       - build_id
       title: Body_docs_search_combo_v0_docs_search_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

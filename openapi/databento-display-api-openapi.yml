@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Display API
   version: 0.167.1
 tags:
-- name: display
+- name: Display
 paths:
   /v0/display/configuration:
     get:
       tags:
-      - display
+      - Display
       summary: Get Search Bar Config
       operationId: get_search_bar_config_v0_display_configuration_get
       responses:

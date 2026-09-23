@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Auth API
   version: 0.167.1
 tags:
-- name: auth
+- name: Auth
 paths:
   /v0/auth/login:
     post:
       tags:
-      - auth
+      - Auth
       summary: Login
       operationId: login_v0_auth_login_post
       parameters:
@@ -46,7 +46,7 @@ paths:
   /v0/auth/logout:
     post:
       tags:
-      - auth
+      - Auth
       summary: Logout
       operationId: logout_v0_auth_logout_post
       responses:
@@ -65,7 +65,7 @@ paths:
   /v0/auth/recover/{email}:
     post:
       tags:
-      - auth
+      - Auth
       summary: Recover Account
       operationId: recover_account_v0_auth_recover__email__post
       parameters:
@@ -94,7 +94,7 @@ paths:
   /v0/auth/reset-password:
     post:
       tags:
-      - auth
+      - Auth
       summary: Reset Password
       operationId: reset_password_v0_auth_reset_password_post
       requestBody:
@@ -117,7 +117,7 @@ paths:
   /v0/auth/confirm-email-resend:
     post:
       tags:
-      - auth
+      - Auth
       summary: Confirm Email Resend
       operationId: confirm_email_resend_v0_auth_confirm_email_resend_post
       responses:
@@ -138,7 +138,7 @@ paths:
   /v0/auth/confirm-email-otp:
     post:
       tags:
-      - auth
+      - Auth
       summary: Confirm Email Otp
       operationId: confirm_email_otp_v0_auth_confirm_email_otp_post
       security:
@@ -180,7 +180,7 @@ paths:
   /v0/auth/confirm-email-token:
     post:
       tags:
-      - auth
+      - Auth
       summary: Confirm Email Token
       operationId: confirm_email_token_v0_auth_confirm_email_token_post
       requestBody:
@@ -209,7 +209,7 @@ paths:
   /v0/auth/cram:
     post:
       tags:
-      - auth
+      - Auth
       summary: Authenticate Cram
       operationId: authenticate_cram_v0_auth_cram_post
       parameters:
@@ -256,7 +256,7 @@ paths:
   /v0/auth/test:
     post:
       tags:
-      - auth
+      - Auth
       summary: Test Access Token
       operationId: test_access_token_v0_auth_test_post
       responses:
@@ -274,7 +274,7 @@ paths:
   /v0/auth/test-permissive:
     post:
       tags:
-      - auth
+      - Auth
       summary: Test Permissive
       operationId: test_permissive_v0_auth_test_permissive_post
       responses:
@@ -292,7 +292,7 @@ paths:
   /v0/auth/frill_user_token/{board}:
     get:
       tags:
-      - auth
+      - Auth
       summary: Generate Frill Sso Token
       operationId: generate_frill_sso_token_v0_auth_frill_user_token__board__get
       security:
@@ -332,7 +332,7 @@ paths:
   /v0/auth/intercom_user_hmac:
     get:
       tags:
-      - auth
+      - Auth
       summary: Generate Intercom User Hmac
       operationId: generate_intercom_user_hmac_v0_auth_intercom_user_hmac_get
       responses:
@@ -360,6 +360,39 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    Body_login_v0_auth_login_post:
+      properties:
+        grant_type:
+          anyOf:
+          - type: string
+            pattern: password
+          - type: 'null'
+          title: Grant Type
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+      type: object
+      required:
+      - username
+      - password
+      title: Body_login_v0_auth_login_post
     DetailResponse:
       properties:
         detail:
@@ -370,31 +403,6 @@ components:
       required:
       - detail
       title: DetailResponse
-    Token:
-      properties:
-        token_type:
-          type: string
-          title: Token Type
-          default: Bearer
-        access_token:
-          type: string
-          title: Access Token
-        expires_in:
-          type: integer
-          title: Expires In
-        expires_on:
-          type: integer
-          title: Expires On
-        refresh_token:
-          type: string
-          title: Refresh Token
-      type: object
-      required:
-      - access_token
-      - expires_in
-      - expires_on
-      - refresh_token
-      title: Token
     Body_reset_password_v0_auth_reset_password_post:
       properties:
         token:
@@ -429,39 +437,31 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_login_v0_auth_login_post:
+    Token:
       properties:
-        grant_type:
-          anyOf:
-          - type: string
-            pattern: password
-          - type: 'null'
-          title: Grant Type
-        username:
+        token_type:
           type: string
-          title: Username
-        password:
+          title: Token Type
+          default: Bearer
+        access_token:
           type: string
-          title: Password
-        scope:
+          title: Access Token
+        expires_in:
+          type: integer
+          title: Expires In
+        expires_on:
+          type: integer
+          title: Expires On
+        refresh_token:
           type: string
-          title: Scope
-          default: ''
-        client_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Id
-        client_secret:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Secret
+          title: Refresh Token
       type: object
       required:
-      - username
-      - password
-      title: Body_login_v0_auth_login_post
+      - access_token
+      - expires_in
+      - expires_on
+      - refresh_token
+      title: Token
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

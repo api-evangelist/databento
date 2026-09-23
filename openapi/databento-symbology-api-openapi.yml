@@ -1,19 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Databento Historical and Reference Batch Symbology API
-  description: Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.
-  version: '0'
-  contact:
-    name: Databento
-    url: https://databento.com
-  license:
-    name: Databento Terms
-    url: https://databento.com/terms
+  title: Databento Symbology API
+  version: '1.0'
+  description: 'Operations tagged Symbology across 2 of this provider''s published API definitions: databento-openapi.yml, databento-platform-openapi-official.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://hist.databento.com/v0
   description: Databento Historical and Reference HTTP API
-security:
-- apiKeyBasicAuth: []
 tags:
 - name: Symbology
   description: Resolve symbols across Databento symbology systems.
@@ -56,6 +48,118 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '422':
           $ref: '#/components/responses/ValidationError'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
+  /v0/symbology.resolve:
+    post:
+      tags:
+      - Symbology
+      summary: Post Resolve Symbology Mappings
+      operationId: post_resolve_symbology_mappings_v0_symbology_resolve_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_resolve_symbology_mappings_v0_symbology_resolve_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Symbology
+      summary: Get Resolve Symbology Mappings
+      operationId: get_resolve_symbology_mappings_v0_symbology_resolve_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: symbols
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Symbols
+      - name: stype_in
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Stype In
+      - name: stype_out
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Stype Out
+      - name: start_date
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
 components:
   responses:
     ValidationError:
@@ -80,8 +184,85 @@ components:
         case_id:
           type: string
           description: An identifier for the error case, useful when contacting support.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_post_resolve_symbology_mappings_v0_symbology_resolve_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        symbols:
+          type: string
+          title: Symbols
+        stype_in:
+          type: string
+          title: Stype In
+        stype_out:
+          type: string
+          title: Stype Out
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - symbols
+      - stype_in
+      - stype_out
+      - start_date
+      title: Body_post_resolve_symbology_mappings_v0_symbology_resolve_post
   securitySchemes:
     apiKeyBasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication. Supply your Databento API key (prefixed with db-) as the username and leave the password empty.
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic
+x-refined-from:
+- databento-openapi.yml
+- databento-platform-openapi-official.json

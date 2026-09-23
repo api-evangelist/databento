@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Corporate Actions API
   version: 0.167.1
 tags:
-- name: corporate_actions
+- name: Corporate Actions
 paths:
   /v0/corporate_actions.get_range:
     post:
       tags:
-      - corporate_actions
+      - Corporate Actions
       summary: Query Corporate Actions Range
       operationId: query_corporate_actions_range_v0_corporate_actions_get_range_post
       security:
@@ -49,6 +49,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -130,15 +139,6 @@ components:
       required:
       - start
       title: Body_query_corporate_actions_range_v0_corporate_actions_get_range_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

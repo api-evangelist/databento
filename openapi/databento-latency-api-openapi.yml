@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Latency API
   version: 0.167.1
 tags:
-- name: latency
+- name: Latency
 paths:
   /v0/latency/histogram/{datacenter}:
     get:
       tags:
-      - latency
+      - Latency
       summary: Get Latency Histogram
       operationId: get_latency_histogram_v0_latency_histogram__datacenter__get
       parameters:
@@ -70,7 +70,7 @@ paths:
   /v0/latency/last.json:
     get:
       tags:
-      - latency
+      - Latency
       summary: Get Last Latency Json
       operationId: get_last_latency_json_v0_latency_last_json_get
       security:
@@ -102,7 +102,7 @@ paths:
   /v0/latency/last.txt:
     get:
       tags:
-      - latency
+      - Latency
       summary: Get Last Latency Text
       operationId: get_last_latency_text_v0_latency_last_txt_get
       security:
@@ -130,7 +130,7 @@ paths:
   /v0/latency/chart:
     get:
       tags:
-      - latency
+      - Latency
       summary: Get Latency Chart
       operationId: get_latency_chart_v0_latency_chart_get
       parameters:
@@ -187,7 +187,7 @@ paths:
   /v0/latency/percentile_history:
     get:
       tags:
-      - latency
+      - Latency
       summary: Get Latency Percentile History
       operationId: get_latency_percentile_history_v0_latency_percentile_history_get
       parameters:
@@ -257,7 +257,7 @@ paths:
   /v0/latency/valid_arguments:
     get:
       tags:
-      - latency
+      - Latency
       summary: Get Valid Arguments
       operationId: get_valid_arguments_v0_latency_valid_arguments_get
       parameters:
@@ -316,15 +316,6 @@ components:
       - histogram_type
       - history
       title: LatencyPercentileHistory
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LatencyValidArguments:
       properties:
         datacenter:
@@ -341,67 +332,15 @@ components:
       - location
       - dataset
       title: LatencyValidArguments
-    LatencyHdrHistogramMessage:
+    HTTPValidationError:
       properties:
-        location:
-          type: string
-          title: Location
-        datacenter:
-          type: string
-          title: Datacenter
-        dataset:
-          anyOf:
-          - $ref: '#/components/schemas/Dataset'
-          - type: string
-            const: ALL_DATASETS
-          title: Dataset
-        histogram_blob:
-          type: string
-          format: binary
-          title: Histogram Blob
-        start:
-          type: string
-          title: Start
-        end:
-          type: string
-          title: End
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - location
-      - datacenter
-      - dataset
-      - histogram_blob
-      - start
-      - end
-      title: LatencyHdrHistogramMessage
-    LatencyLastUpdate:
-      properties:
-        location:
-          type: string
-          title: Location
-        datacenter:
-          type: string
-          title: Datacenter
-        dataset:
-          $ref: '#/components/schemas/Dataset'
-        last_update:
-          type: string
-          title: Last Update
-        latency_type:
-          type: string
-          title: Latency Type
-        p50:
-          type: integer
-          title: P50
-      type: object
-      required:
-      - location
-      - datacenter
-      - dataset
-      - last_update
-      - latency_type
-      - p50
-      title: LatencyLastUpdate
+      title: HTTPValidationError
     Dataset:
       type: string
       enum:
@@ -455,27 +394,39 @@ components:
       - CCCY.CGIF
       - CGI.CGIF
       title: Dataset
-    LatencyHistoryItem:
+    LatencyHdrHistogramMessage:
       properties:
-        percentile:
-          type: number
-          title: Percentile
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_blob:
+          type: string
+          format: binary
+          title: Histogram Blob
         start:
           type: string
           title: Start
         end:
           type: string
           title: End
-        value:
-          type: integer
-          title: Value
       type: object
       required:
-      - percentile
+      - location
+      - datacenter
+      - dataset
+      - histogram_blob
       - start
       - end
-      - value
-      title: LatencyHistoryItem
+      title: LatencyHdrHistogramMessage
     ValidationError:
       properties:
         loc:
@@ -497,6 +448,55 @@ components:
       - msg
       - type
       title: ValidationError
+    LatencyLastUpdate:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+        last_update:
+          type: string
+          title: Last Update
+        latency_type:
+          type: string
+          title: Latency Type
+        p50:
+          type: integer
+          title: P50
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - last_update
+      - latency_type
+      - p50
+      title: LatencyLastUpdate
+    LatencyHistoryItem:
+      properties:
+        percentile:
+          type: number
+          title: Percentile
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+        value:
+          type: integer
+          title: Value
+      type: object
+      required:
+      - percentile
+      - start
+      - end
+      - value
+      title: LatencyHistoryItem
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

@@ -1,19 +1,11 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Databento Historical and Reference Batch Metadata API
-  description: Databento's Historical HTTP API serves historical financial market data and reference data over REST. A request selects a dataset (e.g. GLBX.MDP3, XNAS.ITCH, DBEQ.BASIC), one or more symbols, a schema (MBO full order book, MBP-1, MBP-10, trades, OHLCV bars, statistics, definition, and more), and a time range, and receives normalized records in Databento Binary Encoding (DBN), CSV, or JSON. Endpoints are grouped as metadata (catalog discovery and cost estimation), timeseries (streaming data retrieval), symbology (symbol resolution), batch (asynchronous flat-file jobs), and reference (security master, corporate actions, adjustment factors). Requests authenticate with HTTP Basic auth using your Databento API key as the username and an empty password. Live market data is delivered separately over a raw TCP binary DBN protocol (with CRAM authentication) and is NOT part of this REST document.
-  version: '0'
-  contact:
-    name: Databento
-    url: https://databento.com
-  license:
-    name: Databento Terms
-    url: https://databento.com/terms
+  title: Databento Metadata API
+  version: '1.0'
+  description: 'Operations tagged Metadata across 2 of this provider''s published API definitions: databento-openapi.yml, databento-platform-openapi-official.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://hist.databento.com/v0
   description: Databento Historical and Reference HTTP API
-security:
-- apiKeyBasicAuth: []
 tags:
 - name: Metadata
   description: Catalog discovery, dataset ranges and conditions, and cost estimation.
@@ -30,6 +22,11 @@ paths:
           description: A list of publishers.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.list_datasets:
     get:
       operationId: listDatasets
@@ -53,6 +50,11 @@ paths:
           description: A list of dataset codes.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.list_schemas:
     get:
       operationId: listSchemas
@@ -71,6 +73,11 @@ paths:
           description: A list of schema names.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.list_fields:
     get:
       operationId: listFields
@@ -97,6 +104,11 @@ paths:
           description: A list of fields with names and types.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.list_unit_prices:
     get:
       operationId: listUnitPrices
@@ -115,6 +127,11 @@ paths:
           description: Unit prices per schema and mode.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.get_dataset_condition:
     get:
       operationId: getDatasetCondition
@@ -143,6 +160,11 @@ paths:
           description: Per-day condition entries.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.get_dataset_range:
     get:
       operationId: getDatasetRange
@@ -161,6 +183,11 @@ paths:
           description: The available start and end range for the dataset.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.get_record_count:
     get:
       operationId: getRecordCount
@@ -195,6 +222,11 @@ paths:
           description: The record count for the query.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.get_billable_size:
     get:
       operationId: getBillableSize
@@ -229,6 +261,11 @@ paths:
           description: The billable size in bytes.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
   /metadata.get_cost:
     get:
       operationId: getCost
@@ -271,14 +308,661 @@ paths:
           description: The estimated cost in US dollars.
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiKeyBasicAuth: []
+    servers:
+    - url: https://hist.databento.com/v0
+      description: Databento Historical and Reference HTTP API
+  /v0/metadata.list_publishers:
+    get:
+      tags:
+      - Metadata
+      summary: List Publishers
+      operationId: list_publishers_v0_metadata_list_publishers_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_datasets:
+    get:
+      tags:
+      - Metadata
+      summary: List Available Datasets
+      operationId: list_available_datasets_v0_metadata_list_datasets_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_schemas:
+    get:
+      tags:
+      - Metadata
+      summary: List Available Schemas
+      operationId: list_available_schemas_v0_metadata_list_schemas_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_fields:
+    get:
+      tags:
+      - Metadata
+      summary: List Available Fields
+      operationId: list_available_fields_v0_metadata_list_fields_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: schema
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Schema
+      - name: encoding
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Encoding
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /v0/metadata.list_unit_prices:
+    get:
+      tags:
+      - Metadata
+      summary: List Unit Prices
+      operationId: list_unit_prices_v0_metadata_list_unit_prices_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_dataset_range:
+    get:
+      tags:
+      - Metadata
+      summary: Get Dataset Range
+      operationId: get_dataset_range_v0_metadata_get_dataset_range_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_dataset_condition:
+    get:
+      tags:
+      - Metadata
+      summary: Get Dataset Condition
+      operationId: get_dataset_condition_v0_metadata_get_dataset_condition_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+      - name: end_date
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_record_count:
+    post:
+      tags:
+      - Metadata
+      summary: Post Get Record Count
+      operationId: post_get_record_count_v0_metadata_get_record_count_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_get_record_count_v0_metadata_get_record_count_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+    get:
+      tags:
+      - Metadata
+      summary: Get Record Count
+      operationId: get_record_count_v0_metadata_get_record_count_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          default: trades
+          title: Schema
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 18446744073709551615
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Limit
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_billable_size:
+    post:
+      tags:
+      - Metadata
+      summary: Post Get Billable Size
+      operationId: post_get_billable_size_v0_metadata_get_billable_size_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_get_billable_size_v0_metadata_get_billable_size_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+    get:
+      tags:
+      - Metadata
+      summary: Get Billable Size
+      operationId: get_billable_size_v0_metadata_get_billable_size_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          default: trades
+          title: Schema
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 18446744073709551615
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Limit
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+  /v0/metadata.get_cost:
+    post:
+      tags:
+      - Metadata
+      summary: Post Get Cost
+      operationId: post_get_cost_v0_metadata_get_cost_post
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_post_get_cost_v0_metadata_get_cost_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
+    get:
+      tags:
+      - Metadata
+      summary: Get Cost
+      operationId: get_cost_v0_metadata_get_cost_get
+      security:
+      - HTTPBasic: []
+      parameters:
+      - name: dataset
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Dataset
+      - name: start
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Start
+      - name: end
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+      - name: symbols
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ALL_SYMBOLS
+          title: Symbols
+      - name: schema
+        in: query
+        required: false
+        schema:
+          type: string
+          default: trades
+          title: Schema
+      - name: stype_in
+        in: query
+        required: false
+        schema:
+          type: string
+          default: raw_symbol
+          title: Stype In
+      - name: mode
+        in: query
+        required: false
+        schema:
+          type: string
+          default: historical-streaming
+          title: Mode
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 18446744073709551615
+            exclusiveMinimum: 0
+          - type: 'null'
+          title: Limit
+      - name: symbol
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      - name: retry
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Retry
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: If bad or unacceptable query param
+        '404':
+          description: If dataset not found or no data for query
+        '422':
+          description: If unprocessable request
+        '429':
+          description: If request rate limit exceeded
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -289,8 +973,187 @@ components:
         case_id:
           type: string
           description: An identifier for the error case, useful when contacting support.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_post_get_cost_v0_metadata_get_cost_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        mode:
+          type: string
+          title: Mode
+          default: historical-streaming
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_cost_v0_metadata_get_cost_post
+    Body_post_get_billable_size_v0_metadata_get_billable_size_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_billable_size_v0_metadata_get_billable_size_post
+    Body_post_get_record_count_v0_metadata_get_record_count_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_record_count_v0_metadata_get_record_count_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyBasicAuth:
       type: http
       scheme: basic
       description: HTTP Basic authentication. Supply your Databento API key (prefixed with db-) as the username and leave the password empty.
+    OAuth2PasswordBearerWithCookie:
+      type: oauth2
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: /v0/auth/login
+    HTTPBasic:
+      type: http
+      scheme: basic
+x-refined-from:
+- databento-openapi.yml
+- databento-platform-openapi-official.json

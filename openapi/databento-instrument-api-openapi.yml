@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Instrument API
   version: 0.167.1
 tags:
-- name: instrument
+- name: Instrument
 paths:
   /v0/instrument/instrument_list:
     get:
       tags:
-      - instrument
+      - Instrument
       summary: Get Instrument List
       operationId: get_instrument_list_v0_instrument_instrument_list_get
       parameters:
@@ -82,7 +82,7 @@ paths:
   /v0/instrument/related-datasets/{dataset}/{asset_class}/{instrument}:
     get:
       tags:
-      - instrument
+      - Instrument
       summary: Get Related Datasets
       operationId: get_related_datasets_v0_instrument_related_datasets__dataset___asset_class___instrument__get
       parameters:
@@ -130,7 +130,7 @@ paths:
   /v0/instrument/validate/{dataset}/{asset_class}/{instrument}:
     get:
       tags:
-      - instrument
+      - Instrument
       summary: Validate Instrument
       operationId: validate_instrument_v0_instrument_validate__dataset___asset_class___instrument__get
       parameters:
@@ -174,61 +174,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    InstrumentDescription:
-      properties:
-        symbol:
-          type: string
-          title: Symbol
-        display_symbol:
-          type: string
-          title: Display Symbol
-        instrument_name:
-          type: string
-          title: Instrument Name
-        asset_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Asset Class
-        security_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Type
-          default: raw_symbol
-        dataset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Id
-        dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Name
-        publisher:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Publisher
-        first_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: First Seen
-        last_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Last Seen
-      type: object
-      required:
-      - symbol
-      - display_symbol
-      - instrument_name
-      title: InstrumentDescription
     HTTPValidationError:
       properties:
         detail:
@@ -305,6 +250,61 @@ components:
       - instrument_last_seen_date
       - data
       title: InstrumentDetailListView
+    InstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: InstrumentDescription
     ReasonRefCode:
       type: string
       enum:

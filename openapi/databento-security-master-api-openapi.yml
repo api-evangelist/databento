@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Security Master API
   version: 0.167.1
 tags:
-- name: security_master
+- name: Security Master
 paths:
   /v0/security_master.get_last:
     post:
       tags:
-      - security_master
+      - Security Master
       summary: Query Security Master Last
       operationId: query_security_master_last_v0_security_master_get_last_post
       security:
@@ -49,7 +49,7 @@ paths:
   /v0/security_master.get_range:
     post:
       tags:
-      - security_master
+      - Security Master
       summary: Query Security Master Pit Range
       operationId: query_security_master_pit_range_v0_security_master_get_range_post
       security:
@@ -90,42 +90,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Body_query_security_master_last_v0_security_master_get_last_post:
+    HTTPValidationError:
       properties:
-        symbols:
-          type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        countries:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Countries
-        security_types:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Types
-        compression:
-          type: string
-          title: Compression
-          default: none
-        dataset:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: Body_query_security_master_last_v0_security_master_get_last_post
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -197,15 +170,42 @@ components:
       required:
       - start
       title: Body_query_security_master_pit_range_v0_security_master_get_range_post
-    HTTPValidationError:
+    Body_query_security_master_last_v0_security_master_get_last_post:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
       type: object
-      title: HTTPValidationError
+      title: Body_query_security_master_last_v0_security_master_get_last_post
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

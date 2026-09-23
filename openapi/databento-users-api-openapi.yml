@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Users API
   version: 0.167.1
 tags:
-- name: users
+- name: Users
 paths:
   /v0/users/me:
     get:
       tags:
-      - users
+      - Users
       summary: Read Current User
       operationId: read_current_user_v0_users_me_get
       security:
@@ -43,7 +43,7 @@ paths:
   /v0/users/me/name:
     put:
       tags:
-      - users
+      - Users
       summary: Update Current User Name
       operationId: update_current_user_name_v0_users_me_name_put
       security:
@@ -86,7 +86,7 @@ paths:
   /v0/users/me/email_update_intent:
     get:
       tags:
-      - users
+      - Users
       summary: Get Email Update Intent
       operationId: get_email_update_intent_v0_users_me_email_update_intent_get
       security:
@@ -119,7 +119,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - users
+      - Users
       summary: Create Email Update Intent
       operationId: create_email_update_intent_v0_users_me_email_update_intent_post
       security:
@@ -161,7 +161,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - users
+      - Users
       summary: Delete Email Update Intent
       operationId: delete_email_update_intent_v0_users_me_email_update_intent_delete
       security:
@@ -195,7 +195,7 @@ paths:
   /v0/users/email_update:
     get:
       tags:
-      - users
+      - Users
       summary: Get Email Update Intent Detail
       operationId: get_email_update_intent_detail_v0_users_email_update_get
       parameters:
@@ -228,7 +228,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     put:
       tags:
-      - users
+      - Users
       summary: Update User Email
       operationId: update_user_email_v0_users_email_update_put
       parameters:
@@ -260,7 +260,7 @@ paths:
   /v0/users/me/password:
     put:
       tags:
-      - users
+      - Users
       summary: Update Current User Password
       operationId: update_current_user_password_v0_users_me_password_put
       security:
@@ -301,7 +301,7 @@ paths:
   /v0/users/me/keys:
     post:
       tags:
-      - users
+      - Users
       summary: Create Current User Key
       operationId: create_current_user_key_v0_users_me_keys_post
       security:
@@ -343,7 +343,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     get:
       tags:
-      - users
+      - Users
       summary: Read Current User Keys
       operationId: read_current_user_keys_v0_users_me_keys_get
       security:
@@ -381,7 +381,7 @@ paths:
   /v0/users/me/keys/{name}:
     get:
       tags:
-      - users
+      - Users
       summary: Read Current User Key By Name
       operationId: read_current_user_key_by_name_v0_users_me_keys__name__get
       security:
@@ -410,7 +410,7 @@ paths:
           description: If `name` validation fails
     put:
       tags:
-      - users
+      - Users
       summary: Update Current User Key By Name
       operationId: update_current_user_key_by_name_v0_users_me_keys__name__put
       security:
@@ -452,7 +452,7 @@ paths:
           description: If `name` validation fails
     delete:
       tags:
-      - users
+      - Users
       summary: Delete Current User Key By Name
       operationId: delete_current_user_key_by_name_v0_users_me_keys__name__delete
       security:
@@ -486,7 +486,7 @@ paths:
   /v0/users/me/keys/{name}/rotate:
     put:
       tags:
-      - users
+      - Users
       summary: Rotate Current User Key By Name
       operationId: rotate_current_user_key_by_name_v0_users_me_keys__name__rotate_put
       security:
@@ -523,7 +523,7 @@ paths:
   /v0/users/me/settings:
     get:
       tags:
-      - users
+      - Users
       summary: List Settings
       operationId: list_settings_v0_users_me_settings_get
       security:
@@ -555,7 +555,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     put:
       tags:
-      - users
+      - Users
       summary: Update Settings
       operationId: update_settings_v0_users_me_settings_put
       security:
@@ -593,7 +593,7 @@ paths:
   /v0/users/me/tutorials:
     get:
       tags:
-      - users
+      - Users
       summary: List Tutorials
       operationId: list_tutorials_v0_users_me_tutorials_get
       security:
@@ -625,7 +625,7 @@ paths:
   /v0/users/me/tutorials/{tutorial_id}/completed:
     post:
       tags:
-      - users
+      - Users
       summary: Update Tutorial Completed
       operationId: update_tutorial_completed_v0_users_me_tutorials__tutorial_id__completed_post
       security:
@@ -663,7 +663,7 @@ paths:
   /v0/users/me/billing:
     post:
       tags:
-      - users
+      - Users
       summary: Billing Capture
       operationId: billing_capture_v0_users_me_billing_post
       security:
@@ -696,7 +696,7 @@ paths:
   /v0/users/me/add_card:
     post:
       tags:
-      - users
+      - Users
       summary: Add Payment Card
       operationId: add_payment_card_v0_users_me_add_card_post
       security:
@@ -735,7 +735,7 @@ paths:
   /v0/users/me/update_default:
     post:
       tags:
-      - users
+      - Users
       summary: Update Default
       operationId: update_default_v0_users_me_update_default_post
       security:
@@ -774,7 +774,7 @@ paths:
   /v0/users/me/edit_card:
     post:
       tags:
-      - users
+      - Users
       summary: Edit Card
       operationId: edit_card_v0_users_me_edit_card_post
       security:
@@ -813,7 +813,7 @@ paths:
   /v0/users/me/list_cards:
     get:
       tags:
-      - users
+      - Users
       summary: List Cards
       operationId: list_cards_v0_users_me_list_cards_get
       security:
@@ -849,7 +849,7 @@ paths:
   /v0/users/me/delete_card:
     post:
       tags:
-      - users
+      - Users
       summary: Delete Card
       operationId: delete_card_v0_users_me_delete_card_post
       security:
@@ -888,7 +888,7 @@ paths:
   /v0/users/me/cart:
     post:
       tags:
-      - users
+      - Users
       summary: Save Cart
       operationId: save_cart_v0_users_me_cart_post
       security:
@@ -925,7 +925,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     get:
       tags:
-      - users
+      - Users
       summary: Read Cart
       operationId: read_cart_v0_users_me_cart_get
       security:
@@ -955,7 +955,7 @@ paths:
   /v0/users/me/notifications:
     get:
       tags:
-      - users
+      - Users
       summary: Read Notifications
       operationId: read_notifications_v0_users_me_notifications_get
       security:
@@ -985,7 +985,7 @@ paths:
   /v0/users/me/notifications/read:
     post:
       tags:
-      - users
+      - Users
       summary: Read And Update Notifications
       operationId: read_and_update_notifications_v0_users_me_notifications_read_post
       security:
@@ -1015,7 +1015,7 @@ paths:
   /v0/users/me/notifications/mark_as_read:
     post:
       tags:
-      - users
+      - Users
       summary: Mark Notifications As Read
       operationId: mark_notifications_as_read_v0_users_me_notifications_mark_as_read_post
       security:
@@ -1051,7 +1051,7 @@ paths:
   /v0/users/me/notifications/has_unread:
     get:
       tags:
-      - users
+      - Users
       summary: Has Unread Notifications
       operationId: has_unread_notifications_v0_users_me_notifications_has_unread_get
       security:
@@ -1081,7 +1081,7 @@ paths:
   /v0/users/me/notifications/clear:
     post:
       tags:
-      - users
+      - Users
       summary: Clear Notifications
       operationId: clear_notifications_v0_users_me_notifications_clear_post
       security:
@@ -1111,7 +1111,7 @@ paths:
   /v0/users/me/alerts:
     get:
       tags:
-      - users
+      - Users
       summary: Get Alert Messages
       operationId: get_alert_messages_v0_users_me_alerts_get
       security:
@@ -1141,7 +1141,7 @@ paths:
   /v0/users/me/alerts/dismissed/{msg_id}:
     put:
       tags:
-      - users
+      - Users
       summary: Dismiss An Alert Message
       operationId: dismiss_an_alert_message_v0_users_me_alerts_dismissed__msg_id__put
       security:
@@ -1181,7 +1181,7 @@ paths:
   /v0/users/me/alerts/dismissed:
     delete:
       tags:
-      - users
+      - Users
       summary: Clear Dismissed State
       operationId: clear_dismissed_state_v0_users_me_alerts_dismissed_delete
       security:
@@ -1211,7 +1211,7 @@ paths:
   /v0/users/sales_inquiry:
     post:
       tags:
-      - users
+      - Users
       summary: Create Sales Inquiry
       operationId: create_sales_inquiry_v0_users_sales_inquiry_post
       parameters:
@@ -1251,7 +1251,7 @@ paths:
   /v0/users/calendly_meeting_scheduled:
     post:
       tags:
-      - users
+      - Users
       summary: Calendly Meeting Scheduled
       operationId: calendly_meeting_scheduled_v0_users_calendly_meeting_scheduled_post
       parameters:
@@ -1283,6 +1283,34 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    UserEmailUpdateConfirm:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+      type: object
+      required:
+      - request_id
+      title: UserEmailUpdateConfirm
+    TeamRole:
+      type: string
+      enum:
+      - owner
+      - admin
+      - accounting
+      - member
+      title: TeamRole
+    Registration:
+      type: string
+      enum:
+      - SIGNUP_EMAIL
+      - SIGNUP_CONTACT
+      - SIGNUP_PAYMENT
+      - EMAIL
+      - CONTACT
+      - PAYMENT
+      - DONE
+      title: Registration
     UserPasswordUpdate:
       properties:
         old_password:
@@ -1296,6 +1324,151 @@ components:
       - old_password
       - new_password
       title: UserPasswordUpdate
+    UserApiKeyResponse:
+      properties:
+        user_id:
+          type: string
+          title: User Id
+        name:
+          type: string
+          title: Name
+        value:
+          type: string
+          title: Value
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+        ts_updated:
+          type: string
+          format: date-time
+          title: Ts Updated
+      type: object
+      required:
+      - user_id
+      - name
+      - value
+      - ts_created
+      - ts_updated
+      title: UserApiKeyResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UserNameUpdate:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+      type: object
+      required:
+      - full_name
+      title: UserNameUpdate
+    UserSettingsUpdate:
+      properties:
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+        gateway_latency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gateway Latency
+        receiver_latency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Receiver Latency
+        show_live_data_cta:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Show Live Data Cta
+        download_center_intro:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Download Center Intro
+        getting_started_pinned:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Getting Started Pinned
+      type: object
+      title: UserSettingsUpdate
+    UserSettingsView:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+        gateway_latency:
+          type: string
+          title: Gateway Latency
+        receiver_latency:
+          type: string
+          title: Receiver Latency
+        show_live_data_cta:
+          type: boolean
+          title: Show Live Data Cta
+          default: true
+        download_center_intro:
+          type: boolean
+          title: Download Center Intro
+          default: true
+        getting_started_pinned:
+          type: boolean
+          title: Getting Started Pinned
+          default: true
+      type: object
+      required:
+      - timezone
+      - gateway_latency
+      - receiver_latency
+      title: UserSettingsView
+    NotificationMsgIds:
+      properties:
+        msg_ids:
+          items:
+            type: string
+          type: array
+          title: Msg Ids
+      type: object
+      required:
+      - msg_ids
+      title: NotificationMsgIds
+    UserEmailUpdateIntent:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        user_id:
+          type: string
+          title: User Id
+        status:
+          $ref: '#/components/schemas/EmailUpdateStatus'
+        new_email:
+          type: string
+          format: email
+          title: New Email
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+      type: object
+      required:
+      - request_id
+      - user_id
+      - status
+      - new_email
+      - ts_created
+      title: UserEmailUpdateIntent
     StripeSetupIntent:
       properties:
         setup_intent:
@@ -1310,15 +1483,123 @@ components:
       - setup_intent
       - client_secret
       title: StripeSetupIntent
-    UserEmailUpdateConfirm:
+    UserApiKeyCreate:
       properties:
-        request_id:
+        name:
           type: string
-          title: Request Id
+          title: Name
       type: object
       required:
-      - request_id
-      title: UserEmailUpdateConfirm
+      - name
+      title: UserApiKeyCreate
+    UserUpdateNewEmail:
+      properties:
+        new_email:
+          type: string
+          format: email
+          title: New Email
+      type: object
+      required:
+      - new_email
+      title: UserUpdateNewEmail
+    UserStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - deactivated
+      title: UserStatus
+    UserApiKeyUpdate:
+      properties:
+        new_name:
+          type: string
+          title: New Name
+      type: object
+      required:
+      - new_name
+      title: UserApiKeyUpdate
+    Card:
+      properties:
+        brand:
+          type: string
+          title: Brand
+        exp_month:
+          type: integer
+          title: Exp Month
+        exp_year:
+          type: integer
+          title: Exp Year
+        last_4:
+          type: string
+          title: Last 4
+        default_card:
+          type: boolean
+          title: Default Card
+        payment_method:
+          type: string
+          title: Payment Method
+      type: object
+      required:
+      - brand
+      - exp_month
+      - exp_year
+      - last_4
+      - default_card
+      - payment_method
+      title: Card
+    UserResponse:
+      properties:
+        email:
+          type: string
+          format: email
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        role:
+          $ref: '#/components/schemas/TeamRole'
+        status:
+          $ref: '#/components/schemas/UserStatus'
+        is_good_standing:
+          type: boolean
+          title: Is Good Standing
+        registration:
+          anyOf:
+          - $ref: '#/components/schemas/Registration'
+          - type: 'null'
+          default: EMAIL
+        stripe_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stripe Id
+        id:
+          type: string
+          title: Id
+        team_id:
+          type: string
+          title: Team Id
+      type: object
+      required:
+      - email
+      - role
+      - status
+      - is_good_standing
+      - id
+      - team_id
+      title: UserResponse
+    DetailResponse:
+      properties:
+        detail:
+          additionalProperties: true
+          type: object
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: DetailResponse
     CardEdit:
       properties:
         payment_method:
@@ -1368,59 +1649,42 @@ components:
       required:
       - payment_method
       title: CardEdit
-    UserApiKeyUpdate:
+    UserCart:
       properties:
-        new_name:
+        content:
           type: string
-          title: New Name
+          title: Content
       type: object
       required:
-      - new_name
-      title: UserApiKeyUpdate
-    UserEmailUpdateIntent:
-      properties:
-        request_id:
-          type: string
-          title: Request Id
-        user_id:
-          type: string
-          title: User Id
-        status:
-          $ref: '#/components/schemas/EmailUpdateStatus'
-        new_email:
-          type: string
-          format: email
-          title: New Email
-        ts_created:
-          type: string
-          format: date-time
-          title: Ts Created
-      type: object
-      required:
-      - request_id
-      - user_id
-      - status
-      - new_email
-      - ts_created
-      title: UserEmailUpdateIntent
-    NotificationMsgIds:
-      properties:
-        msg_ids:
-          items:
-            type: string
-          type: array
-          title: Msg Ids
-      type: object
-      required:
-      - msg_ids
-      title: NotificationMsgIds
-    UserStatus:
+      - content
+      title: UserCart
+    EmailUpdateStatus:
       type: string
       enum:
-      - pending
-      - active
-      - deactivated
-      title: UserStatus
+      - UNCONFIRMED
+      - CONFIRMED
+      title: EmailUpdateStatus
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     SalesInquiryCreate:
       properties:
         email:
@@ -1462,195 +1726,6 @@ components:
       additionalProperties: true
       type: object
       title: SalesInquiryCreate
-    UserNameUpdate:
-      properties:
-        full_name:
-          type: string
-          title: Full Name
-      type: object
-      required:
-      - full_name
-      title: UserNameUpdate
-    TeamRole:
-      type: string
-      enum:
-      - owner
-      - admin
-      - accounting
-      - member
-      title: TeamRole
-    Registration:
-      type: string
-      enum:
-      - SIGNUP_EMAIL
-      - SIGNUP_CONTACT
-      - SIGNUP_PAYMENT
-      - EMAIL
-      - CONTACT
-      - PAYMENT
-      - DONE
-      title: Registration
-    UserSettingsView:
-      properties:
-        timezone:
-          type: string
-          title: Timezone
-        gateway_latency:
-          type: string
-          title: Gateway Latency
-        receiver_latency:
-          type: string
-          title: Receiver Latency
-        show_live_data_cta:
-          type: boolean
-          title: Show Live Data Cta
-          default: true
-        download_center_intro:
-          type: boolean
-          title: Download Center Intro
-          default: true
-        getting_started_pinned:
-          type: boolean
-          title: Getting Started Pinned
-          default: true
-      type: object
-      required:
-      - timezone
-      - gateway_latency
-      - receiver_latency
-      title: UserSettingsView
-    UserResponse:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        role:
-          $ref: '#/components/schemas/TeamRole'
-        status:
-          $ref: '#/components/schemas/UserStatus'
-        is_good_standing:
-          type: boolean
-          title: Is Good Standing
-        registration:
-          anyOf:
-          - $ref: '#/components/schemas/Registration'
-          - type: 'null'
-          default: EMAIL
-        stripe_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Stripe Id
-        id:
-          type: string
-          title: Id
-        team_id:
-          type: string
-          title: Team Id
-      type: object
-      required:
-      - email
-      - role
-      - status
-      - is_good_standing
-      - id
-      - team_id
-      title: UserResponse
-    UserApiKeyResponse:
-      properties:
-        user_id:
-          type: string
-          title: User Id
-        name:
-          type: string
-          title: Name
-        value:
-          type: string
-          title: Value
-        ts_created:
-          type: string
-          format: date-time
-          title: Ts Created
-        ts_updated:
-          type: string
-          format: date-time
-          title: Ts Updated
-      type: object
-      required:
-      - user_id
-      - name
-      - value
-      - ts_created
-      - ts_updated
-      title: UserApiKeyResponse
-    UserCart:
-      properties:
-        content:
-          type: string
-          title: Content
-      type: object
-      required:
-      - content
-      title: UserCart
-    DetailResponse:
-      properties:
-        detail:
-          additionalProperties: true
-          type: object
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: DetailResponse
-    UserSettingsUpdate:
-      properties:
-        timezone:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Timezone
-        gateway_latency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Gateway Latency
-        receiver_latency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Receiver Latency
-        show_live_data_cta:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Show Live Data Cta
-        download_center_intro:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Download Center Intro
-        getting_started_pinned:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Getting Started Pinned
-      type: object
-      title: UserSettingsUpdate
-    UserApiKeyCreate:
-      properties:
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - name
-      title: UserApiKeyCreate
     PaymentMethod:
       properties:
         payment_method:
@@ -1660,81 +1735,6 @@ components:
       required:
       - payment_method
       title: PaymentMethod
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Card:
-      properties:
-        brand:
-          type: string
-          title: Brand
-        exp_month:
-          type: integer
-          title: Exp Month
-        exp_year:
-          type: integer
-          title: Exp Year
-        last_4:
-          type: string
-          title: Last 4
-        default_card:
-          type: boolean
-          title: Default Card
-        payment_method:
-          type: string
-          title: Payment Method
-      type: object
-      required:
-      - brand
-      - exp_month
-      - exp_year
-      - last_4
-      - default_card
-      - payment_method
-      title: Card
-    EmailUpdateStatus:
-      type: string
-      enum:
-      - UNCONFIRMED
-      - CONFIRMED
-      title: EmailUpdateStatus
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UserUpdateNewEmail:
-      properties:
-        new_email:
-          type: string
-          format: email
-          title: New Email
-      type: object
-      required:
-      - new_email
-      title: UserUpdateNewEmail
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

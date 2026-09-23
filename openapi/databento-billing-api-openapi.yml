@@ -3,12 +3,12 @@ info:
   title: Databento OpenAPI specification Billing API
   version: 0.167.1
 tags:
-- name: billing
+- name: Billing
 paths:
   /v0/billing/dashboard:
     get:
       tags:
-      - billing
+      - Billing
       summary: Get Dashboard Data
       operationId: get_dashboard_data_v0_billing_dashboard_get
       responses:
@@ -27,7 +27,7 @@ paths:
   /v0/billing/invoices:
     get:
       tags:
-      - billing
+      - Billing
       summary: List Invoice
       operationId: list_invoice_v0_billing_invoices_get
       security:
@@ -77,7 +77,7 @@ paths:
   /v0/billing/upcoming_invoice:
     get:
       tags:
-      - billing
+      - Billing
       summary: Upcoming Invoice
       operationId: upcoming_invoice_v0_billing_upcoming_invoice_get
       responses:
@@ -96,7 +96,7 @@ paths:
   /v0/billing/invoice/{invoice_id}:
     get:
       tags:
-      - billing
+      - Billing
       summary: Get Invoice Detail
       operationId: get_invoice_detail_v0_billing_invoice__invoice_id__get
       security:
@@ -127,7 +127,7 @@ paths:
   /v0/billing/events:
     post:
       tags:
-      - billing
+      - Billing
       summary: Events
       operationId: events_v0_billing_events_post
       parameters:
@@ -152,7 +152,7 @@ paths:
   /v0/billing/tin:
     post:
       tags:
-      - billing
+      - Billing
       summary: Tin Updated
       operationId: tin_updated_v0_billing_tin_post
       responses:
@@ -164,7 +164,7 @@ paths:
   /v0/billing/credits:
     get:
       tags:
-      - billing
+      - Billing
       summary: Get Credit Activity
       operationId: get_credit_activity_v0_billing_credits_get
       security:
@@ -208,7 +208,7 @@ paths:
   /v0/billing/team_budget:
     get:
       tags:
-      - billing
+      - Billing
       summary: Read Team Budget
       operationId: read_team_budget_v0_billing_team_budget_get
       responses:
@@ -226,7 +226,7 @@ paths:
       - OAuth2PasswordBearerWithCookie: []
     post:
       tags:
-      - billing
+      - Billing
       summary: Change Team Budget
       operationId: change_team_budget_v0_billing_team_budget_post
       requestBody:
@@ -257,7 +257,7 @@ paths:
   /v0/billing/unpaid_invoice:
     get:
       tags:
-      - billing
+      - Billing
       summary: Check Team Unpaid Invoice
       operationId: check_team_unpaid_invoice_v0_billing_unpaid_invoice_get
       responses:
@@ -276,7 +276,7 @@ paths:
   /v0/billing/invoice/download/{invoice_id}:
     get:
       tags:
-      - billing
+      - Billing
       summary: Download Invoice
       operationId: download_invoice_v0_billing_invoice_download__invoice_id__get
       security:
@@ -310,7 +310,7 @@ paths:
   /v0/billing/premiumservice/activate/{service_id}:
     get:
       tags:
-      - billing
+      - Billing
       summary: Check Premium Service Activation
       operationId: check_premium_service_activation_v0_billing_premiumservice_activate__service_id__get
       security:
@@ -343,7 +343,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - billing
+      - Billing
       summary: Activate Premium Service
       operationId: activate_premium_service_v0_billing_premiumservice_activate__service_id__post
       security:
@@ -375,7 +375,7 @@ paths:
   /v0/billing/subscriptions:
     get:
       tags:
-      - billing
+      - Billing
       summary: Display Subscriptions
       operationId: display_subscriptions_v0_billing_subscriptions_get
       responses:
@@ -396,7 +396,7 @@ paths:
   /v0/billing/premiumservice/cancel/{service_id}:
     post:
       tags:
-      - billing
+      - Billing
       summary: Cancel Premium Service
       operationId: cancel_premium_service_v0_billing_premiumservice_cancel__service_id__post
       security:
@@ -435,7 +435,7 @@ paths:
   /v0/billing/redeem_credit_code:
     post:
       tags:
-      - billing
+      - Billing
       summary: Redeem Credit Code
       operationId: redeem_credit_code_v0_billing_redeem_credit_code_post
       security:
@@ -474,70 +474,131 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CustomerAddressType:
-      type: string
-      enum:
-      - Business
-      - Billing
-      title: CustomerAddressType
-    TeamBillingStatus:
+    SubscriptionActivationConfirmation:
       properties:
-        has_overdue_invoice:
-          type: boolean
-          title: Has Overdue Invoice
-        has_delinquent_invoice:
-          type: boolean
-          title: Has Delinquent Invoice
-        deadline:
+        service_offering_id:
+          type: integer
+          title: Service Offering Id
+        cost_cents:
+          type: integer
+          title: Cost Cents
+        credit_cents:
+          type: integer
+          title: Credit Cents
+        balance_due_cents:
+          type: integer
+          title: Balance Due Cents
+      type: object
+      required:
+      - service_offering_id
+      - cost_cents
+      - credit_cents
+      - balance_due_cents
+      title: SubscriptionActivationConfirmation
+    ServiceCancellationSurvey:
+      properties:
+        reasons:
           anyOf:
-          - type: integer
+          - items:
+              type: string
+            type: array
           - type: 'null'
-          title: Deadline
+          title: Reasons
       type: object
-      required:
-      - has_overdue_invoice
-      - has_delinquent_invoice
-      title: TeamBillingStatus
-    InvoiceDataUsageView:
+      title: ServiceCancellationSurvey
+    TeamContactView:
       properties:
-        data_usage_charge:
-          type: integer
-          title: Data Usage Charge
-        total_charge:
-          type: integer
-          title: Total Charge
-        data:
-          items:
-            $ref: '#/components/schemas/DataUsageByDatasetView'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data_usage_charge
-      - total_charge
-      - data
-      title: InvoiceDataUsageView
-    DataUsageRowView:
-      properties:
-        schema_name:
+        address_line1:
           type: string
-          title: Schema Name
-        usage:
-          type: integer
-          title: Usage
-        rate:
-          type: integer
-          title: Rate
-        cost:
-          type: integer
-          title: Cost
+          title: Address Line1
+        city:
+          type: string
+          title: City
+        state_province_region:
+          type: string
+          title: State Province Region
+        country_region:
+          type: string
+          title: Country Region
+        postal_code:
+          type: string
+          title: Postal Code
+        phone_cc:
+          type: string
+          title: Phone Cc
+        phone_num:
+          type: string
+          title: Phone Num
+        address_type:
+          $ref: '#/components/schemas/CustomerAddressType'
+        company_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Name
+        address_line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address Line2
       type: object
       required:
-      - schema_name
-      - usage
-      - rate
-      - cost
-      title: DataUsageRowView
+      - address_line1
+      - city
+      - state_province_region
+      - country_region
+      - postal_code
+      - phone_cc
+      - phone_num
+      - address_type
+      title: TeamContactView
+    SubscriptionDetail:
+      properties:
+        licenses:
+          items:
+            $ref: '#/components/schemas/LicenseSubscriptionItem'
+          type: array
+          title: Licenses
+        plans:
+          items:
+            $ref: '#/components/schemas/PlanSubscriptionItem'
+          type: array
+          title: Plans
+      type: object
+      required:
+      - licenses
+      - plans
+      title: SubscriptionDetail
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BudgetChange:
+      properties:
+        budget_control_on:
+          type: boolean
+          title: Budget Control On
+        notification_on:
+          type: boolean
+          title: Notification On
+        notification_on_percent:
+          type: integer
+          title: Notification On Percent
+        amount:
+          type: integer
+          title: Amount
+      type: object
+      required:
+      - budget_control_on
+      - notification_on
+      - notification_on_percent
+      - amount
+      title: BudgetChange
     InvoiceListView:
       properties:
         id:
@@ -591,86 +652,43 @@ components:
       - accept_payment
       - payment_link
       title: InvoiceListView
-    BillingDashboardView:
+    CreditListView:
       properties:
-        outstanding_balance:
-          type: integer
-          title: Outstanding Balance
-        next_payment:
+        date:
           type: string
-          title: Next Payment
-        credits_remain:
+          title: Date
+        amount:
           type: integer
-          title: Credits Remain
-        ts_next_credit_expiration:
+          title: Amount
+        balance:
+          type: integer
+          title: Balance
+        description:
+          type: string
+          title: Description
+        redeem_activity:
+          items:
+            $ref: '#/components/schemas/CreditRedeemView'
+          type: array
+          title: Redeem Activity
+        expiration:
           anyOf:
           - type: integer
           - type: 'null'
-          title: Ts Next Credit Expiration
-        budget:
-          type: integer
-          title: Budget
-        collection_method:
-          type: string
-          title: Collection Method
-        brand:
+          title: Expiration
+        restriction:
           anyOf:
           - type: string
           - type: 'null'
-          title: Brand
-        last_4:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last 4
-        billing_address:
-          $ref: '#/components/schemas/TeamContactView'
-        subscriptions:
-          $ref: '#/components/schemas/SubscriptionDetail'
+          title: Restriction
       type: object
       required:
-      - outstanding_balance
-      - next_payment
-      - credits_remain
-      - budget
-      - collection_method
-      - brand
-      - last_4
-      - billing_address
-      - subscriptions
-      title: BillingDashboardView
-    SubscriptionDetail:
-      properties:
-        licenses:
-          items:
-            $ref: '#/components/schemas/LicenseSubscriptionItem'
-          type: array
-          title: Licenses
-        plans:
-          items:
-            $ref: '#/components/schemas/PlanSubscriptionItem'
-          type: array
-          title: Plans
-      type: object
-      required:
-      - licenses
-      - plans
-      title: SubscriptionDetail
-    InvoiceListResponse:
-      properties:
-        count:
-          type: integer
-          title: Count
-        data:
-          items:
-            $ref: '#/components/schemas/InvoiceListView'
-          type: array
-          title: Data
-      type: object
-      required:
-      - count
-      - data
-      title: InvoiceListResponse
+      - date
+      - amount
+      - balance
+      - description
+      - redeem_activity
+      title: CreditListView
     InvoiceDraftStateView:
       properties:
         data_usage_charge:
@@ -694,58 +712,116 @@ components:
       - data_usage
       - subscriptions
       title: InvoiceDraftStateView
-    CreditDashboardView:
+    CustomerAddressType:
+      type: string
+      enum:
+      - Business
+      - Billing
+      title: CustomerAddressType
+    TeamBillingStatus:
       properties:
-        total_amount:
-          type: integer
-          title: Total Amount
-        universal_amount:
-          type: integer
-          title: Universal Amount
-        historical_only_amount:
-          type: integer
-          title: Historical Only Amount
-        realtime_only_amount:
-          type: integer
-          title: Realtime Only Amount
-        license_only_amount:
-          type: integer
-          title: License Only Amount
-        next_expiration_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Expiration Date
-        next_expiration_amount:
+        has_overdue_invoice:
+          type: boolean
+          title: Has Overdue Invoice
+        has_delinquent_invoice:
+          type: boolean
+          title: Has Delinquent Invoice
+        deadline:
           anyOf:
           - type: integer
           - type: 'null'
-          title: Next Expiration Amount
-        items:
-          items:
-            $ref: '#/components/schemas/CreditListView'
-          type: array
-          title: Items
+          title: Deadline
       type: object
       required:
-      - total_amount
-      - universal_amount
-      - historical_only_amount
-      - realtime_only_amount
-      - license_only_amount
-      - items
-      title: CreditDashboardView
-    ServiceCancellationSurvey:
+      - has_overdue_invoice
+      - has_delinquent_invoice
+      title: TeamBillingStatus
+    LicenseSubscriptionItem:
       properties:
-        reasons:
+        license_subscription_id:
+          type: integer
+          title: License Subscription Id
+        team_id:
+          type: string
+          title: Team Id
+        provider:
+          type: string
+          title: Provider
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        professional:
+          type: boolean
+          title: Professional
+        asset_class:
+          items:
+            type: string
+          type: array
+          title: Asset Class
+        cost:
+          type: integer
+          title: Cost
+        next_billing_date:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: string
           - type: 'null'
-          title: Reasons
+          title: Next Billing Date
+        current_cycle_start:
+          type: string
+          title: Current Cycle Start
+        current_cycle_end:
+          type: string
+          title: Current Cycle End
+        termination_date:
+          type: string
+          title: Termination Date
+        billing_interval:
+          type: integer
+          title: Billing Interval
+        status:
+          type: string
+          title: Status
+        service_group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Service Group
+        reference_data_license_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reference Data License Tier
+        symbols_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Symbols Used
+        symbols_allowed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Symbols Allowed
       type: object
-      title: ServiceCancellationSurvey
+      required:
+      - license_subscription_id
+      - team_id
+      - provider
+      - name
+      - description
+      - professional
+      - asset_class
+      - cost
+      - next_billing_date
+      - current_cycle_start
+      - current_cycle_end
+      - termination_date
+      - billing_interval
+      - status
+      - service_group
+      title: LicenseSubscriptionItem
     PlanSubscriptionItem:
       properties:
         plan_subscription_id:
@@ -843,150 +919,129 @@ components:
       - billing_interval
       - status
       title: PlanSubscriptionItem
-    LicenseSubscriptionItem:
+    InvoiceListResponse:
       properties:
-        license_subscription_id:
+        count:
           type: integer
-          title: License Subscription Id
-        team_id:
-          type: string
-          title: Team Id
-        provider:
-          type: string
-          title: Provider
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        professional:
-          type: boolean
-          title: Professional
-        asset_class:
+          title: Count
+        data:
           items:
-            type: string
+            $ref: '#/components/schemas/InvoiceListView'
           type: array
-          title: Asset Class
-        cost:
-          type: integer
-          title: Cost
-        next_billing_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Billing Date
-        current_cycle_start:
-          type: string
-          title: Current Cycle Start
-        current_cycle_end:
-          type: string
-          title: Current Cycle End
-        termination_date:
-          type: string
-          title: Termination Date
-        billing_interval:
-          type: integer
-          title: Billing Interval
-        status:
-          type: string
-          title: Status
-        service_group:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Service Group
-        reference_data_license_tier:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reference Data License Tier
-        symbols_used:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Symbols Used
-        symbols_allowed:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Symbols Allowed
+          title: Data
       type: object
       required:
-      - license_subscription_id
-      - team_id
-      - provider
-      - name
-      - description
-      - professional
-      - asset_class
-      - cost
-      - next_billing_date
-      - current_cycle_start
-      - current_cycle_end
-      - termination_date
-      - billing_interval
-      - status
-      - service_group
-      title: LicenseSubscriptionItem
-    SubscriptionActivationConfirmation:
+      - count
+      - data
+      title: InvoiceListResponse
+    InvoiceDataUsageView:
       properties:
-        service_offering_id:
+        data_usage_charge:
           type: integer
-          title: Service Offering Id
-        cost_cents:
+          title: Data Usage Charge
+        total_charge:
           type: integer
-          title: Cost Cents
-        credit_cents:
-          type: integer
-          title: Credit Cents
-        balance_due_cents:
-          type: integer
-          title: Balance Due Cents
+          title: Total Charge
+        data:
+          items:
+            $ref: '#/components/schemas/DataUsageByDatasetView'
+          type: array
+          title: Data
       type: object
       required:
-      - service_offering_id
-      - cost_cents
-      - credit_cents
-      - balance_due_cents
-      title: SubscriptionActivationConfirmation
-    CreditListView:
+      - data_usage_charge
+      - total_charge
+      - data
+      title: InvoiceDataUsageView
+    CreditRedeemView:
       properties:
-        date:
+        coupon_name:
           type: string
-          title: Date
+          title: Coupon Name
+        redeem_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Redeem Reason
         amount:
           type: integer
           title: Amount
-        balance:
-          type: integer
-          title: Balance
-        description:
+        redeem_time:
           type: string
-          title: Description
-        redeem_activity:
-          items:
-            $ref: '#/components/schemas/CreditRedeemView'
-          type: array
-          title: Redeem Activity
-        expiration:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Expiration
-        restriction:
+          title: Redeem Time
+      type: object
+      required:
+      - coupon_name
+      - redeem_reason
+      - amount
+      - redeem_time
+      title: CreditRedeemView
+    CreditDashboardView:
+      properties:
+        total_amount:
+          type: integer
+          title: Total Amount
+        universal_amount:
+          type: integer
+          title: Universal Amount
+        historical_only_amount:
+          type: integer
+          title: Historical Only Amount
+        realtime_only_amount:
+          type: integer
+          title: Realtime Only Amount
+        license_only_amount:
+          type: integer
+          title: License Only Amount
+        next_expiration_date:
           anyOf:
           - type: string
           - type: 'null'
-          title: Restriction
+          title: Next Expiration Date
+        next_expiration_amount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Next Expiration Amount
+        items:
+          items:
+            $ref: '#/components/schemas/CreditListView'
+          type: array
+          title: Items
       type: object
       required:
-      - date
-      - amount
-      - balance
-      - description
-      - redeem_activity
-      title: CreditListView
+      - total_amount
+      - universal_amount
+      - historical_only_amount
+      - realtime_only_amount
+      - license_only_amount
+      - items
+      title: CreditDashboardView
+    DataUsageByDatasetView:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_display_name:
+          type: string
+          title: Dataset Display Name
+        usage_detail:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/DataUsageRowView'
+            type: array
+          type: object
+          title: Usage Detail
+        data_usage_charge:
+          type: integer
+          title: Data Usage Charge
+      type: object
+      required:
+      - dataset_id
+      - dataset_display_name
+      - usage_detail
+      - data_usage_charge
+      title: DataUsageByDatasetView
     SubscriptionActivationPreflightCheck:
       properties:
         allowed:
@@ -1016,109 +1071,54 @@ components:
       required:
       - allowed
       title: SubscriptionActivationPreflightCheck
-    HTTPValidationError:
+    BillingDashboardView:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CreditRedeemView:
-      properties:
-        coupon_name:
-          type: string
-          title: Coupon Name
-        redeem_reason:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Redeem Reason
-        amount:
+        outstanding_balance:
           type: integer
-          title: Amount
-        redeem_time:
+          title: Outstanding Balance
+        next_payment:
           type: string
-          title: Redeem Time
-      type: object
-      required:
-      - coupon_name
-      - redeem_reason
-      - amount
-      - redeem_time
-      title: CreditRedeemView
-    DataUsageByDatasetView:
-      properties:
-        dataset_id:
-          type: string
-          title: Dataset Id
-        dataset_display_name:
-          type: string
-          title: Dataset Display Name
-        usage_detail:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/DataUsageRowView'
-            type: array
-          type: object
-          title: Usage Detail
-        data_usage_charge:
+          title: Next Payment
+        credits_remain:
           type: integer
-          title: Data Usage Charge
-      type: object
-      required:
-      - dataset_id
-      - dataset_display_name
-      - usage_detail
-      - data_usage_charge
-      title: DataUsageByDatasetView
-    TeamContactView:
-      properties:
-        address_line1:
+          title: Credits Remain
+        ts_next_credit_expiration:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Ts Next Credit Expiration
+        budget:
+          type: integer
+          title: Budget
+        collection_method:
           type: string
-          title: Address Line1
-        city:
-          type: string
-          title: City
-        state_province_region:
-          type: string
-          title: State Province Region
-        country_region:
-          type: string
-          title: Country Region
-        postal_code:
-          type: string
-          title: Postal Code
-        phone_cc:
-          type: string
-          title: Phone Cc
-        phone_num:
-          type: string
-          title: Phone Num
-        address_type:
-          $ref: '#/components/schemas/CustomerAddressType'
-        company_name:
+          title: Collection Method
+        brand:
           anyOf:
           - type: string
           - type: 'null'
-          title: Company Name
-        address_line2:
+          title: Brand
+        last_4:
           anyOf:
           - type: string
           - type: 'null'
-          title: Address Line2
+          title: Last 4
+        billing_address:
+          $ref: '#/components/schemas/TeamContactView'
+        subscriptions:
+          $ref: '#/components/schemas/SubscriptionDetail'
       type: object
       required:
-      - address_line1
-      - city
-      - state_province_region
-      - country_region
-      - postal_code
-      - phone_cc
-      - phone_num
-      - address_type
-      title: TeamContactView
+      - outstanding_balance
+      - next_payment
+      - credits_remain
+      - budget
+      - collection_method
+      - brand
+      - last_4
+      - billing_address
+      - subscriptions
+      title: BillingDashboardView
     ValidationError:
       properties:
         loc:
@@ -1140,27 +1140,27 @@ components:
       - msg
       - type
       title: ValidationError
-    BudgetChange:
+    DataUsageRowView:
       properties:
-        budget_control_on:
-          type: boolean
-          title: Budget Control On
-        notification_on:
-          type: boolean
-          title: Notification On
-        notification_on_percent:
+        schema_name:
+          type: string
+          title: Schema Name
+        usage:
           type: integer
-          title: Notification On Percent
-        amount:
+          title: Usage
+        rate:
           type: integer
-          title: Amount
+          title: Rate
+        cost:
+          type: integer
+          title: Cost
       type: object
       required:
-      - budget_control_on
-      - notification_on
-      - notification_on_percent
-      - amount
-      title: BudgetChange
+      - schema_name
+      - usage
+      - rate
+      - cost
+      title: DataUsageRowView
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2
