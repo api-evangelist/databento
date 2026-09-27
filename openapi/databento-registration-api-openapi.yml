@@ -470,15 +470,98 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    WizardBillingEdit:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        address_line1:
+          type: string
+          title: Address Line1
+        city:
+          type: string
+          title: City
+        state_province_region:
+          type: string
+          title: State Province Region
+        country_region:
+          type: string
+          title: Country Region
+        postal_code:
+          type: string
+          title: Postal Code
+        address_line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address Line2
       type: object
-      title: HTTPValidationError
+      required:
+      - address_line1
+      - city
+      - state_province_region
+      - country_region
+      - postal_code
+      title: WizardBillingEdit
+    TeamTrialDetails:
+      properties:
+        is_active:
+          type: boolean
+          title: Is Active
+        note:
+          type: string
+          title: Note
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        datasets:
+          items:
+            type: string
+          type: array
+          title: Datasets
+      type: object
+      required:
+      - is_active
+      - note
+      - start_date
+      - end_date
+      - datasets
+      title: TeamTrialDetails
+    StripeSetupIntent:
+      properties:
+        setup_intent:
+          additionalProperties: true
+          type: object
+          title: Setup Intent
+        client_secret:
+          type: string
+          title: Client Secret
+      type: object
+      required:
+      - setup_intent
+      - client_secret
+      title: StripeSetupIntent
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     TeamContactUpdate:
       properties:
         address_line1:
@@ -526,57 +609,35 @@ components:
       - phone_num
       - address_type
       title: TeamContactUpdate
-    TeamTrialDetails:
+    TeamInvitationIntentView:
       properties:
-        is_active:
-          type: boolean
-          title: Is Active
-        note:
+        team_name:
           type: string
-          title: Note
-        start_date:
+          title: Team Name
+        inviter_name:
           type: string
-          title: Start Date
-        end_date:
+          title: Inviter Name
+        inviter_email:
           type: string
-          title: End Date
-        datasets:
-          items:
-            type: string
-          type: array
-          title: Datasets
-      type: object
-      required:
-      - is_active
-      - note
-      - start_date
-      - end_date
-      - datasets
-      title: TeamTrialDetails
-    TeamClaimTrial:
-      properties:
-        invitation_code:
-          type: string
-          title: Invitation Code
+          title: Inviter Email
         email:
           type: string
           title: Email
-        password:
-          type: string
-          title: Password
-        full_name:
-          type: string
-          title: Full Name
-        address:
-          $ref: '#/components/schemas/TeamContactUpdate'
+        email_available:
+          type: boolean
+          title: Email Available
+        trial_info:
+          anyOf:
+          - $ref: '#/components/schemas/TeamTrialDetails'
+          - type: 'null'
       type: object
       required:
-      - invitation_code
+      - team_name
+      - inviter_name
+      - inviter_email
       - email
-      - password
-      - full_name
-      - address
-      title: TeamClaimTrial
+      - email_available
+      title: TeamInvitationIntentView
     SignupWizardContact:
       properties:
         full_name:
@@ -634,8 +695,11 @@ components:
       - phone_num
       - address_type
       title: SignupWizardContact
-    TeamUserCreate:
+    TeamClaimTrial:
       properties:
+        invitation_code:
+          type: string
+          title: Invitation Code
         email:
           type: string
           title: Email
@@ -645,77 +709,41 @@ components:
         full_name:
           type: string
           title: Full Name
+        address:
+          $ref: '#/components/schemas/TeamContactUpdate'
       type: object
       required:
+      - invitation_code
       - email
       - password
       - full_name
-      title: TeamUserCreate
-    WizardBillingEdit:
+      - address
+      title: TeamClaimTrial
+    Token:
       properties:
-        address_line1:
+        token_type:
           type: string
-          title: Address Line1
-        city:
+          title: Token Type
+          default: Bearer
+        access_token:
           type: string
-          title: City
-        state_province_region:
+          title: Access Token
+        expires_in:
+          type: integer
+          title: Expires In
+        expires_on:
+          type: integer
+          title: Expires On
+        refresh_token:
           type: string
-          title: State Province Region
-        country_region:
-          type: string
-          title: Country Region
-        postal_code:
-          type: string
-          title: Postal Code
-        address_line2:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Address Line2
+          title: Refresh Token
       type: object
       required:
-      - address_line1
-      - city
-      - state_province_region
-      - country_region
-      - postal_code
-      title: WizardBillingEdit
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    StripeSetupIntent:
-      properties:
-        setup_intent:
-          additionalProperties: true
-          type: object
-          title: Setup Intent
-        client_secret:
-          type: string
-          title: Client Secret
-      type: object
-      required:
-      - setup_intent
-      - client_secret
-      title: StripeSetupIntent
+      - access_token
+      - expires_in
+      - expires_on
+      - refresh_token
+      title: Token
     Body_register_account_v0_registration_register_post:
       properties:
         grant_type:
@@ -749,60 +777,32 @@ components:
       - username
       - password
       title: Body_register_account_v0_registration_register_post
-    Token:
+    HTTPValidationError:
       properties:
-        token_type:
-          type: string
-          title: Token Type
-          default: Bearer
-        access_token:
-          type: string
-          title: Access Token
-        expires_in:
-          type: integer
-          title: Expires In
-        expires_on:
-          type: integer
-          title: Expires On
-        refresh_token:
-          type: string
-          title: Refresh Token
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - access_token
-      - expires_in
-      - expires_on
-      - refresh_token
-      title: Token
-    TeamInvitationIntentView:
+      title: HTTPValidationError
+    TeamUserCreate:
       properties:
-        team_name:
-          type: string
-          title: Team Name
-        inviter_name:
-          type: string
-          title: Inviter Name
-        inviter_email:
-          type: string
-          title: Inviter Email
         email:
           type: string
           title: Email
-        email_available:
-          type: boolean
-          title: Email Available
-        trial_info:
-          anyOf:
-          - $ref: '#/components/schemas/TeamTrialDetails'
-          - type: 'null'
+        password:
+          type: string
+          title: Password
+        full_name:
+          type: string
+          title: Full Name
       type: object
       required:
-      - team_name
-      - inviter_name
-      - inviter_email
       - email
-      - email_available
-      title: TeamInvitationIntentView
+      - password
+      - full_name
+      title: TeamUserCreate
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

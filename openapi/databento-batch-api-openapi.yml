@@ -1074,14 +1074,14 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   responses:
-    ValidationError:
-      description: The request parameters failed validation.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    ValidationError:
+      description: The request parameters failed validation.
       content:
         application/json:
           schema:
@@ -1102,31 +1102,91 @@ components:
         case_id:
           type: string
           description: An identifier for the error case, useful when contacting support.
-    BatchFileDetails:
+    Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post:
       properties:
-        filename:
+        dataset:
           type: string
-          title: Filename
-        size:
-          type: integer
-          title: Size
-        hash:
+          title: Dataset
+        symbols:
+          type: string
+          title: Symbols
+        schema_:
+          type: string
+          title: Schema
+        encoding:
+          type: string
+          title: Encoding
+        start:
+          type: string
+          title: Start
+        end:
           anyOf:
           - type: string
           - type: 'null'
-          title: Hash
-        urls:
+          title: End
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        stype_out:
+          type: string
+          title: Stype Out
+          default: instrument_id
+        compression:
+          type: string
+          title: Compression
+          default: none
+        limit:
           anyOf:
-          - additionalProperties:
-              type: string
-            type: object
+          - type: string
           - type: 'null'
-          title: Urls
+          title: Limit
+        pretty_px:
+          type: boolean
+          title: Pretty Px
+          default: false
+        pretty_ts:
+          type: boolean
+          title: Pretty Ts
+          default: false
+        map_symbols:
+          type: boolean
+          title: Map Symbols
+          default: false
+        split_symbols:
+          type: boolean
+          title: Split Symbols
+          default: false
+        split_duration:
+          type: string
+          title: Split Duration
+          default: day
+        split_size:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Split Size
+        packaging:
+          type: string
+          title: Packaging
+          default: none
+        delivery:
+          type: string
+          title: Delivery
+          default: download
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
       type: object
       required:
-      - filename
-      - size
-      title: BatchFileDetails
+      - dataset
+      - symbols
+      - schema_
+      - encoding
+      - start
+      title: Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post
     BatchJobDescription:
       properties:
         dataset:
@@ -1216,15 +1276,6 @@ components:
       - delivery
       - compression
       title: BatchJobDescription
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     BatchQuoteJobResponse:
       properties:
         estimated_size:
@@ -1272,6 +1323,27 @@ components:
       - errors
       - can_submit
       title: BatchQuoteJobResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     InstrumentDescription:
       properties:
         symbol:
@@ -1327,112 +1399,40 @@ components:
       - display_symbol
       - instrument_name
       title: InstrumentDescription
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post:
+      title: HTTPValidationError
+    BatchFileDetails:
       properties:
-        dataset:
+        filename:
           type: string
-          title: Dataset
-        symbols:
-          type: string
-          title: Symbols
-        schema_:
-          type: string
-          title: Schema
-        encoding:
-          type: string
-          title: Encoding
-        start:
-          type: string
-          title: Start
-        end:
+          title: Filename
+        size:
+          type: integer
+          title: Size
+        hash:
           anyOf:
           - type: string
           - type: 'null'
-          title: End
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        stype_out:
-          type: string
-          title: Stype Out
-          default: instrument_id
-        compression:
-          type: string
-          title: Compression
-          default: none
-        limit:
+          title: Hash
+        urls:
           anyOf:
-          - type: string
+          - additionalProperties:
+              type: string
+            type: object
           - type: 'null'
-          title: Limit
-        pretty_px:
-          type: boolean
-          title: Pretty Px
-          default: false
-        pretty_ts:
-          type: boolean
-          title: Pretty Ts
-          default: false
-        map_symbols:
-          type: boolean
-          title: Map Symbols
-          default: false
-        split_symbols:
-          type: boolean
-          title: Split Symbols
-          default: false
-        split_duration:
-          type: string
-          title: Split Duration
-          default: day
-        split_size:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Split Size
-        packaging:
-          type: string
-          title: Packaging
-          default: none
-        delivery:
-          type: string
-          title: Delivery
-          default: download
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
+          title: Urls
       type: object
       required:
-      - dataset
-      - symbols
-      - schema_
-      - encoding
-      - start
-      title: Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post
+      - filename
+      - size
+      title: BatchFileDetails
   securitySchemes:
     apiKeyBasicAuth:
       type: http

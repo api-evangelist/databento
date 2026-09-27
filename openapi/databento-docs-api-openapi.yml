@@ -128,36 +128,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Body_docs_search_combo_v3_v0_docs_search_v3_post:
-      properties:
-        search_text:
-          type: string
-          title: Search Text
-        live_language:
-          type: string
-          title: Live Language
-        historical_language:
-          type: string
-          title: Historical Language
-        build_id:
-          type: string
-          title: Build Id
-          default: ''
-      type: object
-      required:
-      - search_text
-      - live_language
-      - historical_language
-      title: Body_docs_search_combo_v3_v0_docs_search_v3_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -179,6 +149,36 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_docs_search_combo_v3_v0_docs_search_v3_post:
+      properties:
+        search_text:
+          type: string
+          title: Search Text
+        live_language:
+          type: string
+          title: Live Language
+        historical_language:
+          type: string
+          title: Historical Language
+        build_id:
+          type: string
+          title: Build Id
+          default: ''
+      type: object
+      required:
+      - search_text
+      - live_language
+      - historical_language
+      title: Body_docs_search_combo_v3_v0_docs_search_v3_post
     Body_docs_search_combo_v0_docs_search_post:
       properties:
         searchText:

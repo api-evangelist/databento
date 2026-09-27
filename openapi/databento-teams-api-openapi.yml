@@ -670,76 +670,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TeamRole:
-      type: string
-      enum:
-      - owner
-      - admin
-      - accounting
-      - member
-      title: TeamRole
-    TeamInvitationView:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        inviter_name:
-          type: string
-          title: Inviter Name
-        inviter_email:
-          type: string
-          title: Inviter Email
-        role:
-          $ref: '#/components/schemas/TeamRole'
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-        monthly_limit:
-          anyOf:
-          - type: integer
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Monthly Limit
-        can_resend:
-          type: boolean
-          title: Can Resend
-          default: true
-      type: object
-      required:
-      - email
-      - inviter_name
-      - inviter_email
-      - role
-      title: TeamInvitationView
-    TeamMembersView:
-      properties:
-        team_id:
-          type: string
-          title: Team Id
-        team_name:
-          type: string
-          title: Team Name
-        members:
-          items:
-            $ref: '#/components/schemas/TeamMemberView'
-          type: array
-          title: Members
-        invites:
-          items:
-            $ref: '#/components/schemas/TeamInvitationView'
-          type: array
-          title: Invites
-      type: object
-      required:
-      - team_id
-      - team_name
-      - members
-      - invites
-      title: TeamMembersView
-    TeamContactView:
+    TeamContactUpdate:
       properties:
         address_line1:
           type: string
@@ -763,7 +694,8 @@ components:
           type: string
           title: Phone Num
         address_type:
-          $ref: '#/components/schemas/CustomerAddressType'
+          type: string
+          title: Address Type
         company_name:
           anyOf:
           - type: string
@@ -784,155 +716,7 @@ components:
       - phone_cc
       - phone_num
       - address_type
-      title: TeamContactView
-    TeamBillingPreference:
-      properties:
-        collection_method:
-          type: string
-          title: Collection Method
-          default: charge_automatically
-        send_to_owner:
-          type: boolean
-          title: Send To Owner
-          default: true
-        send_to_admin:
-          type: boolean
-          title: Send To Admin
-          default: false
-        send_to_accountant:
-          type: boolean
-          title: Send To Accountant
-          default: true
-        other_recipients:
-          items:
-            type: string
-          type: array
-          title: Other Recipients
-          default: []
-        tax_id:
-          anyOf:
-          - $ref: '#/components/schemas/TeamTaxID'
-          - type: 'null'
-      type: object
-      title: TeamBillingPreference
-    TeamDetailsView:
-      properties:
-        team_id:
-          type: string
-          title: Team Id
-        team_name:
-          type: string
-          title: Team Name
-        contact:
-          anyOf:
-          - $ref: '#/components/schemas/TeamContactView'
-          - type: 'null'
-        is_good_standing:
-          type: boolean
-          title: Is Good Standing
-        account_type:
-          type: string
-          title: Account Type
-      type: object
-      required:
-      - team_id
-      - team_name
-      - is_good_standing
-      - account_type
-      title: TeamDetailsView
-    TeamMemberUpdate:
-      properties:
-        role:
-          anyOf:
-          - $ref: '#/components/schemas/TeamRole'
-          - type: 'null'
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/UserStatus'
-          - type: 'null'
-        monthly_limit:
-          anyOf:
-          - type: integer
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Monthly Limit
-      type: object
-      title: TeamMemberUpdate
-    TeamMemberView:
-      properties:
-        user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        email:
-          type: string
-          format: email
-          title: Email
-        role:
-          $ref: '#/components/schemas/TeamRole'
-        status:
-          type: string
-          title: Status
-        monthly_limit:
-          anyOf:
-          - type: integer
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Monthly Limit
-      type: object
-      required:
-      - email
-      - role
-      - status
-      title: TeamMemberView
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TeamTrialDetails:
-      properties:
-        is_active:
-          type: boolean
-          title: Is Active
-        note:
-          type: string
-          title: Note
-        start_date:
-          type: string
-          title: Start Date
-        end_date:
-          type: string
-          title: End Date
-        datasets:
-          items:
-            type: string
-          type: array
-          title: Datasets
-      type: object
-      required:
-      - is_active
-      - note
-      - start_date
-      - end_date
-      - datasets
-      title: TeamTrialDetails
-    CustomerAddressType:
-      type: string
-      enum:
-      - Business
-      - Billing
-      title: CustomerAddressType
+      title: TeamContactUpdate
     UserStatus:
       type: string
       enum:
@@ -940,23 +724,14 @@ components:
       - active
       - deactivated
       title: UserStatus
-    TeamDeleteStatus:
-      properties:
-        all_invoices_paid:
-          type: boolean
-          title: All Invoices Paid
-        no_outstanding_balance:
-          type: boolean
-          title: No Outstanding Balance
-        no_active_enterprise_plan:
-          type: boolean
-          title: No Active Enterprise Plan
-      type: object
-      required:
-      - all_invoices_paid
-      - no_outstanding_balance
-      - no_active_enterprise_plan
-      title: TeamDeleteStatus
+    TeamRole:
+      type: string
+      enum:
+      - owner
+      - admin
+      - accounting
+      - member
+      title: TeamRole
     TeamBillingPreferenceDetailView:
       properties:
         collection_method:
@@ -1013,6 +788,147 @@ components:
       - recipient_count
       - billing_address
       title: TeamBillingPreferenceDetailView
+    TeamBillingPreference:
+      properties:
+        collection_method:
+          type: string
+          title: Collection Method
+          default: charge_automatically
+        send_to_owner:
+          type: boolean
+          title: Send To Owner
+          default: true
+        send_to_admin:
+          type: boolean
+          title: Send To Admin
+          default: false
+        send_to_accountant:
+          type: boolean
+          title: Send To Accountant
+          default: true
+        other_recipients:
+          items:
+            type: string
+          type: array
+          title: Other Recipients
+          default: []
+        tax_id:
+          anyOf:
+          - $ref: '#/components/schemas/TeamTaxID'
+          - type: 'null'
+      type: object
+      title: TeamBillingPreference
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TeamTaxID:
+      properties:
+        tax_id_types:
+          type: string
+          title: Tax Id Types
+        country:
+          type: string
+          title: Country
+        value:
+          type: string
+          title: Value
+        status:
+          type: string
+          title: Status
+          default: pending
+      type: object
+      required:
+      - tax_id_types
+      - country
+      - value
+      title: TeamTaxID
+    TeamMemberUpdate:
+      properties:
+        role:
+          anyOf:
+          - $ref: '#/components/schemas/TeamRole'
+          - type: 'null'
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/UserStatus'
+          - type: 'null'
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
+      type: object
+      title: TeamMemberUpdate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TeamMembersView:
+      properties:
+        team_id:
+          type: string
+          title: Team Id
+        team_name:
+          type: string
+          title: Team Name
+        members:
+          items:
+            $ref: '#/components/schemas/TeamMemberView'
+          type: array
+          title: Members
+        invites:
+          items:
+            $ref: '#/components/schemas/TeamInvitationView'
+          type: array
+          title: Invites
+      type: object
+      required:
+      - team_id
+      - team_name
+      - members
+      - invites
+      title: TeamMembersView
+    TeamDeleteStatus:
+      properties:
+        all_invoices_paid:
+          type: boolean
+          title: All Invoices Paid
+        no_outstanding_balance:
+          type: boolean
+          title: No Outstanding Balance
+        no_active_enterprise_plan:
+          type: boolean
+          title: No Active Enterprise Plan
+      type: object
+      required:
+      - all_invoices_paid
+      - no_outstanding_balance
+      - no_active_enterprise_plan
+      title: TeamDeleteStatus
     TeamInvitationCreate:
       properties:
         email:
@@ -1037,28 +953,134 @@ components:
       required:
       - email
       title: TeamInvitationCreate
-    TeamTaxID:
+    TeamInvitationView:
       properties:
-        tax_id_types:
+        email:
           type: string
-          title: Tax Id Types
-        country:
+          format: email
+          title: Email
+        inviter_name:
           type: string
-          title: Country
-        value:
+          title: Inviter Name
+        inviter_email:
           type: string
-          title: Value
+          title: Inviter Email
+        role:
+          $ref: '#/components/schemas/TeamRole'
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
+        can_resend:
+          type: boolean
+          title: Can Resend
+          default: true
+      type: object
+      required:
+      - email
+      - inviter_name
+      - inviter_email
+      - role
+      title: TeamInvitationView
+    CustomerAddressType:
+      type: string
+      enum:
+      - Business
+      - Billing
+      title: CustomerAddressType
+    TeamTrialDetails:
+      properties:
+        is_active:
+          type: boolean
+          title: Is Active
+        note:
+          type: string
+          title: Note
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          type: string
+          title: End Date
+        datasets:
+          items:
+            type: string
+          type: array
+          title: Datasets
+      type: object
+      required:
+      - is_active
+      - note
+      - start_date
+      - end_date
+      - datasets
+      title: TeamTrialDetails
+    TeamMemberView:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        email:
+          type: string
+          format: email
+          title: Email
+        role:
+          $ref: '#/components/schemas/TeamRole'
         status:
           type: string
           title: Status
-          default: pending
+        monthly_limit:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Monthly Limit
       type: object
       required:
-      - tax_id_types
-      - country
-      - value
-      title: TeamTaxID
-    TeamContactUpdate:
+      - email
+      - role
+      - status
+      title: TeamMemberView
+    TeamDetailsView:
+      properties:
+        team_id:
+          type: string
+          title: Team Id
+        team_name:
+          type: string
+          title: Team Name
+        contact:
+          anyOf:
+          - $ref: '#/components/schemas/TeamContactView'
+          - type: 'null'
+        is_good_standing:
+          type: boolean
+          title: Is Good Standing
+        account_type:
+          type: string
+          title: Account Type
+      type: object
+      required:
+      - team_id
+      - team_name
+      - is_good_standing
+      - account_type
+      title: TeamDetailsView
+    TeamContactView:
       properties:
         address_line1:
           type: string
@@ -1082,8 +1104,7 @@ components:
           type: string
           title: Phone Num
         address_type:
-          type: string
-          title: Address Type
+          $ref: '#/components/schemas/CustomerAddressType'
         company_name:
           anyOf:
           - type: string
@@ -1104,41 +1125,7 @@ components:
       - phone_cc
       - phone_num
       - address_type
-      title: TeamContactUpdate
-    TeamDetailsUpdate:
-      properties:
-        team_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Name
-        contact:
-          anyOf:
-          - $ref: '#/components/schemas/TeamContactUpdate'
-          - type: 'null'
-      type: object
-      title: TeamDetailsUpdate
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: TeamContactView
     TeamInvitationUpdate:
       properties:
         email:
@@ -1158,6 +1145,19 @@ components:
       required:
       - email
       title: TeamInvitationUpdate
+    TeamDetailsUpdate:
+      properties:
+        team_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Name
+        contact:
+          anyOf:
+          - $ref: '#/components/schemas/TeamContactUpdate'
+          - type: 'null'
+      type: object
+      title: TeamDetailsUpdate
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

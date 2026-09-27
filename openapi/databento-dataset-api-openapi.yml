@@ -788,6 +788,231 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    DailyInstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+        product_group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Product Group
+        volume:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Volume
+        open_interest:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Open Interest
+        sector:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sector
+        close_price:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Close Price
+        last_update_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Update Date
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: DailyInstrumentDescription
+    DatasetProfileResponse:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+        colloquial_name:
+          type: string
+          title: Colloquial Name
+        about:
+          type: string
+          title: About
+        brief:
+          type: string
+          title: Brief
+        venue:
+          type: string
+          title: Venue
+        venue_list:
+          items:
+            type: string
+          type: array
+          title: Venue List
+          default: []
+        included_datasets:
+          items:
+            $ref: '#/components/schemas/IncludedDataset'
+          type: array
+          title: Included Datasets
+          default: []
+        publisher:
+          type: string
+          title: Publisher
+        publisher_brief_name:
+          type: string
+          title: Publisher Brief Name
+          default: ''
+        asset_class:
+          items:
+            type: string
+          type: array
+          title: Asset Class
+        region:
+          type: string
+          title: Region
+        category:
+          items:
+            type: string
+          type: array
+          title: Category
+        exported_schemas:
+          items:
+            type: string
+          type: array
+          title: Exported Schemas
+        encodings:
+          items:
+            type: string
+          type: array
+          title: Encodings
+        origin:
+          type: string
+          title: Origin
+        source_resolution:
+          type: string
+          title: Source Resolution
+        databento_resolution:
+          type: string
+          title: Databento Resolution
+        historical_release_time:
+          type: string
+          title: Historical Release Time
+          default: ''
+        historical_release_tz:
+          type: string
+          title: Historical Release Tz
+          default: ''
+        release:
+          items:
+            $ref: '#/components/schemas/ReleaseConfig'
+          type: array
+          title: Release
+          default: []
+        profile_last_update:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Profile Last Update
+        production_ready:
+          type: boolean
+          title: Production Ready
+        historical_data_ready:
+          type: boolean
+          title: Historical Data Ready
+        intraday_data_ready:
+          type: boolean
+          title: Intraday Data Ready
+        live_data_ready:
+          type: boolean
+          title: Live Data Ready
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - colloquial_name
+      - about
+      - brief
+      - venue
+      - publisher
+      - asset_class
+      - region
+      - category
+      - exported_schemas
+      - encodings
+      - origin
+      - source_resolution
+      - databento_resolution
+      - profile_last_update
+      - production_ready
+      - historical_data_ready
+      - intraday_data_ready
+      - live_data_ready
+      title: DatasetProfileResponse
+    DatasetBacklogListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetBacklogView'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: DatasetBacklogListView
     IncludedDataset:
       properties:
         dataset_id:
@@ -801,6 +1026,231 @@ components:
       - dataset_id
       - dataset_name
       title: IncludedDataset
+    ServiceOfferingResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        service_name:
+          type: string
+          title: Service Name
+        service_type:
+          type: string
+          title: Service Type
+        service_tier:
+          type: string
+          title: Service Tier
+        self_service:
+          type: boolean
+          title: Self Service
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        billing_interval:
+          type: integer
+          title: Billing Interval
+        unit_price:
+          type: integer
+          title: Unit Price
+        commitment_period:
+          type: integer
+          title: Commitment Period
+        service_spec:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Service Spec
+        sub_datasets:
+          items:
+            type: string
+          type: array
+          title: Sub Datasets
+          default: []
+        historical_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Historical Data Ready Datasets
+          default: []
+        live_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Live Data Ready Datasets
+          default: []
+        license_flow_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: License Flow Ready Datasets
+          default: []
+        allowed_live_datasets:
+          items:
+            type: string
+          type: array
+          title: Allowed Live Datasets
+          default: []
+      type: object
+      required:
+      - id
+      - service_name
+      - service_type
+      - service_tier
+      - self_service
+      - dataset_id
+      - billing_interval
+      - unit_price
+      - commitment_period
+      - service_spec
+      title: ServiceOfferingResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IncomingServiceView:
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceOfferingResponse'
+        default_dataset:
+          $ref: '#/components/schemas/DatasetBacklogView'
+      type: object
+      required:
+      - service
+      - default_dataset
+      title: IncomingServiceView
+    DatasetAvailabilityResponse:
+      properties:
+        historical:
+          anyOf:
+          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
+          - type: 'null'
+        intraday:
+          anyOf:
+          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
+          - type: 'null'
+        controls:
+          additionalProperties:
+            $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
+          type: object
+          title: Controls
+          default: {}
+      type: object
+      title: DatasetAvailabilityResponse
+    DatasetInstrumentSearchView:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          type: string
+          title: Asset Class
+        security_type:
+          type: string
+          title: Security Type
+        sector:
+          type: string
+          title: Sector
+        dataset_id:
+          type: string
+          title: Dataset Id
+        service_group:
+          type: string
+          title: Service Group
+        dataset_name:
+          type: string
+          title: Dataset Name
+        available_from:
+          type: string
+          title: Available From
+        available_to:
+          type: string
+          title: Available To
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          default: North America
+        schemas:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Schemas
+          default: []
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      - asset_class
+      - security_type
+      - sector
+      - dataset_id
+      - service_group
+      - dataset_name
+      - available_from
+      - available_to
+      title: DatasetInstrumentSearchView
+    ReleaseConfig:
+      properties:
+        access_method:
+          type: string
+          title: Access Method
+        release_time:
+          type: string
+          title: Release Time
+        tz:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tz
+        license_required:
+          type: boolean
+          title: License Required
+      type: object
+      required:
+      - access_method
+      - release_time
+      - license_required
+      title: ReleaseConfig
     DatasetDetailResponse:
       properties:
         dataset_id:
@@ -968,7 +1418,61 @@ components:
       - schema_availability
       - schema_availability_unrestricted
       title: DatasetDetailResponse
-    DatasetProfileResponse:
+    DatasetCatalogListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetCatalogView'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: DatasetCatalogListView
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DatasetSchemaStatistics:
+      properties:
+        dbn_schema:
+          type: string
+          title: Dbn Schema
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - dbn_schema
+      - start
+      - end
+      title: DatasetSchemaStatistics
+    DatasetAvailabilityResponseRange:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - start
+      - end
+      title: DatasetAvailabilityResponseRange
+    DatasetBacklogView:
       properties:
         dataset_id:
           type: string
@@ -979,205 +1483,24 @@ components:
         colloquial_name:
           type: string
           title: Colloquial Name
-        about:
+        dataset_introduction:
           type: string
-          title: About
-        brief:
-          type: string
-          title: Brief
-        venue:
-          type: string
-          title: Venue
-        venue_list:
-          items:
-            type: string
-          type: array
-          title: Venue List
-          default: []
-        included_datasets:
-          items:
-            $ref: '#/components/schemas/IncludedDataset'
-          type: array
-          title: Included Datasets
-          default: []
-        publisher:
-          type: string
-          title: Publisher
-        publisher_brief_name:
-          type: string
-          title: Publisher Brief Name
-          default: ''
-        asset_class:
-          items:
-            type: string
-          type: array
-          title: Asset Class
-        region:
-          type: string
-          title: Region
-        category:
-          items:
-            type: string
-          type: array
-          title: Category
-        exported_schemas:
-          items:
-            type: string
-          type: array
-          title: Exported Schemas
-        encodings:
-          items:
-            type: string
-          type: array
-          title: Encodings
-        origin:
-          type: string
-          title: Origin
-        source_resolution:
-          type: string
-          title: Source Resolution
-        databento_resolution:
-          type: string
-          title: Databento Resolution
-        historical_release_time:
-          type: string
-          title: Historical Release Time
-          default: ''
-        historical_release_tz:
-          type: string
-          title: Historical Release Tz
-          default: ''
-        release:
-          items:
-            $ref: '#/components/schemas/ReleaseConfig'
-          type: array
-          title: Release
-          default: []
-        profile_last_update:
+          title: Dataset Introduction
+        dataset_tags:
           anyOf:
-          - type: integer
+          - items:
+              type: string
+            type: array
           - type: 'null'
-          title: Profile Last Update
-        production_ready:
-          type: boolean
-          title: Production Ready
-        historical_data_ready:
-          type: boolean
-          title: Historical Data Ready
-        intraday_data_ready:
-          type: boolean
-          title: Intraday Data Ready
-        live_data_ready:
-          type: boolean
-          title: Live Data Ready
+          title: Dataset Tags
+          default: []
       type: object
       required:
       - dataset_id
       - dataset_name
       - colloquial_name
-      - about
-      - brief
-      - venue
-      - publisher
-      - asset_class
-      - region
-      - category
-      - exported_schemas
-      - encodings
-      - origin
-      - source_resolution
-      - databento_resolution
-      - profile_last_update
-      - production_ready
-      - historical_data_ready
-      - intraday_data_ready
-      - live_data_ready
-      title: DatasetProfileResponse
-    DailyInstrumentDescription:
-      properties:
-        symbol:
-          type: string
-          title: Symbol
-        display_symbol:
-          type: string
-          title: Display Symbol
-        instrument_name:
-          type: string
-          title: Instrument Name
-        asset_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Asset Class
-        security_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Type
-          default: raw_symbol
-        dataset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Id
-        dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Name
-        publisher:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Publisher
-        first_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: First Seen
-        last_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Last Seen
-        product_group:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Product Group
-        volume:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Volume
-        open_interest:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Open Interest
-        sector:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sector
-        close_price:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Close Price
-        last_update_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Update Date
-      type: object
-      required:
-      - symbol
-      - display_symbol
-      - instrument_name
-      title: DailyInstrumentDescription
+      - dataset_introduction
+      title: DatasetBacklogView
     DatasetCatalogView:
       properties:
         dataset_id:
@@ -1245,82 +1568,6 @@ components:
       - live_data_ready
       - asset_class
       title: DatasetCatalogView
-    ReleaseConfig:
-      properties:
-        access_method:
-          type: string
-          title: Access Method
-        release_time:
-          type: string
-          title: Release Time
-        tz:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tz
-        license_required:
-          type: boolean
-          title: License Required
-      type: object
-      required:
-      - access_method
-      - release_time
-      - license_required
-      title: ReleaseConfig
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    DatasetAvailabilityResponseRange:
-      properties:
-        start:
-          type: string
-          title: Start
-        end:
-          type: string
-          title: End
-      type: object
-      required:
-      - start
-      - end
-      title: DatasetAvailabilityResponseRange
-    DatasetInstrumentTableView:
-      properties:
-        count:
-          type: integer
-          title: Count
-        data:
-          items:
-            $ref: '#/components/schemas/DailyInstrumentDescription'
-          type: array
-          title: Data
-      type: object
-      required:
-      - count
-      - data
-      title: DatasetInstrumentTableView
-    DatasetSchemaStatistics:
-      properties:
-        dbn_schema:
-          type: string
-          title: Dbn Schema
-        start:
-          type: string
-          title: Start
-        end:
-          type: string
-          title: End
-      type: object
-      required:
-      - dbn_schema
-      - start
-      - end
-      title: DatasetSchemaStatistics
     DatasetInstrumentTableHeaderView:
       properties:
         count:
@@ -1336,156 +1583,42 @@ components:
       - count
       - columns
       title: DatasetInstrumentTableHeaderView
-    IncomingServiceView:
-      properties:
-        service:
-          $ref: '#/components/schemas/ServiceOfferingResponse'
-        default_dataset:
-          $ref: '#/components/schemas/DatasetBacklogView'
-      type: object
-      required:
-      - service
-      - default_dataset
-      title: IncomingServiceView
-    DatasetBacklogListView:
+    DatasetInstrumentTableView:
       properties:
         count:
           type: integer
           title: Count
         data:
           items:
-            $ref: '#/components/schemas/DatasetBacklogView'
+            $ref: '#/components/schemas/DailyInstrumentDescription'
           type: array
           title: Data
       type: object
       required:
       - count
       - data
-      title: DatasetBacklogListView
-    ServiceOfferingResponse:
+      title: DatasetInstrumentTableView
+    DataRequestInquiry:
       properties:
-        id:
+        cost:
+          type: number
+          title: Cost
+        size:
           type: integer
-          title: Id
-        service_name:
+          title: Size
+        message:
           type: string
-          title: Service Name
-        service_type:
-          type: string
-          title: Service Type
-        service_tier:
-          type: string
-          title: Service Tier
-        self_service:
-          type: boolean
-          title: Self Service
-        dataset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Id
-        billing_interval:
+          title: Message
+        status:
           type: integer
-          title: Billing Interval
-        unit_price:
-          type: integer
-          title: Unit Price
-        commitment_period:
-          type: integer
-          title: Commitment Period
-        service_spec:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Service Spec
-        sub_datasets:
-          items:
-            type: string
-          type: array
-          title: Sub Datasets
-          default: []
-        historical_data_ready_datasets:
-          items:
-            type: string
-          type: array
-          title: Historical Data Ready Datasets
-          default: []
-        live_data_ready_datasets:
-          items:
-            type: string
-          type: array
-          title: Live Data Ready Datasets
-          default: []
-        license_flow_ready_datasets:
-          items:
-            type: string
-          type: array
-          title: License Flow Ready Datasets
-          default: []
-        allowed_live_datasets:
-          items:
-            type: string
-          type: array
-          title: Allowed Live Datasets
-          default: []
+          title: Status
       type: object
       required:
-      - id
-      - service_name
-      - service_type
-      - service_tier
-      - self_service
-      - dataset_id
-      - billing_interval
-      - unit_price
-      - commitment_period
-      - service_spec
-      title: ServiceOfferingResponse
-    DatasetAvailabilityResponse:
-      properties:
-        historical:
-          anyOf:
-          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
-          - type: 'null'
-        intraday:
-          anyOf:
-          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
-          - type: 'null'
-        controls:
-          additionalProperties:
-            $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
-          type: object
-          title: Controls
-          default: {}
-      type: object
-      title: DatasetAvailabilityResponse
-    ServiceCatalogView:
-      properties:
-        service:
-          $ref: '#/components/schemas/ServiceOfferingResponse'
-        default_dataset:
-          $ref: '#/components/schemas/DatasetCatalogView'
-      type: object
-      required:
-      - service
-      - default_dataset
-      title: ServiceCatalogView
-    DatasetCatalogListView:
-      properties:
-        count:
-          type: integer
-          title: Count
-        data:
-          items:
-            $ref: '#/components/schemas/DatasetCatalogView'
-          type: array
-          title: Data
-      type: object
-      required:
-      - count
-      - data
-      title: DatasetCatalogListView
+      - cost
+      - size
+      - message
+      - status
+      title: DataRequestInquiry
     InstrumentDescription:
       properties:
         symbol:
@@ -1541,150 +1674,6 @@ components:
       - display_symbol
       - instrument_name
       title: InstrumentDescription
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    DatasetBacklogView:
-      properties:
-        dataset_id:
-          type: string
-          title: Dataset Id
-        dataset_name:
-          type: string
-          title: Dataset Name
-        colloquial_name:
-          type: string
-          title: Colloquial Name
-        dataset_introduction:
-          type: string
-          title: Dataset Introduction
-        dataset_tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Dataset Tags
-          default: []
-      type: object
-      required:
-      - dataset_id
-      - dataset_name
-      - colloquial_name
-      - dataset_introduction
-      title: DatasetBacklogView
-    DatasetInstrumentSearchView:
-      properties:
-        symbol:
-          type: string
-          title: Symbol
-        display_symbol:
-          type: string
-          title: Display Symbol
-        instrument_name:
-          type: string
-          title: Instrument Name
-        asset_class:
-          type: string
-          title: Asset Class
-        security_type:
-          type: string
-          title: Security Type
-        sector:
-          type: string
-          title: Sector
-        dataset_id:
-          type: string
-          title: Dataset Id
-        service_group:
-          type: string
-          title: Service Group
-        dataset_name:
-          type: string
-          title: Dataset Name
-        available_from:
-          type: string
-          title: Available From
-        available_to:
-          type: string
-          title: Available To
-        region:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Region
-          default: North America
-        schemas:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Schemas
-          default: []
-        category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Category
-        publisher:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Publisher
-      type: object
-      required:
-      - symbol
-      - display_symbol
-      - instrument_name
-      - asset_class
-      - security_type
-      - sector
-      - dataset_id
-      - service_group
-      - dataset_name
-      - available_from
-      - available_to
-      title: DatasetInstrumentSearchView
-    DataRequestInquiry:
-      properties:
-        cost:
-          type: number
-          title: Cost
-        size:
-          type: integer
-          title: Size
-        message:
-          type: string
-          title: Message
-        status:
-          type: integer
-          title: Status
-      type: object
-      required:
-      - cost
-      - size
-      - message
-      - status
-      title: DataRequestInquiry
     InstrumentListTableView:
       properties:
         display_name:
@@ -1712,6 +1701,17 @@ components:
       - filterable
       - filter_options
       title: InstrumentListTableView
+    ServiceCatalogView:
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceOfferingResponse'
+        default_dataset:
+          $ref: '#/components/schemas/DatasetCatalogView'
+      type: object
+      required:
+      - service
+      - default_dataset
+      title: ServiceCatalogView
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

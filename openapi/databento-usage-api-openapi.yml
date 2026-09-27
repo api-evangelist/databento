@@ -545,56 +545,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    LiveConnectionRecord:
-      properties:
-        established_timestamp:
-          type: integer
-          title: Established Timestamp
-        request_id:
-          type: string
-          title: Request Id
-        user_id:
-          type: string
-          title: User Id
-        session_id:
-          type: string
-          title: Session Id
-        api_key:
-          type: string
-          title: Api Key
-        user_name:
-          type: string
-          title: User Name
-        gateway:
-          type: string
-          title: Gateway
-        dataset:
-          type: string
-          title: Dataset
-        schema:
-          type: string
-          title: Schema
-      type: object
-      required:
-      - established_timestamp
-      - request_id
-      - user_id
-      - session_id
-      - api_key
-      - user_name
-      - gateway
-      - dataset
-      - schema
-      title: LiveConnectionRecord
     ValidationError:
       properties:
         loc:
@@ -672,6 +622,56 @@ components:
       - usage_sum
       - cost_sum
       title: DataUsageRecord
+    LiveConnectionRecord:
+      properties:
+        established_timestamp:
+          type: integer
+          title: Established Timestamp
+        request_id:
+          type: string
+          title: Request Id
+        user_id:
+          type: string
+          title: User Id
+        session_id:
+          type: string
+          title: Session Id
+        api_key:
+          type: string
+          title: Api Key
+        user_name:
+          type: string
+          title: User Name
+        gateway:
+          type: string
+          title: Gateway
+        dataset:
+          type: string
+          title: Dataset
+        schema:
+          type: string
+          title: Schema
+      type: object
+      required:
+      - established_timestamp
+      - request_id
+      - user_id
+      - session_id
+      - api_key
+      - user_name
+      - gateway
+      - dataset
+      - schema
+      title: LiveConnectionRecord
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

@@ -351,15 +351,6 @@ paths:
       - OAuth2PasswordBearerWithCookie: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     Body_login_v0_auth_login_post:
       properties:
         grant_type:
@@ -393,29 +384,6 @@ components:
       - username
       - password
       title: Body_login_v0_auth_login_post
-    DetailResponse:
-      properties:
-        detail:
-          additionalProperties: true
-          type: object
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: DetailResponse
-    Body_reset_password_v0_auth_reset_password_post:
-      properties:
-        token:
-          type: string
-          title: Token
-        new_password:
-          type: string
-          title: New Password
-      type: object
-      required:
-      - token
-      - new_password
-      title: Body_reset_password_v0_auth_reset_password_post
     ValidationError:
       properties:
         loc:
@@ -437,6 +405,19 @@ components:
       - msg
       - type
       title: ValidationError
+    Body_reset_password_v0_auth_reset_password_post:
+      properties:
+        token:
+          type: string
+          title: Token
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - token
+      - new_password
+      title: Body_reset_password_v0_auth_reset_password_post
     Token:
       properties:
         token_type:
@@ -462,6 +443,25 @@ components:
       - expires_on
       - refresh_token
       title: Token
+    DetailResponse:
+      properties:
+        detail:
+          additionalProperties: true
+          type: object
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: DetailResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

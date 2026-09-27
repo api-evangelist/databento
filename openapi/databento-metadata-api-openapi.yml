@@ -963,6 +963,13 @@ paths:
         '429':
           description: If request rate limit exceeded
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -973,15 +980,69 @@ components:
         case_id:
           type: string
           description: An identifier for the error case, useful when contacting support.
-    HTTPValidationError:
+    Body_post_get_record_count_v0_metadata_get_record_count_post:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
       type: object
-      title: HTTPValidationError
+      required:
+      - dataset
+      - start
+      title: Body_post_get_record_count_v0_metadata_get_record_count_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Body_post_get_cost_v0_metadata_get_cost_post:
       properties:
         dataset:
@@ -1070,76 +1131,15 @@ components:
       - dataset
       - start
       title: Body_post_get_billable_size_v0_metadata_get_billable_size_post
-    Body_post_get_record_count_v0_metadata_get_record_count_post:
+    HTTPValidationError:
       properties:
-        dataset:
-          type: string
-          title: Dataset
-        start:
-          type: string
-          title: Start
-        end:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End
-        symbols:
-          type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        schema_:
-          type: string
-          title: Schema
-          default: trades
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-        limit:
-          anyOf:
-          - type: integer
-            maximum: 1.8446744073709552e+19
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Limit
-      type: object
-      required:
-      - dataset
-      - start
-      title: Body_post_get_record_count_v0_metadata_get_record_count_post
-    ValidationError:
-      properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+      title: HTTPValidationError
   securitySchemes:
     apiKeyBasicAuth:
       type: http

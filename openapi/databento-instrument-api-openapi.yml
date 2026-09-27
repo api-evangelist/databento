@@ -174,40 +174,34 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    ReasonRefCode:
+      type: string
+      enum:
+      - degraded
+      - non-trading
+      - pending
+      title: ReasonRefCode
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RelatedDatasetView:
-      properties:
-        service_group:
+          title: Location
+        msg:
           type: string
-          title: Service Group
-        dataset:
+          title: Message
+        type:
           type: string
-          title: Dataset
-        asset_class:
-          type: string
-          title: Asset Class
-        instrument:
-          type: string
-          title: Instrument
-        total_products:
-          type: integer
-          title: Total Products
+          title: Error Type
       type: object
       required:
-      - service_group
-      - dataset
-      - asset_class
-      - instrument
-      - total_products
-      title: RelatedDatasetView
+      - loc
+      - msg
+      - type
+      title: ValidationError
     InstrumentDetailListView:
       properties:
         count:
@@ -250,6 +244,31 @@ components:
       - instrument_last_seen_date
       - data
       title: InstrumentDetailListView
+    RelatedDatasetView:
+      properties:
+        service_group:
+          type: string
+          title: Service Group
+        dataset:
+          type: string
+          title: Dataset
+        asset_class:
+          type: string
+          title: Asset Class
+        instrument:
+          type: string
+          title: Instrument
+        total_products:
+          type: integer
+          title: Total Products
+      type: object
+      required:
+      - service_group
+      - dataset
+      - asset_class
+      - instrument
+      - total_products
+      title: RelatedDatasetView
     InstrumentDescription:
       properties:
         symbol:
@@ -305,34 +324,15 @@ components:
       - display_symbol
       - instrument_name
       title: InstrumentDescription
-    ReasonRefCode:
-      type: string
-      enum:
-      - degraded
-      - non-trading
-      - pending
-      title: ReasonRefCode
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: HTTPValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

@@ -90,15 +90,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -120,6 +111,51 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_query_security_master_last_v0_security_master_get_last_post:
+      properties:
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      title: Body_query_security_master_last_v0_security_master_get_last_post
     Body_query_security_master_pit_range_v0_security_master_get_range_post:
       properties:
         start:
@@ -170,42 +206,6 @@ components:
       required:
       - start
       title: Body_query_security_master_pit_range_v0_security_master_get_range_post
-    Body_query_security_master_last_v0_security_master_get_last_post:
-      properties:
-        symbols:
-          type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        countries:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Countries
-        security_types:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Types
-        compression:
-          type: string
-          title: Compression
-          default: none
-        dataset:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-      type: object
-      title: Body_query_security_master_last_v0_security_master_get_last_post
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2
