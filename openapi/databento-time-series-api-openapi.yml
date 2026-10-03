@@ -299,14 +299,14 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   responses:
-    ValidationError:
-      description: The request parameters failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    ValidationError:
+      description: The request parameters failed validation.
       content:
         application/json:
           schema:
@@ -321,27 +321,6 @@ components:
         case_id:
           type: string
           description: An identifier for the error case, useful when contacting support.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     HTTPValidationError:
       properties:
         detail:
@@ -415,6 +394,27 @@ components:
       - dataset
       - start
       title: Body_post_get_range_v0_timeseries_get_range_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     apiKeyBasicAuth:
       type: http

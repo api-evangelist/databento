@@ -351,39 +351,6 @@ paths:
       - OAuth2PasswordBearerWithCookie: []
 components:
   schemas:
-    Body_login_v0_auth_login_post:
-      properties:
-        grant_type:
-          anyOf:
-          - type: string
-            pattern: password
-          - type: 'null'
-          title: Grant Type
-        username:
-          type: string
-          title: Username
-        password:
-          type: string
-          title: Password
-        scope:
-          type: string
-          title: Scope
-          default: ''
-        client_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Id
-        client_secret:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Secret
-      type: object
-      required:
-      - username
-      - password
-      title: Body_login_v0_auth_login_post
     ValidationError:
       properties:
         loc:
@@ -405,19 +372,6 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_reset_password_v0_auth_reset_password_post:
-      properties:
-        token:
-          type: string
-          title: Token
-        new_password:
-          type: string
-          title: New Password
-      type: object
-      required:
-      - token
-      - new_password
-      title: Body_reset_password_v0_auth_reset_password_post
     Token:
       properties:
         token_type:
@@ -462,6 +416,52 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    Body_reset_password_v0_auth_reset_password_post:
+      properties:
+        token:
+          type: string
+          title: Token
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - token
+      - new_password
+      title: Body_reset_password_v0_auth_reset_password_post
+    Body_login_v0_auth_login_post:
+      properties:
+        grant_type:
+          anyOf:
+          - type: string
+            pattern: password
+          - type: 'null'
+          title: Grant Type
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+      type: object
+      required:
+      - username
+      - password
+      title: Body_login_v0_auth_login_post
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

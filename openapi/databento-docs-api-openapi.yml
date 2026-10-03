@@ -149,15 +149,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     Body_docs_search_combo_v3_v0_docs_search_v3_post:
       properties:
         search_text:
@@ -208,6 +199,15 @@ components:
       - mode
       - build_id
       title: Body_docs_search_combo_v0_docs_search_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

@@ -70,15 +70,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     Body_query_corporate_actions_range_v0_corporate_actions_get_range_post:
       properties:
         start:
@@ -139,6 +130,15 @@ components:
       required:
       - start
       title: Body_query_corporate_actions_range_v0_corporate_actions_get_range_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

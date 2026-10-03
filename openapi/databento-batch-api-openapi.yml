@@ -1074,8 +1074,8 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
@@ -1086,8 +1086,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -1102,6 +1102,154 @@ components:
         case_id:
           type: string
           description: An identifier for the error case, useful when contacting support.
+    BatchQuoteJobResponse:
+      properties:
+        estimated_size:
+          type: integer
+          title: Estimated Size
+        estimated_cost_usd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Estimated Cost Usd
+        net_estimated_cost_usd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Net Estimated Cost Usd
+        standard_plan_cost_usd:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Standard Plan Cost Usd
+        estimated_file_count:
+          type: integer
+          title: Estimated File Count
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+        errors:
+          items:
+            type: string
+          type: array
+          title: Errors
+        can_submit:
+          type: boolean
+          title: Can Submit
+      type: object
+      required:
+      - estimated_size
+      - estimated_cost_usd
+      - net_estimated_cost_usd
+      - standard_plan_cost_usd
+      - estimated_file_count
+      - warnings
+      - errors
+      - can_submit
+      title: BatchQuoteJobResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    BatchFileDetails:
+      properties:
+        filename:
+          type: string
+          title: Filename
+        size:
+          type: integer
+          title: Size
+        hash:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hash
+        urls:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Urls
+      type: object
+      required:
+      - filename
+      - size
+      title: BatchFileDetails
+    InstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: InstrumentDescription
     Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post:
       properties:
         dataset:
@@ -1187,6 +1335,15 @@ components:
       - encoding
       - start
       title: Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     BatchJobDescription:
       properties:
         dataset:
@@ -1276,163 +1433,6 @@ components:
       - delivery
       - compression
       title: BatchJobDescription
-    BatchQuoteJobResponse:
-      properties:
-        estimated_size:
-          type: integer
-          title: Estimated Size
-        estimated_cost_usd:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Estimated Cost Usd
-        net_estimated_cost_usd:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Net Estimated Cost Usd
-        standard_plan_cost_usd:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Standard Plan Cost Usd
-        estimated_file_count:
-          type: integer
-          title: Estimated File Count
-        warnings:
-          items:
-            type: string
-          type: array
-          title: Warnings
-        errors:
-          items:
-            type: string
-          type: array
-          title: Errors
-        can_submit:
-          type: boolean
-          title: Can Submit
-      type: object
-      required:
-      - estimated_size
-      - estimated_cost_usd
-      - net_estimated_cost_usd
-      - standard_plan_cost_usd
-      - estimated_file_count
-      - warnings
-      - errors
-      - can_submit
-      title: BatchQuoteJobResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    InstrumentDescription:
-      properties:
-        symbol:
-          type: string
-          title: Symbol
-        display_symbol:
-          type: string
-          title: Display Symbol
-        instrument_name:
-          type: string
-          title: Instrument Name
-        asset_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Asset Class
-        security_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Type
-          default: raw_symbol
-        dataset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Id
-        dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Name
-        publisher:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Publisher
-        first_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: First Seen
-        last_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Last Seen
-      type: object
-      required:
-      - symbol
-      - display_symbol
-      - instrument_name
-      title: InstrumentDescription
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BatchFileDetails:
-      properties:
-        filename:
-          type: string
-          title: Filename
-        size:
-          type: integer
-          title: Size
-        hash:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hash
-        urls:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Urls
-      type: object
-      required:
-      - filename
-      - size
-      title: BatchFileDetails
   securitySchemes:
     apiKeyBasicAuth:
       type: http

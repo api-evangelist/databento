@@ -162,14 +162,14 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   responses:
-    ValidationError:
-      description: The request parameters failed validation.
+    Unauthorized:
+      description: Missing or invalid API key.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key.
+    ValidationError:
+      description: The request parameters failed validation.
       content:
         application/json:
           schema:
@@ -205,15 +205,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     Body_post_resolve_symbology_mappings_v0_symbology_resolve_post:
       properties:
         dataset:
@@ -249,6 +240,15 @@ components:
       - stype_out
       - start_date
       title: Body_post_resolve_symbology_mappings_v0_symbology_resolve_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     apiKeyBasicAuth:
       type: http
