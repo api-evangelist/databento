@@ -286,55 +286,48 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LatencyValidArguments:
+    ValidationError:
       properties:
-        datacenter:
-          type: string
-          title: Datacenter
-        location:
-          type: string
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
           title: Location
-        dataset:
-          $ref: '#/components/schemas/Dataset'
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - datacenter
-      - location
-      - dataset
-      title: LatencyValidArguments
-    LatencyHdrHistogramMessage:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LatencyHistoryItem:
       properties:
-        location:
-          type: string
-          title: Location
-        datacenter:
-          type: string
-          title: Datacenter
-        dataset:
-          anyOf:
-          - $ref: '#/components/schemas/Dataset'
-          - type: string
-            const: ALL_DATASETS
-          title: Dataset
-        histogram_blob:
-          type: string
-          format: binary
-          title: Histogram Blob
+        percentile:
+          type: number
+          title: Percentile
         start:
           type: string
           title: Start
         end:
           type: string
           title: End
+        value:
+          type: integer
+          title: Value
       type: object
       required:
-      - location
-      - datacenter
-      - dataset
-      - histogram_blob
+      - percentile
       - start
       - end
-      title: LatencyHdrHistogramMessage
+      - value
+      title: LatencyHistoryItem
     Dataset:
       type: string
       enum:
@@ -388,27 +381,64 @@ components:
       - CCCY.CGIF
       - CGI.CGIF
       title: Dataset
-    ValidationError:
+    LatencyHdrHistogramMessage:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
+        location:
+          type: string
           title: Location
-        msg:
+        datacenter:
           type: string
-          title: Message
-        type:
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_blob:
           type: string
-          title: Error Type
+          format: binary
+          title: Histogram Blob
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - location
+      - datacenter
+      - dataset
+      - histogram_blob
+      - start
+      - end
+      title: LatencyHdrHistogramMessage
+    LatencyValidArguments:
+      properties:
+        datacenter:
+          type: string
+          title: Datacenter
+        location:
+          type: string
+          title: Location
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+      type: object
+      required:
+      - datacenter
+      - location
+      - dataset
+      title: LatencyValidArguments
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     LatencyPercentileHistory:
       properties:
         location:
@@ -439,36 +469,6 @@ components:
       - histogram_type
       - history
       title: LatencyPercentileHistory
-    LatencyHistoryItem:
-      properties:
-        percentile:
-          type: number
-          title: Percentile
-        start:
-          type: string
-          title: Start
-        end:
-          type: string
-          title: End
-        value:
-          type: integer
-          title: Value
-      type: object
-      required:
-      - percentile
-      - start
-      - end
-      - value
-      title: LatencyHistoryItem
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LatencyLastUpdate:
       properties:
         location:

@@ -216,27 +216,6 @@ components:
       - instrument_last_seen_date
       - data
       title: InstrumentDetailListView
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     ReasonRefCode:
       type: string
       enum:
@@ -244,6 +223,15 @@ components:
       - non-trading
       - pending
       title: ReasonRefCode
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     InstrumentDescription:
       properties:
         symbol:
@@ -299,15 +287,27 @@ components:
       - display_symbol
       - instrument_name
       title: InstrumentDescription
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RelatedDatasetView:
       properties:
         service_group:

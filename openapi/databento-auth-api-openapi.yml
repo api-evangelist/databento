@@ -351,84 +351,6 @@ paths:
       - OAuth2PasswordBearerWithCookie: []
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Token:
-      properties:
-        token_type:
-          type: string
-          title: Token Type
-          default: Bearer
-        access_token:
-          type: string
-          title: Access Token
-        expires_in:
-          type: integer
-          title: Expires In
-        expires_on:
-          type: integer
-          title: Expires On
-        refresh_token:
-          type: string
-          title: Refresh Token
-      type: object
-      required:
-      - access_token
-      - expires_in
-      - expires_on
-      - refresh_token
-      title: Token
-    DetailResponse:
-      properties:
-        detail:
-          additionalProperties: true
-          type: object
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: DetailResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_reset_password_v0_auth_reset_password_post:
-      properties:
-        token:
-          type: string
-          title: Token
-        new_password:
-          type: string
-          title: New Password
-      type: object
-      required:
-      - token
-      - new_password
-      title: Body_reset_password_v0_auth_reset_password_post
     Body_login_v0_auth_login_post:
       properties:
         grant_type:
@@ -462,6 +384,84 @@ components:
       - username
       - password
       title: Body_login_v0_auth_login_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_reset_password_v0_auth_reset_password_post:
+      properties:
+        token:
+          type: string
+          title: Token
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - token
+      - new_password
+      title: Body_reset_password_v0_auth_reset_password_post
+    Token:
+      properties:
+        token_type:
+          type: string
+          title: Token Type
+          default: Bearer
+        access_token:
+          type: string
+          title: Access Token
+        expires_in:
+          type: integer
+          title: Expires In
+        expires_on:
+          type: integer
+          title: Expires On
+        refresh_token:
+          type: string
+          title: Refresh Token
+      type: object
+      required:
+      - access_token
+      - expires_in
+      - expires_on
+      - refresh_token
+      title: Token
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DetailResponse:
+      properties:
+        detail:
+          additionalProperties: true
+          type: object
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: DetailResponse
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

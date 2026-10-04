@@ -3956,82 +3956,20 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    DatasetInstrumentTableHeaderView:
+    MonthToDateUsage:
       properties:
-        count:
+        usage_bytes:
           type: integer
-          title: Count
-        columns:
-          items:
-            $ref: '#/components/schemas/InstrumentListTableView'
-          type: array
-          title: Columns
+          title: Usage Bytes
+        usage_cents:
+          type: integer
+          title: Usage Cents
       type: object
       required:
-      - count
-      - columns
-      title: DatasetInstrumentTableHeaderView
-    InstrumentDetailListView:
-      properties:
-        count:
-          type: integer
-          title: Count
-        actual_date:
-          type: string
-          title: Actual Date
-        instrument_first_seen_date:
-          type: string
-          title: Instrument First Seen Date
-        instrument_last_seen_date:
-          type: string
-          title: Instrument Last Seen Date
-        data:
-          items:
-            items:
-              anyOf:
-              - type: string
-              - type: number
-              - type: integer
-              - type: 'null'
-            type: array
-          type: array
-          title: Data
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-        code:
-          anyOf:
-          - $ref: '#/components/schemas/ReasonRefCode'
-          - type: 'null'
-      type: object
-      required:
-      - count
-      - actual_date
-      - instrument_first_seen_date
-      - instrument_last_seen_date
-      - data
-      title: InstrumentDetailListView
-    DatasetAvailabilityResponse:
-      properties:
-        historical:
-          anyOf:
-          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
-          - type: 'null'
-        intraday:
-          anyOf:
-          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
-          - type: 'null'
-        controls:
-          additionalProperties:
-            $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
-          type: object
-          title: Controls
-          default: {}
-      type: object
-      title: DatasetAvailabilityResponse
-    Body_post_get_billable_size_v0_metadata_get_billable_size_post:
+      - usage_bytes
+      - usage_cents
+      title: MonthToDateUsage
+    Body_post_get_range_v0_timeseries_get_range_post:
       properties:
         dataset:
           type: string
@@ -4048,95 +3986,43 @@ components:
           type: string
           title: Symbols
           default: ALL_SYMBOLS
-        schema_:
-          type: string
-          title: Schema
-          default: trades
         stype_in:
           type: string
           title: Stype In
           default: raw_symbol
-        limit:
-          anyOf:
-          - type: integer
-            maximum: 1.8446744073709552e+19
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Limit
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-      type: object
-      required:
-      - dataset
-      - start
-      title: Body_post_get_billable_size_v0_metadata_get_billable_size_post
-    Body_post_get_record_count_v0_metadata_get_record_count_post:
-      properties:
-        dataset:
-          type: string
-          title: Dataset
-        start:
-          type: string
-          title: Start
-        end:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End
-        symbols:
-          type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        schema_:
-          type: string
-          title: Schema
-          default: trades
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-        limit:
-          anyOf:
-          - type: integer
-            maximum: 1.8446744073709552e+19
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Limit
-      type: object
-      required:
-      - dataset
-      - start
-      title: Body_post_get_record_count_v0_metadata_get_record_count_post
-    Body_post_resolve_symbology_mappings_v0_symbology_resolve_post:
-      properties:
-        dataset:
-          type: string
-          title: Dataset
-        symbols:
-          type: string
-          title: Symbols
-        stype_in:
-          type: string
-          title: Stype In
         stype_out:
           type: string
           title: Stype Out
-        start_date:
+          default: instrument_id
+        schema_:
           type: string
-          title: Start Date
-        end_date:
+          title: Schema
+          default: trades
+        encoding:
+          type: string
+          title: Encoding
+          default: csv
+        compression:
+          type: string
+          title: Compression
+          default: none
+        pretty_px:
+          type: boolean
+          title: Pretty Px
+          default: false
+        pretty_ts:
+          type: boolean
+          title: Pretty Ts
+          default: false
+        map_symbols:
+          type: boolean
+          title: Map Symbols
+          default: false
+        limit:
           anyOf:
           - type: string
           - type: 'null'
-          title: End Date
+          title: Limit
         symbol:
           anyOf:
           - type: string
@@ -4145,208 +4031,8 @@ components:
       type: object
       required:
       - dataset
-      - symbols
-      - stype_in
-      - stype_out
-      - start_date
-      title: Body_post_resolve_symbology_mappings_v0_symbology_resolve_post
-    LatencyHistoryItem:
-      properties:
-        percentile:
-          type: number
-          title: Percentile
-        start:
-          type: string
-          title: Start
-        end:
-          type: string
-          title: End
-        value:
-          type: integer
-          title: Value
-      type: object
-      required:
-      - percentile
       - start
-      - end
-      - value
-      title: LatencyHistoryItem
-    DatasetBacklogListView:
-      properties:
-        count:
-          type: integer
-          title: Count
-        data:
-          items:
-            $ref: '#/components/schemas/DatasetBacklogView'
-          type: array
-          title: Data
-      type: object
-      required:
-      - count
-      - data
-      title: DatasetBacklogListView
-    ReleaseConfig:
-      properties:
-        access_method:
-          type: string
-          title: Access Method
-        release_time:
-          type: string
-          title: Release Time
-        tz:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tz
-        license_required:
-          type: boolean
-          title: License Required
-      type: object
-      required:
-      - access_method
-      - release_time
-      - license_required
-      title: ReleaseConfig
-    InstrumentListTableView:
-      properties:
-        display_name:
-          type: string
-          title: Display Name
-        key:
-          type: string
-          title: Key
-        sortable:
-          type: boolean
-          title: Sortable
-        filterable:
-          type: boolean
-          title: Filterable
-        filter_options:
-          items:
-            type: string
-          type: array
-          title: Filter Options
-      type: object
-      required:
-      - display_name
-      - key
-      - sortable
-      - filterable
-      - filter_options
-      title: InstrumentListTableView
-    LatencyLastUpdate:
-      properties:
-        location:
-          type: string
-          title: Location
-        datacenter:
-          type: string
-          title: Datacenter
-        dataset:
-          $ref: '#/components/schemas/Dataset'
-        last_update:
-          type: string
-          title: Last Update
-        latency_type:
-          type: string
-          title: Latency Type
-        p50:
-          type: integer
-          title: P50
-      type: object
-      required:
-      - location
-      - datacenter
-      - dataset
-      - last_update
-      - latency_type
-      - p50
-      title: LatencyLastUpdate
-    LatencyValidArguments:
-      properties:
-        datacenter:
-          type: string
-          title: Datacenter
-        location:
-          type: string
-          title: Location
-        dataset:
-          $ref: '#/components/schemas/Dataset'
-      type: object
-      required:
-      - datacenter
-      - location
-      - dataset
-      title: LatencyValidArguments
-    Dataset:
-      type: string
-      enum:
-      - GLBX.MDP3
-      - XNAS.ITCH
-      - XBOS.ITCH
-      - XPSX.ITCH
-      - BATS.PITCH
-      - BATY.PITCH
-      - EDGA.PITCH
-      - EDGX.PITCH
-      - XNYS.PILLAR
-      - XCIS.PILLAR
-      - XASE.PILLAR
-      - XCHI.PILLAR
-      - XCIS.BBO
-      - XCIS.TRADES
-      - MEMX.MEMOIR
-      - EPRL.DOM
-      - FINN.NLS
-      - FINY.TRADES
-      - OPRA.PILLAR
-      - DBEQ.BASIC
-      - ARCX.PILLAR
-      - IEXG.TOPS
-      - EQUS.PLUS
-      - XNYS.BBO
-      - XNYS.TRADES
-      - XNAS.QBBO
-      - XNAS.NLS
-      - IFEU.IMPACT
-      - NDEX.IMPACT
-      - EQUS.ALL
-      - XNAS.BASIC
-      - EQUS.SUMMARY
-      - XCIS.TRADESBBO
-      - XNYS.TRADESBBO
-      - EQUS.MINI
-      - IFUS.IMPACT
-      - IFLL.IMPACT
-      - XEUR.EOBI
-      - XEEE.EOBI
-      - XCBF.PITCH
-      - OCEA.MEMOIR
-      - MAIN.CGIF
-      - EQUS.SIP
-      - MSCI.CGIF
-      - FTSE.CGIF
-      - INAV.CGIF
-      - MSTAR.CGIF
-      - CCCY.CGIF
-      - CGI.CGIF
-      title: Dataset
-    DatasetCatalogListView:
-      properties:
-        count:
-          type: integer
-          title: Count
-        data:
-          items:
-            $ref: '#/components/schemas/DatasetCatalogView'
-          type: array
-          title: Data
-      type: object
-      required:
-      - count
-      - data
-      title: DatasetCatalogListView
+      title: Body_post_get_range_v0_timeseries_get_range_post
     DatasetProfileResponse:
       properties:
         dataset_id:
@@ -4472,462 +4158,111 @@ components:
       - intraday_data_ready
       - live_data_ready
       title: DatasetProfileResponse
-    DatasetAvailabilityResponseRange:
+    LatencyHistoryItem:
       properties:
+        percentile:
+          type: number
+          title: Percentile
         start:
           type: string
           title: Start
         end:
           type: string
           title: End
+        value:
+          type: integer
+          title: Value
       type: object
       required:
+      - percentile
       - start
       - end
-      title: DatasetAvailabilityResponseRange
-    DailyInstrumentDescription:
+      - value
+      title: LatencyHistoryItem
+    Dataset:
+      type: string
+      enum:
+      - GLBX.MDP3
+      - XNAS.ITCH
+      - XBOS.ITCH
+      - XPSX.ITCH
+      - BATS.PITCH
+      - BATY.PITCH
+      - EDGA.PITCH
+      - EDGX.PITCH
+      - XNYS.PILLAR
+      - XCIS.PILLAR
+      - XASE.PILLAR
+      - XCHI.PILLAR
+      - XCIS.BBO
+      - XCIS.TRADES
+      - MEMX.MEMOIR
+      - EPRL.DOM
+      - FINN.NLS
+      - FINY.TRADES
+      - OPRA.PILLAR
+      - DBEQ.BASIC
+      - ARCX.PILLAR
+      - IEXG.TOPS
+      - EQUS.PLUS
+      - XNYS.BBO
+      - XNYS.TRADES
+      - XNAS.QBBO
+      - XNAS.NLS
+      - IFEU.IMPACT
+      - NDEX.IMPACT
+      - EQUS.ALL
+      - XNAS.BASIC
+      - EQUS.SUMMARY
+      - XCIS.TRADESBBO
+      - XNYS.TRADESBBO
+      - EQUS.MINI
+      - IFUS.IMPACT
+      - IFLL.IMPACT
+      - XEUR.EOBI
+      - XEEE.EOBI
+      - XCBF.PITCH
+      - OCEA.MEMOIR
+      - MAIN.CGIF
+      - EQUS.SIP
+      - MSCI.CGIF
+      - FTSE.CGIF
+      - INAV.CGIF
+      - MSTAR.CGIF
+      - CCCY.CGIF
+      - CGI.CGIF
+      title: Dataset
+    DatasetAvailabilityResponse:
       properties:
-        symbol:
-          type: string
-          title: Symbol
-        display_symbol:
-          type: string
-          title: Display Symbol
-        instrument_name:
-          type: string
-          title: Instrument Name
-        asset_class:
+        historical:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
           - type: 'null'
-          title: Asset Class
-        security_type:
+        intraday:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
           - type: 'null'
-          title: Security Type
-          default: raw_symbol
+        controls:
+          additionalProperties:
+            $ref: '#/components/schemas/DatasetAvailabilityResponseRange'
+          type: object
+          title: Controls
+          default: {}
+      type: object
+      title: DatasetAvailabilityResponse
+    IncludedDataset:
+      properties:
         dataset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Dataset Id
         dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Dataset Name
-        publisher:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Publisher
-        first_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: First Seen
-        last_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Last Seen
-        product_group:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Product Group
-        volume:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Volume
-        open_interest:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Open Interest
-        sector:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sector
-        close_price:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Close Price
-        last_update_date:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Update Date
       type: object
       required:
-      - symbol
-      - display_symbol
-      - instrument_name
-      title: DailyInstrumentDescription
-    DataRequestInquiry:
-      properties:
-        cost:
-          type: number
-          title: Cost
-        size:
-          type: integer
-          title: Size
-        message:
-          type: string
-          title: Message
-        status:
-          type: integer
-          title: Status
-      type: object
-      required:
-      - cost
-      - size
-      - message
-      - status
-      title: DataRequestInquiry
-    DatasetSchemaStatistics:
-      properties:
-        dbn_schema:
-          type: string
-          title: Dbn Schema
-        start:
-          type: string
-          title: Start
-        end:
-          type: string
-          title: End
-      type: object
-      required:
-      - dbn_schema
-      - start
-      - end
-      title: DatasetSchemaStatistics
-    Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post:
-      properties:
-        dataset:
-          type: string
-          title: Dataset
-        symbols:
-          type: string
-          title: Symbols
-        schema_:
-          type: string
-          title: Schema
-        encoding:
-          type: string
-          title: Encoding
-        start:
-          type: string
-          title: Start
-        end:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        stype_out:
-          type: string
-          title: Stype Out
-          default: instrument_id
-        compression:
-          type: string
-          title: Compression
-          default: none
-        limit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Limit
-        pretty_px:
-          type: boolean
-          title: Pretty Px
-          default: false
-        pretty_ts:
-          type: boolean
-          title: Pretty Ts
-          default: false
-        map_symbols:
-          type: boolean
-          title: Map Symbols
-          default: false
-        split_symbols:
-          type: boolean
-          title: Split Symbols
-          default: false
-        split_duration:
-          type: string
-          title: Split Duration
-          default: day
-        split_size:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Split Size
-        packaging:
-          type: string
-          title: Packaging
-          default: none
-        delivery:
-          type: string
-          title: Delivery
-          default: download
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-      type: object
-      required:
-      - dataset
-      - symbols
-      - schema_
-      - encoding
-      - start
-      title: Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post
-    ServiceOfferingResponse:
-      properties:
-        id:
-          type: integer
-          title: Id
-        service_name:
-          type: string
-          title: Service Name
-        service_type:
-          type: string
-          title: Service Type
-        service_tier:
-          type: string
-          title: Service Tier
-        self_service:
-          type: boolean
-          title: Self Service
-        dataset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Id
-        billing_interval:
-          type: integer
-          title: Billing Interval
-        unit_price:
-          type: integer
-          title: Unit Price
-        commitment_period:
-          type: integer
-          title: Commitment Period
-        service_spec:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Service Spec
-        sub_datasets:
-          items:
-            type: string
-          type: array
-          title: Sub Datasets
-          default: []
-        historical_data_ready_datasets:
-          items:
-            type: string
-          type: array
-          title: Historical Data Ready Datasets
-          default: []
-        live_data_ready_datasets:
-          items:
-            type: string
-          type: array
-          title: Live Data Ready Datasets
-          default: []
-        license_flow_ready_datasets:
-          items:
-            type: string
-          type: array
-          title: License Flow Ready Datasets
-          default: []
-        allowed_live_datasets:
-          items:
-            type: string
-          type: array
-          title: Allowed Live Datasets
-          default: []
-      type: object
-      required:
-      - id
-      - service_name
-      - service_type
-      - service_tier
-      - self_service
       - dataset_id
-      - billing_interval
-      - unit_price
-      - commitment_period
-      - service_spec
-      title: ServiceOfferingResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_docs_search_combo_v0_docs_search_post:
-      properties:
-        searchText:
-          type: string
-          title: Searchtext
-        language:
-          type: string
-          title: Language
-        liveLang:
-          type: string
-          title: Livelang
-        historicalLang:
-          type: string
-          title: Historicallang
-        mode:
-          type: string
-          title: Mode
-        build_id:
-          type: string
-          title: Build Id
-      type: object
-      required:
-      - searchText
-      - language
-      - liveLang
-      - historicalLang
-      - mode
-      - build_id
-      title: Body_docs_search_combo_v0_docs_search_post
-    DataUsageRecord:
-      properties:
-        timestamp:
-          type: integer
-          title: Timestamp
-        user_id:
-          type: string
-          title: User Id
-        api_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Api Key
-        user_name:
-          type: string
-          title: User Name
-        dataset:
-          type: string
-          title: Dataset
-        schema:
-          type: string
-          title: Schema
-        mode:
-          type: string
-          title: Mode
-        usage_sum:
-          type: integer
-          title: Usage Sum
-        cost_sum:
-          type: number
-          title: Cost Sum
-      type: object
-      required:
-      - timestamp
-      - user_id
-      - api_key
-      - user_name
-      - dataset
-      - schema
-      - mode
-      - usage_sum
-      - cost_sum
-      title: DataUsageRecord
-    LiveConnectionRecord:
-      properties:
-        established_timestamp:
-          type: integer
-          title: Established Timestamp
-        request_id:
-          type: string
-          title: Request Id
-        user_id:
-          type: string
-          title: User Id
-        session_id:
-          type: string
-          title: Session Id
-        api_key:
-          type: string
-          title: Api Key
-        user_name:
-          type: string
-          title: User Name
-        gateway:
-          type: string
-          title: Gateway
-        dataset:
-          type: string
-          title: Dataset
-        schema:
-          type: string
-          title: Schema
-      type: object
-      required:
-      - established_timestamp
-      - request_id
-      - user_id
-      - session_id
-      - api_key
-      - user_name
-      - gateway
-      - dataset
-      - schema
-      title: LiveConnectionRecord
-    LatencyHdrHistogramMessage:
-      properties:
-        location:
-          type: string
-          title: Location
-        datacenter:
-          type: string
-          title: Datacenter
-        dataset:
-          anyOf:
-          - $ref: '#/components/schemas/Dataset'
-          - type: string
-            const: ALL_DATASETS
-          title: Dataset
-        histogram_blob:
-          type: string
-          format: binary
-          title: Histogram Blob
-        start:
-          type: string
-          title: Start
-        end:
-          type: string
-          title: End
-      type: object
-      required:
-      - location
-      - datacenter
-      - dataset
-      - histogram_blob
-      - start
-      - end
-      title: LatencyHdrHistogramMessage
+      - dataset_name
+      title: IncludedDataset
     Body_docs_search_combo_v3_v0_docs_search_v3_post:
       properties:
         search_text:
@@ -4949,139 +4284,6 @@ components:
       - live_language
       - historical_language
       title: Body_docs_search_combo_v3_v0_docs_search_v3_post
-    LatencyPercentileHistory:
-      properties:
-        location:
-          type: string
-          title: Location
-        datacenter:
-          type: string
-          title: Datacenter
-        dataset:
-          anyOf:
-          - $ref: '#/components/schemas/Dataset'
-          - type: string
-            const: ALL_DATASETS
-          title: Dataset
-        histogram_type:
-          type: string
-          title: Histogram Type
-        history:
-          items:
-            $ref: '#/components/schemas/LatencyHistoryItem'
-          type: array
-          title: History
-      type: object
-      required:
-      - location
-      - datacenter
-      - dataset
-      - histogram_type
-      - history
-      title: LatencyPercentileHistory
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_post_get_cost_v0_metadata_get_cost_post:
-      properties:
-        dataset:
-          type: string
-          title: Dataset
-        start:
-          type: string
-          title: Start
-        end:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End
-        symbols:
-          type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        schema_:
-          type: string
-          title: Schema
-          default: trades
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        mode:
-          type: string
-          title: Mode
-          default: historical-streaming
-        limit:
-          anyOf:
-          - type: integer
-            maximum: 1.8446744073709552e+19
-            exclusiveMinimum: 0.0
-          - type: 'null'
-          title: Limit
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-      type: object
-      required:
-      - dataset
-      - start
-      title: Body_post_get_cost_v0_metadata_get_cost_post
-    IncomingServiceView:
-      properties:
-        service:
-          $ref: '#/components/schemas/ServiceOfferingResponse'
-        default_dataset:
-          $ref: '#/components/schemas/DatasetBacklogView'
-      type: object
-      required:
-      - service
-      - default_dataset
-      title: IncomingServiceView
-    BatchFileDetails:
-      properties:
-        filename:
-          type: string
-          title: Filename
-        size:
-          type: integer
-          title: Size
-        hash:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hash
-        urls:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Urls
-      type: object
-      required:
-      - filename
-      - size
-      title: BatchFileDetails
     InstrumentDescription:
       properties:
         symbol:
@@ -5137,137 +4339,23 @@ components:
       - display_symbol
       - instrument_name
       title: InstrumentDescription
-    Body_query_security_master_last_v0_security_master_get_last_post:
+    DatasetSchemaStatistics:
       properties:
-        symbols:
+        dbn_schema:
           type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        stype_in:
+          title: Dbn Schema
+        start:
           type: string
-          title: Stype In
-          default: raw_symbol
-        countries:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Countries
-        security_types:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Types
-        compression:
+          title: Start
+        end:
           type: string
-          title: Compression
-          default: none
-        dataset:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-      type: object
-      title: Body_query_security_master_last_v0_security_master_get_last_post
-    IncludedDataset:
-      properties:
-        dataset_id:
-          type: string
-          title: Dataset Id
-        dataset_name:
-          type: string
-          title: Dataset Name
+          title: End
       type: object
       required:
-      - dataset_id
-      - dataset_name
-      title: IncludedDataset
-    DatasetCatalogView:
-      properties:
-        dataset_id:
-          type: string
-          title: Dataset Id
-        dataset_name:
-          type: string
-          title: Dataset Name
-        colloquial_name:
-          type: string
-          title: Colloquial Name
-        dataset_introduction:
-          type: string
-          title: Dataset Introduction
-        lowest_price:
-          type: string
-          title: Lowest Price
-        unit_prices:
-          additionalProperties:
-            additionalProperties:
-              type: string
-            type: object
-          type: object
-          title: Unit Prices
-        pricing_plan:
-          additionalProperties:
-            type: string
-          type: object
-          title: Pricing Plan
-        recommend_instruments:
-          items:
-            $ref: '#/components/schemas/InstrumentDescription'
-          type: array
-          title: Recommend Instruments
-        total_instrument_count:
-          type: integer
-          title: Total Instrument Count
-        live_data_ready:
-          type: boolean
-          title: Live Data Ready
-        asset_class:
-          items:
-            type: string
-          type: array
-          title: Asset Class
-        dataset_tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Dataset Tags
-          default: []
-      type: object
-      required:
-      - dataset_id
-      - dataset_name
-      - colloquial_name
-      - dataset_introduction
-      - lowest_price
-      - unit_prices
-      - pricing_plan
-      - recommend_instruments
-      - total_instrument_count
-      - live_data_ready
-      - asset_class
-      title: DatasetCatalogView
-    DatasetInstrumentTableView:
-      properties:
-        count:
-          type: integer
-          title: Count
-        data:
-          items:
-            $ref: '#/components/schemas/DailyInstrumentDescription'
-          type: array
-          title: Data
-      type: object
-      required:
-      - count
-      - data
-      title: DatasetInstrumentTableView
+      - dbn_schema
+      - start
+      - end
+      title: DatasetSchemaStatistics
     BatchQuoteJobResponse:
       properties:
         estimated_size:
@@ -5315,161 +4403,48 @@ components:
       - errors
       - can_submit
       title: BatchQuoteJobResponse
-    Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post:
+    InstrumentDetailListView:
       properties:
-        start:
-          type: string
-          title: Start
-        end:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End
-        symbols:
-          type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        countries:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Countries
-        security_types:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Types
-        compression:
-          type: string
-          title: Compression
-          default: none
-        dataset:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-      type: object
-      required:
-      - start
-      title: Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post
-    Body_query_corporate_actions_range_v0_corporate_actions_get_range_post:
-      properties:
-        start:
-          type: string
-          title: Start
-        end:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End
-        index:
-          type: string
-          title: Index
-          default: event_date
-        symbols:
-          type: string
-          title: Symbols
-          default: ALL_SYMBOLS
-        stype_in:
-          type: string
-          title: Stype In
-          default: raw_symbol
-        events:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Events
-        countries:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Countries
-        exchanges:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Exchanges
-        security_types:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Types
-        compression:
-          type: string
-          title: Compression
-          default: none
-        dataset:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset
-        symbol:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Symbol
-      type: object
-      required:
-      - start
-      title: Body_query_corporate_actions_range_v0_corporate_actions_get_range_post
-    MonthToDateUsage:
-      properties:
-        usage_bytes:
+        count:
           type: integer
-          title: Usage Bytes
-        usage_cents:
-          type: integer
-          title: Usage Cents
-      type: object
-      required:
-      - usage_bytes
-      - usage_cents
-      title: MonthToDateUsage
-    ReasonRefCode:
-      type: string
-      enum:
-      - degraded
-      - non-trading
-      - pending
-      title: ReasonRefCode
-    DatasetBacklogView:
-      properties:
-        dataset_id:
+          title: Count
+        actual_date:
           type: string
-          title: Dataset Id
-        dataset_name:
+          title: Actual Date
+        instrument_first_seen_date:
           type: string
-          title: Dataset Name
-        colloquial_name:
+          title: Instrument First Seen Date
+        instrument_last_seen_date:
           type: string
-          title: Colloquial Name
-        dataset_introduction:
-          type: string
-          title: Dataset Introduction
-        dataset_tags:
-          anyOf:
-          - items:
-              type: string
+          title: Instrument Last Seen Date
+        data:
+          items:
+            items:
+              anyOf:
+              - type: string
+              - type: number
+              - type: integer
+              - type: 'null'
             type: array
+          type: array
+          title: Data
+        message:
+          anyOf:
+          - type: string
           - type: 'null'
-          title: Dataset Tags
-          default: []
+          title: Message
+        code:
+          anyOf:
+          - $ref: '#/components/schemas/ReasonRefCode'
+          - type: 'null'
       type: object
       required:
-      - dataset_id
-      - dataset_name
-      - colloquial_name
-      - dataset_introduction
-      title: DatasetBacklogView
+      - count
+      - actual_date
+      - instrument_first_seen_date
+      - instrument_last_seen_date
+      - data
+      title: InstrumentDetailListView
     DatasetDetailResponse:
       properties:
         dataset_id:
@@ -5637,80 +4612,22 @@ components:
       - schema_availability
       - schema_availability_unrestricted
       title: DatasetDetailResponse
-    DatasetInstrumentSearchView:
+    DatasetBacklogListView:
       properties:
-        symbol:
-          type: string
-          title: Symbol
-        display_symbol:
-          type: string
-          title: Display Symbol
-        instrument_name:
-          type: string
-          title: Instrument Name
-        asset_class:
-          type: string
-          title: Asset Class
-        security_type:
-          type: string
-          title: Security Type
-        sector:
-          type: string
-          title: Sector
-        dataset_id:
-          type: string
-          title: Dataset Id
-        service_group:
-          type: string
-          title: Service Group
-        dataset_name:
-          type: string
-          title: Dataset Name
-        available_from:
-          type: string
-          title: Available From
-        available_to:
-          type: string
-          title: Available To
-        region:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Region
-          default: North America
-        schemas:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Schemas
-          default: []
-        category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Category
-        publisher:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Publisher
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetBacklogView'
+          type: array
+          title: Data
       type: object
       required:
-      - symbol
-      - display_symbol
-      - instrument_name
-      - asset_class
-      - security_type
-      - sector
-      - dataset_id
-      - service_group
-      - dataset_name
-      - available_from
-      - available_to
-      title: DatasetInstrumentSearchView
-    Body_query_security_master_pit_range_v0_security_master_get_range_post:
+      - count
+      - data
+      title: DatasetBacklogListView
+    Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post:
       properties:
         start:
           type: string
@@ -5720,10 +4637,6 @@ components:
           - type: string
           - type: 'null'
           title: End
-        index:
-          type: string
-          title: Index
-          default: ts_effective
         symbols:
           type: string
           title: Symbols
@@ -5759,7 +4672,290 @@ components:
       type: object
       required:
       - start
-      title: Body_query_security_master_pit_range_v0_security_master_get_range_post
+      title: Body_query_adjustment_factors_range_v0_adjustment_factors_get_range_post
+    DataUsageRecord:
+      properties:
+        timestamp:
+          type: integer
+          title: Timestamp
+        user_id:
+          type: string
+          title: User Id
+        api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Key
+        user_name:
+          type: string
+          title: User Name
+        dataset:
+          type: string
+          title: Dataset
+        schema:
+          type: string
+          title: Schema
+        mode:
+          type: string
+          title: Mode
+        usage_sum:
+          type: integer
+          title: Usage Sum
+        cost_sum:
+          type: number
+          title: Cost Sum
+      type: object
+      required:
+      - timestamp
+      - user_id
+      - api_key
+      - user_name
+      - dataset
+      - schema
+      - mode
+      - usage_sum
+      - cost_sum
+      title: DataUsageRecord
+    Body_post_resolve_symbology_mappings_v0_symbology_resolve_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        symbols:
+          type: string
+          title: Symbols
+        stype_in:
+          type: string
+          title: Stype In
+        stype_out:
+          type: string
+          title: Stype Out
+        start_date:
+          type: string
+          title: Start Date
+        end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - symbols
+      - stype_in
+      - stype_out
+      - start_date
+      title: Body_post_resolve_symbology_mappings_v0_symbology_resolve_post
+    DatasetInstrumentTableHeaderView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        columns:
+          items:
+            $ref: '#/components/schemas/InstrumentListTableView'
+          type: array
+          title: Columns
+      type: object
+      required:
+      - count
+      - columns
+      title: DatasetInstrumentTableHeaderView
+    ServiceCatalogView:
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceOfferingResponse'
+        default_dataset:
+          $ref: '#/components/schemas/DatasetCatalogView'
+      type: object
+      required:
+      - service
+      - default_dataset
+      title: ServiceCatalogView
+    Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        symbols:
+          type: string
+          title: Symbols
+        schema_:
+          type: string
+          title: Schema
+        encoding:
+          type: string
+          title: Encoding
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        stype_out:
+          type: string
+          title: Stype Out
+          default: instrument_id
+        compression:
+          type: string
+          title: Compression
+          default: none
+        limit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Limit
+        pretty_px:
+          type: boolean
+          title: Pretty Px
+          default: false
+        pretty_ts:
+          type: boolean
+          title: Pretty Ts
+          default: false
+        map_symbols:
+          type: boolean
+          title: Map Symbols
+          default: false
+        split_symbols:
+          type: boolean
+          title: Split Symbols
+          default: false
+        split_duration:
+          type: string
+          title: Split Duration
+          default: day
+        split_size:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Split Size
+        packaging:
+          type: string
+          title: Packaging
+          default: none
+        delivery:
+          type: string
+          title: Delivery
+          default: download
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - symbols
+      - schema_
+      - encoding
+      - start
+      title: Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post
+    LatencyValidArguments:
+      properties:
+        datacenter:
+          type: string
+          title: Datacenter
+        location:
+          type: string
+          title: Location
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+      type: object
+      required:
+      - datacenter
+      - location
+      - dataset
+      title: LatencyValidArguments
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    DatasetBacklogView:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+        colloquial_name:
+          type: string
+          title: Colloquial Name
+        dataset_introduction:
+          type: string
+          title: Dataset Introduction
+        dataset_tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Dataset Tags
+          default: []
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - colloquial_name
+      - dataset_introduction
+      title: DatasetBacklogView
+    BatchFileDetails:
+      properties:
+        filename:
+          type: string
+          title: Filename
+        size:
+          type: integer
+          title: Size
+        hash:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hash
+        urls:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Urls
+      type: object
+      required:
+      - filename
+      - size
+      title: BatchFileDetails
+    DatasetInstrumentTableView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DailyInstrumentDescription'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: DatasetInstrumentTableView
     RelatedDatasetView:
       properties:
         service_group:
@@ -5785,30 +4981,37 @@ components:
       - instrument
       - total_products
       title: RelatedDatasetView
-    ServiceCatalogView:
+    Body_docs_search_combo_v0_docs_search_post:
       properties:
-        service:
-          $ref: '#/components/schemas/ServiceOfferingResponse'
-        default_dataset:
-          $ref: '#/components/schemas/DatasetCatalogView'
+        searchText:
+          type: string
+          title: Searchtext
+        language:
+          type: string
+          title: Language
+        liveLang:
+          type: string
+          title: Livelang
+        historicalLang:
+          type: string
+          title: Historicallang
+        mode:
+          type: string
+          title: Mode
+        build_id:
+          type: string
+          title: Build Id
       type: object
       required:
-      - service
-      - default_dataset
-      title: ServiceCatalogView
-    Body_post_get_range_v0_timeseries_get_range_post:
+      - searchText
+      - language
+      - liveLang
+      - historicalLang
+      - mode
+      - build_id
+      title: Body_docs_search_combo_v0_docs_search_post
+    Body_query_security_master_last_v0_security_master_get_last_post:
       properties:
-        dataset:
-          type: string
-          title: Dataset
-        start:
-          type: string
-          title: Start
-        end:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End
         symbols:
           type: string
           title: Symbols
@@ -5817,49 +5020,32 @@ components:
           type: string
           title: Stype In
           default: raw_symbol
-        stype_out:
-          type: string
-          title: Stype Out
-          default: instrument_id
-        schema_:
-          type: string
-          title: Schema
-          default: trades
-        encoding:
-          type: string
-          title: Encoding
-          default: csv
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
         compression:
           type: string
           title: Compression
           default: none
-        pretty_px:
-          type: boolean
-          title: Pretty Px
-          default: false
-        pretty_ts:
-          type: boolean
-          title: Pretty Ts
-          default: false
-        map_symbols:
-          type: boolean
-          title: Map Symbols
-          default: false
-        limit:
+        dataset:
           anyOf:
           - type: string
           - type: 'null'
-          title: Limit
+          title: Dataset
         symbol:
           anyOf:
           - type: string
           - type: 'null'
           title: Symbol
       type: object
-      required:
-      - dataset
-      - start
-      title: Body_post_get_range_v0_timeseries_get_range_post
+      title: Body_query_security_master_last_v0_security_master_get_last_post
     BatchJobDescription:
       properties:
         dataset:
@@ -5949,6 +5135,820 @@ components:
       - delivery
       - compression
       title: BatchJobDescription
+    ReasonRefCode:
+      type: string
+      enum:
+      - degraded
+      - non-trading
+      - pending
+      title: ReasonRefCode
+    Body_post_get_billable_size_v0_metadata_get_billable_size_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_billable_size_v0_metadata_get_billable_size_post
+    Body_query_corporate_actions_range_v0_corporate_actions_get_range_post:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        index:
+          type: string
+          title: Index
+          default: event_date
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        events:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Events
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        exchanges:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Exchanges
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - start
+      title: Body_query_corporate_actions_range_v0_corporate_actions_get_range_post
+    IncomingServiceView:
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceOfferingResponse'
+        default_dataset:
+          $ref: '#/components/schemas/DatasetBacklogView'
+      type: object
+      required:
+      - service
+      - default_dataset
+      title: IncomingServiceView
+    LiveConnectionRecord:
+      properties:
+        established_timestamp:
+          type: integer
+          title: Established Timestamp
+        request_id:
+          type: string
+          title: Request Id
+        user_id:
+          type: string
+          title: User Id
+        session_id:
+          type: string
+          title: Session Id
+        api_key:
+          type: string
+          title: Api Key
+        user_name:
+          type: string
+          title: User Name
+        gateway:
+          type: string
+          title: Gateway
+        dataset:
+          type: string
+          title: Dataset
+        schema:
+          type: string
+          title: Schema
+      type: object
+      required:
+      - established_timestamp
+      - request_id
+      - user_id
+      - session_id
+      - api_key
+      - user_name
+      - gateway
+      - dataset
+      - schema
+      title: LiveConnectionRecord
+    LatencyPercentileHistory:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_type:
+          type: string
+          title: Histogram Type
+        history:
+          items:
+            $ref: '#/components/schemas/LatencyHistoryItem'
+          type: array
+          title: History
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - histogram_type
+      - history
+      title: LatencyPercentileHistory
+    LatencyLastUpdate:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+        last_update:
+          type: string
+          title: Last Update
+        latency_type:
+          type: string
+          title: Latency Type
+        p50:
+          type: integer
+          title: P50
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - last_update
+      - latency_type
+      - p50
+      title: LatencyLastUpdate
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_post_get_cost_v0_metadata_get_cost_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        mode:
+          type: string
+          title: Mode
+          default: historical-streaming
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_cost_v0_metadata_get_cost_post
+    Body_query_security_master_pit_range_v0_security_master_get_range_post:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        index:
+          type: string
+          title: Index
+          default: ts_effective
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        countries:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Countries
+        security_types:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Types
+        compression:
+          type: string
+          title: Compression
+          default: none
+        dataset:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+      type: object
+      required:
+      - start
+      title: Body_query_security_master_pit_range_v0_security_master_get_range_post
+    DataRequestInquiry:
+      properties:
+        cost:
+          type: number
+          title: Cost
+        size:
+          type: integer
+          title: Size
+        message:
+          type: string
+          title: Message
+        status:
+          type: integer
+          title: Status
+      type: object
+      required:
+      - cost
+      - size
+      - message
+      - status
+      title: DataRequestInquiry
+    ReleaseConfig:
+      properties:
+        access_method:
+          type: string
+          title: Access Method
+        release_time:
+          type: string
+          title: Release Time
+        tz:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tz
+        license_required:
+          type: boolean
+          title: License Required
+      type: object
+      required:
+      - access_method
+      - release_time
+      - license_required
+      title: ReleaseConfig
+    DatasetCatalogView:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        dataset_name:
+          type: string
+          title: Dataset Name
+        colloquial_name:
+          type: string
+          title: Colloquial Name
+        dataset_introduction:
+          type: string
+          title: Dataset Introduction
+        lowest_price:
+          type: string
+          title: Lowest Price
+        unit_prices:
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
+          type: object
+          title: Unit Prices
+        pricing_plan:
+          additionalProperties:
+            type: string
+          type: object
+          title: Pricing Plan
+        recommend_instruments:
+          items:
+            $ref: '#/components/schemas/InstrumentDescription'
+          type: array
+          title: Recommend Instruments
+        total_instrument_count:
+          type: integer
+          title: Total Instrument Count
+        live_data_ready:
+          type: boolean
+          title: Live Data Ready
+        asset_class:
+          items:
+            type: string
+          type: array
+          title: Asset Class
+        dataset_tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Dataset Tags
+          default: []
+      type: object
+      required:
+      - dataset_id
+      - dataset_name
+      - colloquial_name
+      - dataset_introduction
+      - lowest_price
+      - unit_prices
+      - pricing_plan
+      - recommend_instruments
+      - total_instrument_count
+      - live_data_ready
+      - asset_class
+      title: DatasetCatalogView
+    LatencyHdrHistogramMessage:
+      properties:
+        location:
+          type: string
+          title: Location
+        datacenter:
+          type: string
+          title: Datacenter
+        dataset:
+          anyOf:
+          - $ref: '#/components/schemas/Dataset'
+          - type: string
+            const: ALL_DATASETS
+          title: Dataset
+        histogram_blob:
+          type: string
+          format: binary
+          title: Histogram Blob
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - location
+      - datacenter
+      - dataset
+      - histogram_blob
+      - start
+      - end
+      title: LatencyHdrHistogramMessage
+    InstrumentListTableView:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        key:
+          type: string
+          title: Key
+        sortable:
+          type: boolean
+          title: Sortable
+        filterable:
+          type: boolean
+          title: Filterable
+        filter_options:
+          items:
+            type: string
+          type: array
+          title: Filter Options
+      type: object
+      required:
+      - display_name
+      - key
+      - sortable
+      - filterable
+      - filter_options
+      title: InstrumentListTableView
+    Body_post_get_record_count_v0_metadata_get_record_count_post:
+      properties:
+        dataset:
+          type: string
+          title: Dataset
+        start:
+          type: string
+          title: Start
+        end:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End
+        symbols:
+          type: string
+          title: Symbols
+          default: ALL_SYMBOLS
+        schema_:
+          type: string
+          title: Schema
+          default: trades
+        stype_in:
+          type: string
+          title: Stype In
+          default: raw_symbol
+        symbol:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Symbol
+        limit:
+          anyOf:
+          - type: integer
+            maximum: 1.8446744073709552e+19
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Limit
+      type: object
+      required:
+      - dataset
+      - start
+      title: Body_post_get_record_count_v0_metadata_get_record_count_post
+    DailyInstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+        product_group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Product Group
+        volume:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Volume
+        open_interest:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Open Interest
+        sector:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sector
+        close_price:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Close Price
+        last_update_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Update Date
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: DailyInstrumentDescription
+    DatasetInstrumentSearchView:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          type: string
+          title: Asset Class
+        security_type:
+          type: string
+          title: Security Type
+        sector:
+          type: string
+          title: Sector
+        dataset_id:
+          type: string
+          title: Dataset Id
+        service_group:
+          type: string
+          title: Service Group
+        dataset_name:
+          type: string
+          title: Dataset Name
+        available_from:
+          type: string
+          title: Available From
+        available_to:
+          type: string
+          title: Available To
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          default: North America
+        schemas:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Schemas
+          default: []
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      - asset_class
+      - security_type
+      - sector
+      - dataset_id
+      - service_group
+      - dataset_name
+      - available_from
+      - available_to
+      title: DatasetInstrumentSearchView
+    DatasetAvailabilityResponseRange:
+      properties:
+        start:
+          type: string
+          title: Start
+        end:
+          type: string
+          title: End
+      type: object
+      required:
+      - start
+      - end
+      title: DatasetAvailabilityResponseRange
+    ServiceOfferingResponse:
+      properties:
+        id:
+          type: integer
+          title: Id
+        service_name:
+          type: string
+          title: Service Name
+        service_type:
+          type: string
+          title: Service Type
+        service_tier:
+          type: string
+          title: Service Tier
+        self_service:
+          type: boolean
+          title: Self Service
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        billing_interval:
+          type: integer
+          title: Billing Interval
+        unit_price:
+          type: integer
+          title: Unit Price
+        commitment_period:
+          type: integer
+          title: Commitment Period
+        service_spec:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Service Spec
+        sub_datasets:
+          items:
+            type: string
+          type: array
+          title: Sub Datasets
+          default: []
+        historical_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Historical Data Ready Datasets
+          default: []
+        live_data_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: Live Data Ready Datasets
+          default: []
+        license_flow_ready_datasets:
+          items:
+            type: string
+          type: array
+          title: License Flow Ready Datasets
+          default: []
+        allowed_live_datasets:
+          items:
+            type: string
+          type: array
+          title: Allowed Live Datasets
+          default: []
+      type: object
+      required:
+      - id
+      - service_name
+      - service_type
+      - service_tier
+      - self_service
+      - dataset_id
+      - billing_interval
+      - unit_price
+      - commitment_period
+      - service_spec
+      title: ServiceOfferingResponse
+    DatasetCatalogListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetCatalogView'
+          type: array
+          title: Data
+      type: object
+      required:
+      - count
+      - data
+      title: DatasetCatalogListView
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

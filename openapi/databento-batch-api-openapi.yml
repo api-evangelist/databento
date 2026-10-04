@@ -1074,6 +1074,12 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key.
       content:
@@ -1082,12 +1088,6 @@ components:
             $ref: '#/components/schemas/Error'
     ValidationError:
       description: The request parameters failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -1149,107 +1149,6 @@ components:
       - errors
       - can_submit
       title: BatchQuoteJobResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    BatchFileDetails:
-      properties:
-        filename:
-          type: string
-          title: Filename
-        size:
-          type: integer
-          title: Size
-        hash:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hash
-        urls:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Urls
-      type: object
-      required:
-      - filename
-      - size
-      title: BatchFileDetails
-    InstrumentDescription:
-      properties:
-        symbol:
-          type: string
-          title: Symbol
-        display_symbol:
-          type: string
-          title: Display Symbol
-        instrument_name:
-          type: string
-          title: Instrument Name
-        asset_class:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Asset Class
-        security_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Type
-          default: raw_symbol
-        dataset_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Id
-        dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Name
-        publisher:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Publisher
-        first_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: First Seen
-        last_seen:
-          anyOf:
-          - type: string
-            format: date
-          - type: 'null'
-          title: Last Seen
-      type: object
-      required:
-      - symbol
-      - display_symbol
-      - instrument_name
-      title: InstrumentDescription
     Body_submit_batch_request_with_basic_auth_v0_batch_submit_job_post:
       properties:
         dataset:
@@ -1344,6 +1243,107 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    BatchFileDetails:
+      properties:
+        filename:
+          type: string
+          title: Filename
+        size:
+          type: integer
+          title: Size
+        hash:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hash
+        urls:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Urls
+      type: object
+      required:
+      - filename
+      - size
+      title: BatchFileDetails
+    InstrumentDescription:
+      properties:
+        symbol:
+          type: string
+          title: Symbol
+        display_symbol:
+          type: string
+          title: Display Symbol
+        instrument_name:
+          type: string
+          title: Instrument Name
+        asset_class:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Asset Class
+        security_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Type
+          default: raw_symbol
+        dataset_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        publisher:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Publisher
+        first_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: First Seen
+        last_seen:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Last Seen
+      type: object
+      required:
+      - symbol
+      - display_symbol
+      - instrument_name
+      title: InstrumentDescription
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     BatchJobDescription:
       properties:
         dataset:

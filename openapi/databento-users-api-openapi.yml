@@ -1283,20 +1283,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    StripeSetupIntent:
+    UserApiKeyUpdate:
       properties:
-        setup_intent:
-          additionalProperties: true
-          type: object
-          title: Setup Intent
-        client_secret:
+        new_name:
           type: string
-          title: Client Secret
+          title: New Name
       type: object
       required:
-      - setup_intent
-      - client_secret
-      title: StripeSetupIntent
+      - new_name
+      title: UserApiKeyUpdate
     Registration:
       type: string
       enum:
@@ -1308,210 +1303,65 @@ components:
       - PAYMENT
       - DONE
       title: Registration
-    CardEdit:
+    SalesInquiryCreate:
+      properties:
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        phone_num:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone Num
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        company_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Name
+        interest_product:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Interest Product
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+        sales_inquiry_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sales Inquiry Type
+          default: contact_form
+      additionalProperties: true
+      type: object
+      title: SalesInquiryCreate
+    UserApiKeyCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - name
+      title: UserApiKeyCreate
+    PaymentMethod:
       properties:
         payment_method:
           type: string
           title: Payment Method
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-        country:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country
-        add_1:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Add 1
-        add_2:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Add 2
-        address_state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Address State
-        postal_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Postal Code
-        month:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Month
-        year:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Year
       type: object
       required:
       - payment_method
-      title: CardEdit
-    UserEmailUpdateConfirm:
-      properties:
-        request_id:
-          type: string
-          title: Request Id
-      type: object
-      required:
-      - request_id
-      title: UserEmailUpdateConfirm
-    DetailResponse:
-      properties:
-        detail:
-          additionalProperties: true
-          type: object
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: DetailResponse
-    UserSettingsUpdate:
-      properties:
-        timezone:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Timezone
-        gateway_latency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Gateway Latency
-        receiver_latency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Receiver Latency
-        show_live_data_cta:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Show Live Data Cta
-        download_center_intro:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Download Center Intro
-        getting_started_pinned:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Getting Started Pinned
-      type: object
-      title: UserSettingsUpdate
-    UserPasswordUpdate:
-      properties:
-        old_password:
-          type: string
-          title: Old Password
-        new_password:
-          type: string
-          title: New Password
-      type: object
-      required:
-      - old_password
-      - new_password
-      title: UserPasswordUpdate
-    UserApiKeyUpdate:
-      properties:
-        new_name:
-          type: string
-          title: New Name
-      type: object
-      required:
-      - new_name
-      title: UserApiKeyUpdate
-    EmailUpdateStatus:
-      type: string
-      enum:
-      - UNCONFIRMED
-      - CONFIRMED
-      title: EmailUpdateStatus
-    UserUpdateNewEmail:
-      properties:
-        new_email:
-          type: string
-          format: email
-          title: New Email
-      type: object
-      required:
-      - new_email
-      title: UserUpdateNewEmail
-    UserEmailUpdateIntent:
-      properties:
-        request_id:
-          type: string
-          title: Request Id
-        user_id:
-          type: string
-          title: User Id
-        status:
-          $ref: '#/components/schemas/EmailUpdateStatus'
-        new_email:
-          type: string
-          format: email
-          title: New Email
-        ts_created:
-          type: string
-          format: date-time
-          title: Ts Created
-      type: object
-      required:
-      - request_id
-      - user_id
-      - status
-      - new_email
-      - ts_created
-      title: UserEmailUpdateIntent
-    UserSettingsView:
-      properties:
-        timezone:
-          type: string
-          title: Timezone
-        gateway_latency:
-          type: string
-          title: Gateway Latency
-        receiver_latency:
-          type: string
-          title: Receiver Latency
-        show_live_data_cta:
-          type: boolean
-          title: Show Live Data Cta
-          default: true
-        download_center_intro:
-          type: boolean
-          title: Download Center Intro
-          default: true
-        getting_started_pinned:
-          type: boolean
-          title: Getting Started Pinned
-          default: true
-      type: object
-      required:
-      - timezone
-      - gateway_latency
-      - receiver_latency
-      title: UserSettingsView
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: PaymentMethod
     UserApiKeyResponse:
       properties:
         user_id:
@@ -1568,6 +1418,222 @@ components:
       - default_card
       - payment_method
       title: Card
+    UserStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - deactivated
+      title: UserStatus
+    UserSettingsUpdate:
+      properties:
+        timezone:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Timezone
+        gateway_latency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gateway Latency
+        receiver_latency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Receiver Latency
+        show_live_data_cta:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Show Live Data Cta
+        download_center_intro:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Download Center Intro
+        getting_started_pinned:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Getting Started Pinned
+      type: object
+      title: UserSettingsUpdate
+    UserSettingsView:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+        gateway_latency:
+          type: string
+          title: Gateway Latency
+        receiver_latency:
+          type: string
+          title: Receiver Latency
+        show_live_data_cta:
+          type: boolean
+          title: Show Live Data Cta
+          default: true
+        download_center_intro:
+          type: boolean
+          title: Download Center Intro
+          default: true
+        getting_started_pinned:
+          type: boolean
+          title: Getting Started Pinned
+          default: true
+      type: object
+      required:
+      - timezone
+      - gateway_latency
+      - receiver_latency
+      title: UserSettingsView
+    CardEdit:
+      properties:
+        payment_method:
+          type: string
+          title: Payment Method
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        add_1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Add 1
+        add_2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Add 2
+        address_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Address State
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+        month:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Month
+        year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Year
+      type: object
+      required:
+      - payment_method
+      title: CardEdit
+    UserCart:
+      properties:
+        content:
+          type: string
+          title: Content
+      type: object
+      required:
+      - content
+      title: UserCart
+    TeamRole:
+      type: string
+      enum:
+      - owner
+      - admin
+      - accounting
+      - member
+      title: TeamRole
+    UserPasswordUpdate:
+      properties:
+        old_password:
+          type: string
+          title: Old Password
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - old_password
+      - new_password
+      title: UserPasswordUpdate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    StripeSetupIntent:
+      properties:
+        setup_intent:
+          additionalProperties: true
+          type: object
+          title: Setup Intent
+        client_secret:
+          type: string
+          title: Client Secret
+      type: object
+      required:
+      - setup_intent
+      - client_secret
+      title: StripeSetupIntent
+    UserNameUpdate:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+      type: object
+      required:
+      - full_name
+      title: UserNameUpdate
+    UserEmailUpdateIntent:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+        user_id:
+          type: string
+          title: User Id
+        status:
+          $ref: '#/components/schemas/EmailUpdateStatus'
+        new_email:
+          type: string
+          format: email
+          title: New Email
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+      type: object
+      required:
+      - request_id
+      - user_id
+      - status
+      - new_email
+      - ts_created
+      title: UserEmailUpdateIntent
+    UserEmailUpdateConfirm:
+      properties:
+        request_id:
+          type: string
+          title: Request Id
+      type: object
+      required:
+      - request_id
+      title: UserEmailUpdateConfirm
     ValidationError:
       properties:
         loc:
@@ -1589,47 +1655,43 @@ components:
       - msg
       - type
       title: ValidationError
-    SalesInquiryCreate:
+    DetailResponse:
       properties:
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-        phone_num:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Phone Num
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        company_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company Name
-        interest_product:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Interest Product
-        comments:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comments
-        sales_inquiry_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sales Inquiry Type
-          default: contact_form
-      additionalProperties: true
+        detail:
+          additionalProperties: true
+          type: object
+          title: Detail
       type: object
-      title: SalesInquiryCreate
+      required:
+      - detail
+      title: DetailResponse
+    NotificationMsgIds:
+      properties:
+        msg_ids:
+          items:
+            type: string
+          type: array
+          title: Msg Ids
+      type: object
+      required:
+      - msg_ids
+      title: NotificationMsgIds
+    EmailUpdateStatus:
+      type: string
+      enum:
+      - UNCONFIRMED
+      - CONFIRMED
+      title: EmailUpdateStatus
+    UserUpdateNewEmail:
+      properties:
+        new_email:
+          type: string
+          format: email
+          title: New Email
+      type: object
+      required:
+      - new_email
+      title: UserUpdateNewEmail
     UserResponse:
       properties:
         email:
@@ -1673,68 +1735,6 @@ components:
       - id
       - team_id
       title: UserResponse
-    UserCart:
-      properties:
-        content:
-          type: string
-          title: Content
-      type: object
-      required:
-      - content
-      title: UserCart
-    UserNameUpdate:
-      properties:
-        full_name:
-          type: string
-          title: Full Name
-      type: object
-      required:
-      - full_name
-      title: UserNameUpdate
-    UserApiKeyCreate:
-      properties:
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - name
-      title: UserApiKeyCreate
-    NotificationMsgIds:
-      properties:
-        msg_ids:
-          items:
-            type: string
-          type: array
-          title: Msg Ids
-      type: object
-      required:
-      - msg_ids
-      title: NotificationMsgIds
-    UserStatus:
-      type: string
-      enum:
-      - pending
-      - active
-      - deactivated
-      title: UserStatus
-    TeamRole:
-      type: string
-      enum:
-      - owner
-      - admin
-      - accounting
-      - member
-      title: TeamRole
-    PaymentMethod:
-      properties:
-        payment_method:
-          type: string
-          title: Payment Method
-      type: object
-      required:
-      - payment_method
-      title: PaymentMethod
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2
