@@ -403,6 +403,9 @@ apis:
   - type: OpenCollection
     url: collections/databento.opencollection.json
 common:
+- type: CapabilityMap
+  url: capabilities/databento-capability-edges.yml
+  name: Databento Business Capability Map
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/databento/overview
 - type: OpenAPI
