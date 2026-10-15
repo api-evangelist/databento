@@ -1,10 +1,125 @@
-generated: '2026-07-22'
-method: derived
-source: openapi/databento-platform-openapi-official.json
+generated: '2026-10-14'
+method: none
+source: openapi/databento-adjustment-factors-api-openapi.yml, openapi/databento-analytics-api-openapi.yml,
+  openapi/databento-auth-api-openapi.yml, openapi/databento-batch-api-openapi.yml, openapi/databento-billing-api-openapi.yml,
+  openapi/databento-corporate-actions-api-openapi.yml, openapi/databento-databento-openapi-specification-api-openapi.yml,
+  openapi/databento-dataset-api-openapi.yml, openapi/databento-display-api-openapi.yml, openapi/databento-docs-api-openapi.yml,
+  openapi/databento-instrument-api-openapi.yml, openapi/databento-latency-api-openapi.yml, openapi/databento-licensing-api-openapi.yml,
+  openapi/databento-log-post-param-vals-api-openapi.yml, openapi/databento-metadata-api-openapi.yml,
+  openapi/databento-registration-api-openapi.yml, openapi/databento-security-master-api-openapi.yml,
+  openapi/databento-symbology-api-openapi.yml, openapi/databento-teams-api-openapi.yml, openapi/databento-time-series-api-openapi.yml,
+  openapi/databento-usage-api-openapi.yml, openapi/databento-users-api-openapi.yml
 schemes:
 - name: OAuth2PasswordBearerWithCookie
-  source: openapi/databento-platform-openapi-official.json
+  source: openapi/databento-adjustment-factors-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-analytics-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-auth-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-batch-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-billing-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-corporate-actions-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-databento-openapi-specification-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-dataset-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-display-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-docs-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-instrument-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-latency-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-licensing-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-log-post-param-vals-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-metadata-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-registration-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-security-master-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-symbology-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-teams-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-time-series-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-usage-api-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: /v0/auth/login
+- name: OAuth2PasswordBearerWithCookie
+  source: openapi/databento-users-api-openapi.yml
   flows:
   - flow: password
     tokenUrl: /v0/auth/login
 scopes: []
+note: The OAuth2 security scheme(s) in the OpenAPI declare no scopes, and no security requirement
+  references one.
