@@ -1,24 +1,22 @@
-# Kin Score artifact — databento — 2026-09-05T072335
+# Kin Score artifact — databento — 2026-10-11T110117
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: databento
-  schema_version: 0.18.3
-  scored_at: '2026-09-05'
-  run_ts: 2026-09-05T072335
-  composite: 52.4
+  schema_version: 0.23.0
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
+  composite: 47.8
   band: developing
   facets:
-    discoverability: 68.5
-    contract_quality: 43.8
-    governance: 4.5
-    operational_transparency: 78.9
-    developer_ergonomics: 64.9
-    commercial_clarity: 39.5
+    discoverability: 66.1
+    contract_quality: 39.4
     contract_governance: 4.5
-    access_clarity: 39.5
+    operational_transparency: 75.8
+    developer_ergonomics: 64.9
+    access_clarity: 36.3
   agent_readiness:
-    score: 36.2
+    score: 34.3
     band: agent-ready
     dimensions:
       spec_presence: true
@@ -29,7 +27,7 @@ kin_score:
       idempotency: false
       error_semantics: verified
       openapi_examples: partial
-      rate_limit_signal: documented
+      rate_limit_signal: derived
       event_surface_described: false
       agent_skills: derived
       well_known_catalog: true
@@ -44,7 +42,7 @@ kin_score:
     applies: true
     regime: Securities & Market Data
     regime_id: securities_market_data
-    score: 55.0
+    score: 30.6
     matched_via: tags
   provenance:
     mcp: derived
