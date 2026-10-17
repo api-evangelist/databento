@@ -351,6 +351,40 @@ paths:
       - OAuth2PasswordBearerWithCookie: []
 components:
   schemas:
+    Token:
+      properties:
+        token_type:
+          type: string
+          title: Token Type
+          default: Bearer
+        access_token:
+          type: string
+          title: Access Token
+        expires_in:
+          type: integer
+          title: Expires In
+        expires_on:
+          type: integer
+          title: Expires On
+        refresh_token:
+          type: string
+          title: Refresh Token
+      type: object
+      required:
+      - access_token
+      - expires_in
+      - expires_on
+      - refresh_token
+      title: Token
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Body_login_v0_auth_login_post:
       properties:
         grant_type:
@@ -384,15 +418,16 @@ components:
       - username
       - password
       title: Body_login_v0_auth_login_post
-    HTTPValidationError:
+    DetailResponse:
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
+          additionalProperties: true
+          type: object
           title: Detail
       type: object
-      title: HTTPValidationError
+      required:
+      - detail
+      title: DetailResponse
     Body_reset_password_v0_auth_reset_password_post:
       properties:
         token:
@@ -406,31 +441,6 @@ components:
       - token
       - new_password
       title: Body_reset_password_v0_auth_reset_password_post
-    Token:
-      properties:
-        token_type:
-          type: string
-          title: Token Type
-          default: Bearer
-        access_token:
-          type: string
-          title: Access Token
-        expires_in:
-          type: integer
-          title: Expires In
-        expires_on:
-          type: integer
-          title: Expires On
-        refresh_token:
-          type: string
-          title: Refresh Token
-      type: object
-      required:
-      - access_token
-      - expires_in
-      - expires_on
-      - refresh_token
-      title: Token
     ValidationError:
       properties:
         loc:
@@ -452,16 +462,6 @@ components:
       - msg
       - type
       title: ValidationError
-    DetailResponse:
-      properties:
-        detail:
-          additionalProperties: true
-          type: object
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: DetailResponse
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

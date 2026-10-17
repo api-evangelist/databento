@@ -584,6 +584,84 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    AssetClass:
+      type: string
+      enum:
+      - Options
+      - Futures
+      - Equities
+      - ETF
+      - Spots
+      - Others
+      title: AssetClass
+    Body_upload_license_files_v0_licensing_me_files__provider___name___kind___date__post:
+      properties:
+        files:
+          items:
+            type: string
+            format: binary
+          type: array
+          title: Files
+      type: object
+      required:
+      - files
+      title: Body_upload_license_files_v0_licensing_me_files__provider___name___kind___date__post
+    ServiceType:
+      type: string
+      enum:
+      - regular
+      - external
+      - bespoke
+      title: ServiceType
+    LicensingEvent:
+      properties:
+        event_type:
+          $ref: '#/components/schemas/LicensingEventType'
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+      type: object
+      required:
+      - event_type
+      - content
+      - ts_created
+      title: LicensingEvent
+    UserInput:
+      properties:
+        field_id:
+          type: string
+          title: Field Id
+        value:
+          anyOf:
+          - type: string
+          - type: integer
+          - type: boolean
+          title: Value
+        kind:
+          anyOf:
+          - $ref: '#/components/schemas/UserInputKind'
+          - type: 'null'
+        pos_x:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Pos X
+        pos_y:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Pos Y
+      type: object
+      required:
+      - field_id
+      - value
+      title: UserInput
     SubscriptionActivationPreflightCheck:
       properties:
         allowed:
@@ -613,6 +691,13 @@ components:
       required:
       - allowed
       title: SubscriptionActivationPreflightCheck
+    UserInputKind:
+      type: string
+      enum:
+      - text
+      - checkbox
+      - signature
+      title: UserInputKind
     LicensedDataset:
       properties:
         provider:
@@ -630,40 +715,6 @@ components:
       - provider
       - name
       title: LicensedDataset
-    NewLicenseSurvey:
-      properties:
-        dataset:
-          type: string
-          title: Dataset
-        questions:
-          items:
-            $ref: '#/components/schemas/LicenseSurveyQuestion'
-          type: array
-          title: Questions
-      type: object
-      required:
-      - dataset
-      - questions
-      title: NewLicenseSurvey
-    LicenseForm:
-      properties:
-        name:
-          type: string
-          title: Name
-        inputs:
-          items:
-            $ref: '#/components/schemas/UserInput'
-          type: array
-          title: Inputs
-        agreed_esign:
-          type: boolean
-          title: Agreed Esign
-      type: object
-      required:
-      - name
-      - inputs
-      - agreed_esign
-      title: LicenseForm
     LicenseSurveyQuestion:
       properties:
         question:
@@ -679,32 +730,21 @@ components:
       - question
       - answer
       title: LicenseSurveyQuestion
-    AssetClass:
-      type: string
-      enum:
-      - Options
-      - Futures
-      - Equities
-      - ETF
-      - Spots
-      - Others
-      title: AssetClass
-    HTTPValidationError:
+    NewLicenseSurvey:
       properties:
-        detail:
+        dataset:
+          type: string
+          title: Dataset
+        questions:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/LicenseSurveyQuestion'
           type: array
-          title: Detail
+          title: Questions
       type: object
-      title: HTTPValidationError
-    UserInputKind:
-      type: string
-      enum:
-      - text
-      - checkbox
-      - signature
-      title: UserInputKind
+      required:
+      - dataset
+      - questions
+      title: NewLicenseSurvey
     LicenseSubscriptionStatus:
       type: string
       enum:
@@ -716,63 +756,24 @@ components:
       - scheduled-terminate
       - active
       title: LicenseSubscriptionStatus
-    DataLicenseView:
+    UpgradeReferenceDataSubscription:
       properties:
-        id:
-          type: integer
-          title: Id
         provider:
           type: string
           title: Provider
         name:
           type: string
           title: Name
-        description:
-          type: string
-          title: Description
-        asset_class:
-          items:
-            $ref: '#/components/schemas/AssetClass'
-          type: array
-          title: Asset Class
-        license_type:
-          $ref: '#/components/schemas/LicenseType'
-        service_type:
-          $ref: '#/components/schemas/ServiceType'
-        professional:
-          type: boolean
-          title: Professional
-        price:
+        additional_symbols:
           type: integer
-          minimum: 0.0
-          title: Price
-        processing_fee:
-          type: integer
-          minimum: 0.0
-          title: Processing Fee
-        ts_created:
-          type: string
-          format: date-time
-          title: Ts Created
-        ts_updated:
-          type: string
-          format: date-time
-          title: Ts Updated
+          exclusiveMinimum: 0.0
+          title: Additional Symbols
       type: object
       required:
-      - id
       - provider
       - name
-      - description
-      - asset_class
-      - license_type
-      - service_type
-      - professional
-      - price
-      - processing_fee
-      - ts_created
-      - ts_updated
-      title: DataLicenseView
+      - additional_symbols
+      title: UpgradeReferenceDataSubscription
     LicensingEventType:
       type: string
       enum:
@@ -809,6 +810,12 @@ components:
       - unlimited global
       - trial
       title: LicenseType
+    LicenseFormKind:
+      type: string
+      enum:
+      - attestation
+      - external
+      title: LicenseFormKind
     CreateDataLicenseSubscription:
       properties:
         provider:
@@ -891,69 +898,6 @@ components:
       - start_date
       - forms
       title: CreateDataLicenseSubscription
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_upload_license_files_v0_licensing_me_files__provider___name___kind___date__post:
-      properties:
-        files:
-          items:
-            type: string
-            format: binary
-          type: array
-          title: Files
-      type: object
-      required:
-      - files
-      title: Body_upload_license_files_v0_licensing_me_files__provider___name___kind___date__post
-    UserInput:
-      properties:
-        field_id:
-          type: string
-          title: Field Id
-        value:
-          anyOf:
-          - type: string
-          - type: integer
-          - type: boolean
-          title: Value
-        kind:
-          anyOf:
-          - $ref: '#/components/schemas/UserInputKind'
-          - type: 'null'
-        pos_x:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Pos X
-        pos_y:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Pos Y
-      type: object
-      required:
-      - field_id
-      - value
-      title: UserInput
     DataLicenseSubscriptionView:
       properties:
         provider:
@@ -1051,69 +995,63 @@ components:
       - events
       - has_paperwork
       title: DataLicenseSubscriptionView
-    ServiceType:
-      type: string
-      enum:
-      - regular
-      - external
-      - bespoke
-      title: ServiceType
-    LicensingAction:
-      type: string
-      enum:
-      - submit-application
-      - submit-update
-      - submit-termination
-      - withdraw-application
-      - withdraw-update
-      - withdraw-termination
-      - reject-application
-      - reject-update
-      - approve-application
-      - approve-update
-      - schedule-update
-      - schedule-subscription
-      - activate-subscription
-      - terminate-subscription
-      - terminate-subscription-early
-      title: LicensingAction
-    LicensingEvent:
+    DataLicenseView:
       properties:
-        event_type:
-          $ref: '#/components/schemas/LicensingEventType'
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-        ts_created:
-          type: string
-          format: date-time
-          title: Ts Created
-      type: object
-      required:
-      - event_type
-      - content
-      - ts_created
-      title: LicensingEvent
-    UpgradeReferenceDataSubscription:
-      properties:
+        id:
+          type: integer
+          title: Id
         provider:
           type: string
           title: Provider
         name:
           type: string
           title: Name
-        additional_symbols:
+        description:
+          type: string
+          title: Description
+        asset_class:
+          items:
+            $ref: '#/components/schemas/AssetClass'
+          type: array
+          title: Asset Class
+        license_type:
+          $ref: '#/components/schemas/LicenseType'
+        service_type:
+          $ref: '#/components/schemas/ServiceType'
+        professional:
+          type: boolean
+          title: Professional
+        price:
           type: integer
-          exclusiveMinimum: 0.0
-          title: Additional Symbols
+          minimum: 0.0
+          title: Price
+        processing_fee:
+          type: integer
+          minimum: 0.0
+          title: Processing Fee
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
+        ts_updated:
+          type: string
+          format: date-time
+          title: Ts Updated
       type: object
       required:
+      - id
       - provider
       - name
-      - additional_symbols
-      title: UpgradeReferenceDataSubscription
+      - description
+      - asset_class
+      - license_type
+      - service_type
+      - professional
+      - price
+      - processing_fee
+      - ts_created
+      - ts_updated
+      title: DataLicenseView
     DatasetLicensingStatus:
       properties:
         subscribed_datasets:
@@ -1141,12 +1079,74 @@ components:
       - available_datasets
       - exclusions
       title: DatasetLicensingStatus
-    LicenseFormKind:
+    LicenseForm:
+      properties:
+        name:
+          type: string
+          title: Name
+        inputs:
+          items:
+            $ref: '#/components/schemas/UserInput'
+          type: array
+          title: Inputs
+        agreed_esign:
+          type: boolean
+          title: Agreed Esign
+      type: object
+      required:
+      - name
+      - inputs
+      - agreed_esign
+      title: LicenseForm
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LicensingAction:
       type: string
       enum:
-      - attestation
-      - external
-      title: LicenseFormKind
+      - submit-application
+      - submit-update
+      - submit-termination
+      - withdraw-application
+      - withdraw-update
+      - withdraw-termination
+      - reject-application
+      - reject-update
+      - approve-application
+      - approve-update
+      - schedule-update
+      - schedule-subscription
+      - activate-subscription
+      - terminate-subscription
+      - terminate-subscription-early
+      title: LicensingAction
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

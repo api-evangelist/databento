@@ -174,48 +174,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    InstrumentDetailListView:
-      properties:
-        count:
-          type: integer
-          title: Count
-        actual_date:
-          type: string
-          title: Actual Date
-        instrument_first_seen_date:
-          type: string
-          title: Instrument First Seen Date
-        instrument_last_seen_date:
-          type: string
-          title: Instrument Last Seen Date
-        data:
-          items:
-            items:
-              anyOf:
-              - type: string
-              - type: number
-              - type: integer
-              - type: 'null'
-            type: array
-          type: array
-          title: Data
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-        code:
-          anyOf:
-          - $ref: '#/components/schemas/ReasonRefCode'
-          - type: 'null'
-      type: object
-      required:
-      - count
-      - actual_date
-      - instrument_first_seen_date
-      - instrument_last_seen_date
-      - data
-      title: InstrumentDetailListView
     ReasonRefCode:
       type: string
       enum:
@@ -287,27 +245,6 @@ components:
       - display_symbol
       - instrument_name
       title: InstrumentDescription
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     RelatedDatasetView:
       properties:
         service_group:
@@ -333,6 +270,69 @@ components:
       - instrument
       - total_products
       title: RelatedDatasetView
+    InstrumentDetailListView:
+      properties:
+        count:
+          type: integer
+          title: Count
+        actual_date:
+          type: string
+          title: Actual Date
+        instrument_first_seen_date:
+          type: string
+          title: Instrument First Seen Date
+        instrument_last_seen_date:
+          type: string
+          title: Instrument Last Seen Date
+        data:
+          items:
+            items:
+              anyOf:
+              - type: string
+              - type: number
+              - type: integer
+              - type: 'null'
+            type: array
+          type: array
+          title: Data
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+        code:
+          anyOf:
+          - $ref: '#/components/schemas/ReasonRefCode'
+          - type: 'null'
+      type: object
+      required:
+      - count
+      - actual_date
+      - instrument_first_seen_date
+      - instrument_last_seen_date
+      - data
+      title: InstrumentDetailListView
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

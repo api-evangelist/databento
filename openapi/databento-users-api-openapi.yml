@@ -1283,67 +1283,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UserApiKeyUpdate:
-      properties:
-        new_name:
-          type: string
-          title: New Name
-      type: object
-      required:
-      - new_name
-      title: UserApiKeyUpdate
-    Registration:
-      type: string
-      enum:
-      - SIGNUP_EMAIL
-      - SIGNUP_CONTACT
-      - SIGNUP_PAYMENT
-      - EMAIL
-      - CONTACT
-      - PAYMENT
-      - DONE
-      title: Registration
-    SalesInquiryCreate:
-      properties:
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-        phone_num:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Phone Num
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        company_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company Name
-        interest_product:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Interest Product
-        comments:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comments
-        sales_inquiry_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sales Inquiry Type
-          default: contact_form
-      additionalProperties: true
-      type: object
-      title: SalesInquiryCreate
     UserApiKeyCreate:
       properties:
         name:
@@ -1353,15 +1292,56 @@ components:
       required:
       - name
       title: UserApiKeyCreate
-    PaymentMethod:
+    UserResponse:
       properties:
-        payment_method:
+        email:
           type: string
-          title: Payment Method
+          format: email
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        role:
+          $ref: '#/components/schemas/TeamRole'
+        status:
+          $ref: '#/components/schemas/UserStatus'
+        is_good_standing:
+          type: boolean
+          title: Is Good Standing
+        registration:
+          anyOf:
+          - $ref: '#/components/schemas/Registration'
+          - type: 'null'
+          default: EMAIL
+        stripe_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stripe Id
+        id:
+          type: string
+          title: Id
+        team_id:
+          type: string
+          title: Team Id
       type: object
       required:
-      - payment_method
-      title: PaymentMethod
+      - email
+      - role
+      - status
+      - is_good_standing
+      - id
+      - team_id
+      title: UserResponse
+    UserStatus:
+      type: string
+      enum:
+      - pending
+      - active
+      - deactivated
+      title: UserStatus
     UserApiKeyResponse:
       properties:
         user_id:
@@ -1389,42 +1369,32 @@ components:
       - ts_created
       - ts_updated
       title: UserApiKeyResponse
-    Card:
+    UserEmailUpdateIntent:
       properties:
-        brand:
+        request_id:
           type: string
-          title: Brand
-        exp_month:
-          type: integer
-          title: Exp Month
-        exp_year:
-          type: integer
-          title: Exp Year
-        last_4:
+          title: Request Id
+        user_id:
           type: string
-          title: Last 4
-        default_card:
-          type: boolean
-          title: Default Card
-        payment_method:
+          title: User Id
+        status:
+          $ref: '#/components/schemas/EmailUpdateStatus'
+        new_email:
           type: string
-          title: Payment Method
+          format: email
+          title: New Email
+        ts_created:
+          type: string
+          format: date-time
+          title: Ts Created
       type: object
       required:
-      - brand
-      - exp_month
-      - exp_year
-      - last_4
-      - default_card
-      - payment_method
-      title: Card
-    UserStatus:
-      type: string
-      enum:
-      - pending
-      - active
-      - deactivated
-      title: UserStatus
+      - request_id
+      - user_id
+      - status
+      - new_email
+      - ts_created
+      title: UserEmailUpdateIntent
     UserSettingsUpdate:
       properties:
         timezone:
@@ -1488,6 +1458,87 @@ components:
       - gateway_latency
       - receiver_latency
       title: UserSettingsView
+    UserCart:
+      properties:
+        content:
+          type: string
+          title: Content
+      type: object
+      required:
+      - content
+      title: UserCart
+    UserPasswordUpdate:
+      properties:
+        old_password:
+          type: string
+          title: Old Password
+        new_password:
+          type: string
+          title: New Password
+      type: object
+      required:
+      - old_password
+      - new_password
+      title: UserPasswordUpdate
+    UserUpdateNewEmail:
+      properties:
+        new_email:
+          type: string
+          format: email
+          title: New Email
+      type: object
+      required:
+      - new_email
+      title: UserUpdateNewEmail
+    Card:
+      properties:
+        brand:
+          type: string
+          title: Brand
+        exp_month:
+          type: integer
+          title: Exp Month
+        exp_year:
+          type: integer
+          title: Exp Year
+        last_4:
+          type: string
+          title: Last 4
+        default_card:
+          type: boolean
+          title: Default Card
+        payment_method:
+          type: string
+          title: Payment Method
+      type: object
+      required:
+      - brand
+      - exp_month
+      - exp_year
+      - last_4
+      - default_card
+      - payment_method
+      title: Card
+    Registration:
+      type: string
+      enum:
+      - SIGNUP_EMAIL
+      - SIGNUP_CONTACT
+      - SIGNUP_PAYMENT
+      - EMAIL
+      - CONTACT
+      - PAYMENT
+      - DONE
+      title: Registration
+    PaymentMethod:
+      properties:
+        payment_method:
+          type: string
+          title: Payment Method
+      type: object
+      required:
+      - payment_method
+      title: PaymentMethod
     CardEdit:
       properties:
         payment_method:
@@ -1537,45 +1588,58 @@ components:
       required:
       - payment_method
       title: CardEdit
-    UserCart:
+    SalesInquiryCreate:
       properties:
-        content:
-          type: string
-          title: Content
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        phone_num:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Phone Num
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        company_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company Name
+        interest_product:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Interest Product
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+        sales_inquiry_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sales Inquiry Type
+          default: contact_form
+      additionalProperties: true
       type: object
-      required:
-      - content
-      title: UserCart
-    TeamRole:
-      type: string
-      enum:
-      - owner
-      - admin
-      - accounting
-      - member
-      title: TeamRole
-    UserPasswordUpdate:
+      title: SalesInquiryCreate
+    NotificationMsgIds:
       properties:
-        old_password:
-          type: string
-          title: Old Password
-        new_password:
-          type: string
-          title: New Password
-      type: object
-      required:
-      - old_password
-      - new_password
-      title: UserPasswordUpdate
-    HTTPValidationError:
-      properties:
-        detail:
+        msg_ids:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: string
           type: array
-          title: Detail
+          title: Msg Ids
       type: object
-      title: HTTPValidationError
+      required:
+      - msg_ids
+      title: NotificationMsgIds
     StripeSetupIntent:
       properties:
         setup_intent:
@@ -1590,41 +1654,31 @@ components:
       - setup_intent
       - client_secret
       title: StripeSetupIntent
-    UserNameUpdate:
+    DetailResponse:
       properties:
-        full_name:
-          type: string
-          title: Full Name
+        detail:
+          additionalProperties: true
+          type: object
+          title: Detail
       type: object
       required:
-      - full_name
-      title: UserNameUpdate
-    UserEmailUpdateIntent:
+      - detail
+      title: DetailResponse
+    EmailUpdateStatus:
+      type: string
+      enum:
+      - UNCONFIRMED
+      - CONFIRMED
+      title: EmailUpdateStatus
+    HTTPValidationError:
       properties:
-        request_id:
-          type: string
-          title: Request Id
-        user_id:
-          type: string
-          title: User Id
-        status:
-          $ref: '#/components/schemas/EmailUpdateStatus'
-        new_email:
-          type: string
-          format: email
-          title: New Email
-        ts_created:
-          type: string
-          format: date-time
-          title: Ts Created
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - request_id
-      - user_id
-      - status
-      - new_email
-      - ts_created
-      title: UserEmailUpdateIntent
+      title: HTTPValidationError
     UserEmailUpdateConfirm:
       properties:
         request_id:
@@ -1634,6 +1688,24 @@ components:
       required:
       - request_id
       title: UserEmailUpdateConfirm
+    UserApiKeyUpdate:
+      properties:
+        new_name:
+          type: string
+          title: New Name
+      type: object
+      required:
+      - new_name
+      title: UserApiKeyUpdate
+    UserNameUpdate:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+      type: object
+      required:
+      - full_name
+      title: UserNameUpdate
     ValidationError:
       properties:
         loc:
@@ -1655,86 +1727,14 @@ components:
       - msg
       - type
       title: ValidationError
-    DetailResponse:
-      properties:
-        detail:
-          additionalProperties: true
-          type: object
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: DetailResponse
-    NotificationMsgIds:
-      properties:
-        msg_ids:
-          items:
-            type: string
-          type: array
-          title: Msg Ids
-      type: object
-      required:
-      - msg_ids
-      title: NotificationMsgIds
-    EmailUpdateStatus:
+    TeamRole:
       type: string
       enum:
-      - UNCONFIRMED
-      - CONFIRMED
-      title: EmailUpdateStatus
-    UserUpdateNewEmail:
-      properties:
-        new_email:
-          type: string
-          format: email
-          title: New Email
-      type: object
-      required:
-      - new_email
-      title: UserUpdateNewEmail
-    UserResponse:
-      properties:
-        email:
-          type: string
-          format: email
-          title: Email
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        role:
-          $ref: '#/components/schemas/TeamRole'
-        status:
-          $ref: '#/components/schemas/UserStatus'
-        is_good_standing:
-          type: boolean
-          title: Is Good Standing
-        registration:
-          anyOf:
-          - $ref: '#/components/schemas/Registration'
-          - type: 'null'
-          default: EMAIL
-        stripe_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Stripe Id
-        id:
-          type: string
-          title: Id
-        team_id:
-          type: string
-          title: Team Id
-      type: object
-      required:
-      - email
-      - role
-      - status
-      - is_good_standing
-      - id
-      - team_id
-      title: UserResponse
+      - owner
+      - admin
+      - accounting
+      - member
+      title: TeamRole
   securitySchemes:
     OAuth2PasswordBearerWithCookie:
       type: oauth2

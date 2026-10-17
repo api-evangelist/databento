@@ -545,19 +545,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    MonthToDateUsage:
+    HTTPValidationError:
       properties:
-        usage_bytes:
-          type: integer
-          title: Usage Bytes
-        usage_cents:
-          type: integer
-          title: Usage Cents
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - usage_bytes
-      - usage_cents
-      title: MonthToDateUsage
+      title: HTTPValidationError
     DataUsageRecord:
       properties:
         timestamp:
@@ -642,15 +638,19 @@ components:
       - dataset
       - schema
       title: LiveConnectionRecord
-    HTTPValidationError:
+    MonthToDateUsage:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        usage_bytes:
+          type: integer
+          title: Usage Bytes
+        usage_cents:
+          type: integer
+          title: Usage Cents
       type: object
-      title: HTTPValidationError
+      required:
+      - usage_bytes
+      - usage_cents
+      title: MonthToDateUsage
     ValidationError:
       properties:
         loc:
