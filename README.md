@@ -1,4 +1,4 @@
-# Databento (databento)
+# Databento
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,184 +64,179 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Databento is a market data platform that delivers historical and live financial market data through a single, normalized API. It covers equities, futures, options, and other asset classes across major venues, with full order book depth (MBO / MBP), trades, OHLCV bars, statistics, and reference data. Historical data is served over a **REST HTTP API** (`hist.databento.com`) billed pay-as-you-go per byte streamed, while live data is delivered over a **low-latency raw TCP binary protocol** using Databento Binary Encoding (DBN). Official Python, C++, and Rust client libraries wrap both surfaces, and a Reference API provides security master, corporate actions, and adjustment factor data.
+Databento is a market data platform that delivers historical and live financial market data through a single, normalized API. It covers equities, futures, options, and other asset classes across major venues, with full order book depth (MBO/MBP), trades, OHLCV bars, and reference data. Historical data is served over a REST HTTP API (hist.databento.com) with pay-as-you-go billing per byte streamed, while live data is delivered over a low-latency raw TCP binary protocol using Databento Binary Encoding (DBN). Official Python, C++, and Rust client libraries wrap both surfaces, and a Reference API provides security master, corporate actions, and adjustment factor data.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/databento/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/databento/refs/heads/main/apis.yml)
+**Areas:** Market Data · Financial Data · Reference Data · Historical Market Data · Trading
 
-## Access Model and Transports
+## Databento on APIs.io
 
-Databento is honest to model as two distinct transports:
+Everything profiled for Databento is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/databento/](https://apis.io/providers/databento/)** — or go straight to one of the APIs or properties below.
 
-- **Historical + Reference — REST over HTTPS.** Base URL `https://hist.databento.com/v0`. Endpoints use dotted method names (e.g. `GET /v0/timeseries.get_range`, `GET /v0/metadata.get_cost`, `POST /v0/symbology.resolve`, `POST /v0/batch.submit_job`). Authentication is **HTTP Basic auth** with your API key (prefixed `db-`) as the username and an empty password. `timeseries.get_range` returns an HTTP *streaming response* — the body streams records as they are produced — but it is still a standard request/response HTTP call, not a WebSocket and not Server-Sent Events.
-- **Live — raw TCP binary (DBN).** Real-time market data is delivered over a low-latency **raw TCP binary streaming protocol** carrying Databento Binary Encoding records, the same normalized schemas as historical. Live sessions authenticate with a **CRAM challenge-response** handshake using the API key, connect to per-dataset gateway hosts, then subscribe to symbols and schemas. This is **not a documented public WebSocket** and **not SSE**; it is intended to be consumed through the official client libraries and has no OpenAPI description.
+### APIs (24)
 
-Data is returned in DBN (compact zero-copy binary), CSV, or JSON. Billing is per **uncompressed binary byte** streamed, so the metadata endpoints let you pre-compute record count, billable size, and dollar cost before running a query.
+- [Databento Metadata API](https://apis.io/apis/databento/databento-metadata-api/) — Discovery and cost-estimation endpoints for the historical catalog. List publishers, datasets, schemas, and fields; look up per-dataset date ranges and…
+- [Databento Symbology API](https://apis.io/apis/databento/databento-symbology-api/) — Resolves symbols between Databento's symbology systems - raw symbol, instrument ID, parent, and continuous contract - for a dataset over a date range. Lets…
+- [Databento Batch API](https://apis.io/apis/databento/databento-batch-api/) — Submits asynchronous batch jobs that materialize large historical requests into downloadable flat files (DBN, CSV, or JSON), optionally split by day,…
+- [Databento Live Streaming API](https://apis.io/apis/databento/databento-live-streaming-api/) — Low-latency live market data delivered over a raw TCP binary streaming protocol using Databento Binary Encoding (DBN) - the same normalized schemas as the…
+- [Databento Reference API](https://apis.io/apis/databento/databento-reference-api/) — Reference and non-price data that complements the market data feeds - a security master (instrument definitions and identifiers), corporate actions (splits,…
+- [Databento Adjustment Factors API](https://apis.io/apis/databento/databento-adjustment-factors-api/) — The adjustment_factors API from Databento — 1 operation(s) for adjustment_factors.
+- [Databento Analytics API](https://apis.io/apis/databento/databento-analytics-api/) — The analytics API from Databento — 1 operation(s) for analytics.
+- [Databento Auth API](https://apis.io/apis/databento/databento-auth-api/) — The auth API from Databento — 12 operation(s) for auth.
+- [Databento Billing API](https://apis.io/apis/databento/databento-billing-api/) — The billing API from Databento — 14 operation(s) for billing.
+- [Databento Corporate Actions API](https://apis.io/apis/databento/databento-corporate-actions-api/) — The corporate_actions API from Databento — 1 operation(s) for corporate_actions.
+- [Databento OpenAPI Specification API](https://apis.io/apis/databento/databento-databento-openapi-specification-api/) — The Databento OpenAPI Specification API from Databento — 1 operation(s) for databento openapi specification.
+- [Databento Dataset API](https://apis.io/apis/databento/databento-dataset-api/) — The dataset API from Databento — 17 operation(s) for dataset.
+- [Databento Display API](https://apis.io/apis/databento/databento-display-api/) — The display API from Databento — 1 operation(s) for display.
+- [Databento Docs API](https://apis.io/apis/databento/databento-docs-api/) — The docs API from Databento — 3 operation(s) for docs.
+- [Databento Instrument API](https://apis.io/apis/databento/databento-instrument-api/) — The instrument API from Databento — 3 operation(s) for instrument.
+- [Databento Latency API](https://apis.io/apis/databento/databento-latency-api/) — The latency API from Databento — 6 operation(s) for latency.
+- [Databento Licensing API](https://apis.io/apis/databento/databento-licensing-api/) — The licensing API from Databento — 12 operation(s) for licensing.
+- [Databento Log Post Param Vals API](https://apis.io/apis/databento/databento-log-post-param-vals-api/) — The log_post_param_vals API from Databento — 70 operation(s) for log_post_param_vals.
+- [Databento Registration API](https://apis.io/apis/databento/databento-registration-api/) — The registration API from Databento — 9 operation(s) for registration.
+- [Databento Security Master API](https://apis.io/apis/databento/databento-security-master-api/) — The security_master API from Databento — 2 operation(s) for security_master.
+- [Databento Teams API](https://apis.io/apis/databento/databento-teams-api/) — The teams API from Databento — 11 operation(s) for teams.
+- [Databento Usage API](https://apis.io/apis/databento/databento-usage-api/) — The usage API from Databento — 11 operation(s) for usage.
+- [Databento Users API](https://apis.io/apis/databento/databento-users-api/) — The users API from Databento — 28 operation(s) for users.
+- [Databento Time Series API](https://apis.io/apis/databento/databento-time-series-api/) — Stream historical records for a symbol set over a time range.
 
-## Tags
+### Published properties
 
-- Market Data
-- Financial Data
-- Reference Data
-- Historical Market Data
-- Trading
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## Timestamps
+#### MCP servers (1)
 
-- **Created:** 2026-07-11
-- **Modified:** 2026-07-11
+Model Context Protocol servers that expose the API to agents.
 
-## APIs
+- [databento](https://apis.io/servers/databento/databento/)
 
-### Databento Historical Timeseries API
+#### Agentic access (1)
 
-Streams historical market data over HTTP for a requested date/time range. A single request selects a dataset, one or more symbols, a schema (MBO full order book, MBP-1 / MBP-10, trades, OHLCV bars, statistics, and more), and a time range, and returns normalized records in DBN, CSV, or JSON. Billed per byte streamed. Ideal for backtesting, research, and reference/tick data retrieval.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range](https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range)
-- **Base URL:** `https://hist.databento.com/v0`
+- [Databento Agentic Access](https://apis.io/agentic-access/databento/databento-agentic-access/)
 
-#### Tags
+#### Collections (12)
 
-- Historical Market Data
-- Market Data
-- Timeseries
-- Trading
-- Financial Data
+Postman and Open Collection request collections.
 
-#### Properties
+- [Databento Historical and Reference API](https://apis.io/collections/databento/open-databento/)
+- [Databento Historical and Reference Batch API](https://apis.io/collections/databento/open-databento-batch-api/)
+- [Databento Historical and Reference Batch Metadata API](https://apis.io/collections/databento/open-databento-metadata-api/)
+- [Databento OpenAPI specification](https://apis.io/collections/databento/open-databento-platform-openapi-official/)
+- [Databento Historical and Batch Reference API](https://apis.io/collections/databento/open-databento-reference-api/)
+- [Databento Historical and Reference Batch Symbology API](https://apis.io/collections/databento/open-databento-symbology-api/)
+- [Databento Historical and Reference Batch Timeseries API](https://apis.io/collections/databento/open-databento-timeseries-api/)
+- [Databento Historical and Reference Batch API](https://apis.io/collections/databento/postman-databento-batch-api/)
+- [Databento Historical and Reference Batch Metadata API](https://apis.io/collections/databento/postman-databento-metadata-api/)
+- [Databento Historical and Batch Reference API](https://apis.io/collections/databento/postman-databento-reference-api/)
+- [Databento Historical and Reference Batch Symbology API](https://apis.io/collections/databento/postman-databento-symbology-api/)
+- [Databento Historical and Reference Batch Timeseries API](https://apis.io/collections/databento/postman-databento-timeseries-api/)
 
-- [Documentation](https://databento.com/docs/api-reference-historical)
-- [API Reference](https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range)
-- [OpenAPI](openapi/databento-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/databento.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/databento.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Overlays (1)
 
-### Databento Metadata API
+OpenAPI overlays, including conversational phrasing for each operation.
 
-Discovery and cost-estimation endpoints for the historical catalog. List publishers, datasets, schemas, and fields; look up per-dataset date ranges and data-quality conditions; and pre-compute the record count, billable size, and dollar cost of a query before you run it. Essential for planning research and controlling spend on financial and reference data.
+- [Databento Platform Official Overlay](https://apis.io/overlays/databento/databento-platform-official-overlay/)
 
-- **Human URL:** [https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets](https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets)
-- **Base URL:** `https://hist.databento.com/v0`
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Metadata
-- Reference Data
-- Market Data
-- Datasets
-- Financial Data
+- [Databento Authentication](https://apis.io/security/databento/databento-authentication/)
+- [Databento Domain Security](https://apis.io/security/databento/databento-domain-security/)
 
-#### Properties
+#### OAuth scopes (1)
 
-- [Documentation](https://databento.com/docs/api-reference-historical)
-- [API Reference](https://databento.com/docs/api-reference-historical/metadata/metadata-list-datasets)
-- [OpenAPI](openapi/databento-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/databento.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/databento.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The permissions the API asks for.
 
-### Databento Symbology API
+- [Databento Scopes](https://apis.io/scopes/databento/databento-scopes/)
 
-Resolves symbols between Databento's symbology systems — raw symbol, instrument ID, parent, and continuous contract — for a dataset over a date range. Lets consumers map tickers, exchange instrument IDs, and continuous futures references onto the identifiers used across the historical and live data schemas.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://databento.com/docs/api-reference-historical/basics/symbology](https://databento.com/docs/api-reference-historical/basics/symbology)
-- **Base URL:** `https://hist.databento.com/v0`
+Published plans, tiers and prices.
 
-#### Tags
+- [Databento Plans Pricing](https://apis.io/plans/databento/databento-plans-pricing/)
 
-- Symbology
-- Reference Data
-- Symbols
-- Market Data
-- Financial Data
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://databento.com/docs/api-reference-historical/basics/symbology)
-- [OpenAPI](openapi/databento-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/databento.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/databento.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Databento Rate Limits](https://apis.io/rate-limits/databento/databento-rate-limits/)
 
-### Databento Batch API
+#### FinOps (1)
 
-Submits asynchronous batch jobs that materialize large historical requests into downloadable flat files (DBN, CSV, or JSON), optionally split by day, symbol, or size. Submit a job, list your jobs and their state, and list the generated files with HTTPS and FTP download URIs. Files remain re-downloadable for 30 days at no extra cost.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://databento.com/docs/api-reference-historical/batch/batch-submit-job](https://databento.com/docs/api-reference-historical/batch/batch-submit-job)
-- **Base URL:** `https://hist.databento.com/v0`
+- [Databento Finops](https://apis.io/finops/databento/databento-finops/)
 
-#### Tags
+## Where to find this API
 
-- Batch
-- Flat Files
-- Historical Market Data
-- Market Data
-- Financial Data
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [Documentation](https://databento.com/docs/api-reference-historical/batch/batch-submit-job)
-- [API Reference](https://databento.com/docs/api-reference-historical/batch/batch-submit-job)
-- [OpenAPI](openapi/databento-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/databento.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/databento.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Databento Live Streaming API
-
-Low-latency live market data delivered over a **raw TCP binary streaming protocol** using Databento Binary Encoding (DBN) — the same normalized schemas as the historical API. Sessions authenticate with a CRAM challenge-response handshake using your API key, then subscribe to symbols and schemas per dataset gateway. This is a binary TCP protocol, **not a documented public WebSocket**; it is consumed via the official Python, C++, and Rust clients and has no OpenAPI description.
-
-- **Human URL:** [https://databento.com/docs/api-reference-live](https://databento.com/docs/api-reference-live)
-- **Base URL:** `tcp://GLBX.MDP3.lsg.databento.com` (per-dataset gateway; illustrative)
-
-#### Tags
-
-- Live Market Data
-- Streaming
-- Market Data
-- Trading
-- Low Latency
-
-#### Properties
-
-- [Documentation](https://databento.com/docs/api-reference-live)
-- [Authentication](https://databento.com/docs/api-reference-live/basics/authentication)
-- [Documentation](https://databento.com/docs/standards-and-conventions/databento-binary-encoding)
-
-### Databento Reference API
-
-Reference and non-price data that complements the market data feeds — a security master (instrument definitions and identifiers), corporate actions (splits, dividends, symbol changes, and other events), and adjustment factors for building back-adjusted price series. Served over the same REST HTTP surface as the historical API.
-
-- **Human URL:** [https://databento.com/docs/api-reference-reference](https://databento.com/docs/api-reference-reference)
-- **Base URL:** `https://hist.databento.com/v0`
-
-#### Tags
-
-- Reference Data
-- Corporate Actions
-- Security Master
-- Financial Data
-- Market Data
-
-#### Properties
-
-- [Documentation](https://databento.com/docs/api-reference-reference)
-- [API Reference](https://databento.com/docs/api-reference-reference/basics/overview)
-- [OpenAPI](openapi/databento-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/databento)
-- [LinkedIn](https://www.linkedin.com/company/databento)
 - [Website](https://databento.com)
 - [Documentation](https://databento.com/docs)
-- [Plans](plans/databento-plans-pricing.yml)
-- [Rate Limits](rate-limits/databento-rate-limits.yml)
-- [Fin Ops](finops/databento-finops.yml)
+- [Getting started](https://databento.com/docs/quickstart)
+- [API reference](https://databento.com/docs/api-reference-historical)
+- [Pricing](https://databento.com/pricing)
+- [Sign up](https://databento.com/signup)
+- [Support](https://databento.com/support)
 - [Blog](https://databento.com/blog)
+- [Terms of service](https://legal.databento.com/)
+- [Privacy policy](https://legal.databento.com/)
+- [GitHub](https://github.com/databento)
+- [Status](https://status.databento.com)
 
-## Review
+## API Evangelist rating
 
-- **Question:** Does Databento expose a documented public WebSocket API?
-- **Answer:** No. The Historical and Reference APIs are request/response REST over HTTPS; the Live API is a raw TCP binary DBN protocol with CRAM authentication — not a WebSocket and not Server-Sent Events. See [review.yml](review.yml).
+**Kin Score 39.5** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 39.4 |
+| Contract governance | 4.5 |
+| Operational transparency | 55.3 |
+| Developer ergonomics | 64.9 |
+| Access clarity | 7.9 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 33.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 30.6** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/databento/](https://apis.io/providers/databento/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Databento: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/databento/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
